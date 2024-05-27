@@ -25,7 +25,10 @@ const Chat = () => {
 		initialInput:
 			"Can you tell me about the policy for inserting a nasogastric tube?",
 		initialMessages: [],
-		api: "http://localhost:5000/v1/chat/stream",
+		api:
+			process.env.NODE_ENV === "development"
+				? "http://localhost:5000/v1/chat/stream"
+				: "http://hospital-policy-chat-v2-env.eba-6jcx4jjf.us-east-2.elasticbeanstalk.com/v1/chat/stream",
 	})
 
 	return (
