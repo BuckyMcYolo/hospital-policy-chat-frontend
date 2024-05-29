@@ -3,6 +3,8 @@ import { Inter, Rubik } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "next-themes"
 import { Toaster } from "@/components/ui/sonner"
+import PasswordDialog from "@/components/misc/passwordDialog"
+import { cookies } from "next/headers"
 
 const inter = Inter({ subsets: ["latin"] })
 const rubik = Rubik({ subsets: ["latin"] })
@@ -17,6 +19,9 @@ export default function RootLayout({
 }: Readonly<{
 	children: React.ReactNode
 }>) {
+	const cookieStore = cookies()
+	const loginCookies = cookieStore.get(process.env.PASSWORD_COOKIE_NAME!)
+	const isLoggedIn = !!loginCookies?.value
 	return (
 		<html suppressHydrationWarning lang="en">
 			<body className={rubik.className}>
@@ -26,7 +31,9 @@ export default function RootLayout({
 					defaultTheme="system"
 					enableSystem
 				>
-					{children}
+					<div suppressHydrationWarning>
+						{!isLoggedIn ? <PasswordDialog /> : children}
+					</div>
 				</ThemeProvider>
 				<Toaster />
 			</body>
