@@ -1,23 +1,39 @@
-import { Button } from "@/components/ui/button"
-import { DarkModeToggle } from "@/components/misc/darkModeToggle"
-import { Separator } from "@/components/ui/separator"
-import ChatInput from "@/components/chat/ChatInput"
 import Chat from "@/components/chat/ChatSection"
-import { TooltipProvider } from "@/components/ui/tooltip"
+import {
+	Card,
+	CardContent,
+	CardDescription,
+	CardHeader,
+	CardTitle,
+} from "@/components/ui/card"
+import Link from "next/link"
 
 export default function Home() {
 	return (
-		<main className="bg-white dark:bg-black flex flex-col px-6 md:px-16 pt-4 pb-2">
-			{/* <header className="w-full sticky top-0 z-50 bg-white dark:bg-black  rounded-lg">
-				<div className="w-full flex items-center justify-between pb-2 px-2">
-					<h1 className="text-lg">Chat with Hospital Policies</h1>
-					<DarkModeToggle />
-				</div>
-				<Separator />
-			</header> */}
-			<section className="flex flex-col w-full h-[calc(100vh-8rem)] pt-4">
-				<Chat />
-			</section>
-		</main>
+		<div className="flex flex-col h-full justify-center items-center">
+			<h1 className="text-3xl pb-6 font-semibold underline underline-offset-8 ">
+				Available Demos
+			</h1>
+			<div className="flex flex-col md:flex-row  gap-5">
+				<Link href="/policies-and-supplies">
+					<Card className="p-4 max-w-96 cursor-pointer hover:border-foreground">
+						<CardTitle>Supplies and policies chat</CardTitle>
+						<CardDescription className="pt-2">
+							Ask questions about your hospital policies and
+							supplies locations through text or voice
+						</CardDescription>
+					</Card>
+				</Link>
+				<Link href="/policies-and-supplies">
+					<Card className="p-4 max-w-96 cursor-pointer hover:border-foreground">
+						<CardTitle>Patient chart Q&A</CardTitle>
+						<CardDescription className="pt-2">
+							Ask questions about a demo patient chart through
+							text or voice
+						</CardDescription>
+					</Card>
+				</Link>
+			</div>
+		</div>
 	)
 }

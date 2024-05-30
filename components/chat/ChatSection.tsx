@@ -26,9 +26,10 @@ const Chat = () => {
 			"Can you tell me about the policy for inserting a nasogastric tube?",
 		initialMessages: [],
 		api:
-			process.env.NODE_ENV === "development"
-				? "http://localhost:5000/v1/chat/stream"
-				: "https://test.hospital-policy-chat.com/v1/chat/stream",
+			// process.env.NODE_ENV === "development"
+			// 	? "http://localhost:5000/v1/chat/stream"
+			// 	:
+			"https://test.hospital-policy-chat.com/v1/chat/stream",
 	})
 
 	return (

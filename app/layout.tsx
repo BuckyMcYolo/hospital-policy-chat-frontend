@@ -37,7 +37,7 @@ export default function RootLayout({
 						<PasswordDialog />
 					) : (
 						<TooltipProvider>
-							<div suppressHydrationWarning>
+							<div className="bg-white dark:bg-black">
 								<Nav>{children}</Nav>
 							</div>
 						</TooltipProvider>

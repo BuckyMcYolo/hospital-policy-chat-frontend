@@ -46,7 +46,7 @@ const ChatFeed = ({
 	const isPending = isLoading && !isLastMessageFromAssistant
 
 	return (
-		<ScrollArea className="h-[86%]">
+		<ScrollArea className="h-[86%] p-4">
 			<div className="flex flex-col gap-3 max-w-2xl w-full mx-auto pb-10">
 				{messages.map((message: Message, index) => (
 					<div className=" " key={message.id}>
