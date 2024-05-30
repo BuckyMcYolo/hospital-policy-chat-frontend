@@ -5,6 +5,8 @@ import { ThemeProvider } from "next-themes"
 import { Toaster } from "@/components/ui/sonner"
 import PasswordDialog from "@/components/misc/passwordDialog"
 import { cookies } from "next/headers"
+import { TooltipProvider } from "@/components/ui/tooltip"
+import Nav from "@/components/nav/Nav"
 
 const inter = Inter({ subsets: ["latin"] })
 const rubik = Rubik({ subsets: ["latin"] })
@@ -31,9 +33,15 @@ export default function RootLayout({
 					defaultTheme="system"
 					enableSystem
 				>
-					<div suppressHydrationWarning>
-						{!isLoggedIn ? <PasswordDialog /> : children}
-					</div>
+					{!isLoggedIn ? (
+						<PasswordDialog />
+					) : (
+						<TooltipProvider>
+							<div suppressHydrationWarning>
+								<Nav>{children}</Nav>
+							</div>
+						</TooltipProvider>
+					)}
 				</ThemeProvider>
 				<Toaster />
 			</body>

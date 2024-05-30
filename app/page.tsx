@@ -7,18 +7,16 @@ import { TooltipProvider } from "@/components/ui/tooltip"
 
 export default function Home() {
 	return (
-		<main className="bg-white dark:bg-black flex min-h-screen flex-col px-6 md:px-16 pt-4 pb-2">
-			<header className="w-full sticky top-0 z-50 bg-white dark:bg-black  rounded-lg">
+		<main className="bg-white dark:bg-black flex flex-col px-6 md:px-16 pt-4 pb-2">
+			{/* <header className="w-full sticky top-0 z-50 bg-white dark:bg-black  rounded-lg">
 				<div className="w-full flex items-center justify-between pb-2 px-2">
 					<h1 className="text-lg">Chat with Hospital Policies</h1>
 					<DarkModeToggle />
 				</div>
 				<Separator />
-			</header>
-			<section className="flex flex-col w-full h-[calc(100vh-5rem)] pt-4">
-				<TooltipProvider>
-					<Chat />
-				</TooltipProvider>
+			</header> */}
+			<section className="flex flex-col w-full h-[calc(100vh-8rem)] pt-4">
+				<Chat />
 			</section>
 		</main>
 	)
