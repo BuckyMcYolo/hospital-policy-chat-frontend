@@ -2,6 +2,8 @@ import ProfileDropdown from "./ProfileDorpdown"
 import PathBreadcrumbs from "./PathBreadcrumbs"
 import SideBarLinks from "./SideBarLinks"
 import MobileDrawerLinks from "./MobileDrawerLinks"
+import { Button } from "../ui/button"
+import { LucideBadgeInfo } from "lucide-react"
 
 export default function Nav({
 	children,
@@ -17,6 +19,7 @@ export default function Nav({
 					{/* mobile drawer links */}
 					<MobileDrawerLinks />
 					<PathBreadcrumbs />
+
 					<ProfileDropdown />
 				</header>
 			</div>

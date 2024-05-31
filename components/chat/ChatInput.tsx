@@ -67,60 +67,18 @@ const ChatInput = ({
 				}}
 			/>
 			<div className="flex items-center p-3 pt-0">
-				{/* <Tooltip>
-					<TooltipTrigger asChild>
-						<Button
-							onClick={(e) => {
-								e.preventDefault()
-								console.log("Attach file")
-							}}
-							variant="ghost"
-							size="icon"
-						>
-							<Paperclip className="size-5" />
-							<span className="sr-only">Attach file</span>
-						</Button>
-					</TooltipTrigger>
-					<TooltipContent side="top">Attach File</TooltipContent>
-				</Tooltip> */}
 				<Tooltip>
 					<TooltipTrigger asChild>
-						<Button
-							onClick={(e) => {
-								e.preventDefault()
-								console.log("Use microphone")
-							}}
-							variant="ghost"
-							size="icon"
-						>
-							<LucideBadgeInfo className="size-5" />
-							<span className="sr-only">Use Microphone</span>
+						<Button variant="ghost" size="icon">
+							<Mic className="size-5" />
+							<span className="sr-only">Speech to Text</span>
 						</Button>
 					</TooltipTrigger>
 					<TooltipContent side="top">
-						<h1 className="text-lg">
-							Policies and procedures knowledge base
-						</h1>
-						<ul className=" list-inside list-disc">
-							<li>
-								Care of patients with indwelling urinary
-								catheters
-							</li>
-							<li>Chest tube Management</li>
-							<li>Chest Tube Removal</li>
-							<li>Chest tube Pigtail flushing</li>
-							<li>Nasogastric/Orogastric Tube Management</li>
-							<li>Tracheostomy Management</li>
-							<li>Central Venous Therapy </li>
-							<li>Intracardiac Line Removal </li>
-							<li>External Pacemaker Management</li>
-							<li>
-								Preparation & Transfer of a Pre-Op Cardiac
-								Surgery Patient to the OR
-							</li>
-						</ul>
+						Use Speech to Text
 					</TooltipContent>
 				</Tooltip>
+
 				<Tooltip>
 					<TooltipTrigger asChild>
 						<Button
