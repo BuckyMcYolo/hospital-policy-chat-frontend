@@ -23,32 +23,6 @@ const PathBreadcrumbs = () => {
 		<div>
 			<Breadcrumb className="hidden sm:flex">
 				<BreadcrumbList>
-					{/* <Breadcrumb className="hidden sm:flex">
-				<BreadcrumbList>
-					<BreadcrumbItem>
-						<BreadcrumbLink asChild>
-							<Link href="#">{pathname}</Link>
-						</BreadcrumbLink>
-					</BreadcrumbItem>
-					<BreadcrumbSeparator />
-					<BreadcrumbItem>
-						<BreadcrumbLink asChild>
-							<Link href="#">Orders</Link>
-						</BreadcrumbLink>
-					</BreadcrumbItem>
-					<BreadcrumbSeparator />
-					<BreadcrumbItem>
-						<BreadcrumbPage>Recent Orders</BreadcrumbPage>
-					</BreadcrumbItem>
-				</BreadcrumbList>
-			</Breadcrumb> */}
-					{/* {pathnames.map((path, index) => (
-						<BreadcrumbItem key={index}>
-							<BreadcrumbLink asChild>
-								<Link href="#">{path}</Link>
-							</BreadcrumbLink>
-						</BreadcrumbItem>
-					))} */}
 					{pathname === "/" && (
 						<BreadcrumbItem className="text-lg">
 							<BreadcrumbPage>Home</BreadcrumbPage>
@@ -63,12 +37,16 @@ const PathBreadcrumbs = () => {
 							<React.Fragment key={path + index}>
 								{index === pathnames.length - 1 ? (
 									<BreadcrumbItem className="text-lg">
-										<BreadcrumbPage>{path}</BreadcrumbPage>
+										<BreadcrumbPage>
+											{path.replace("%20", " ")}
+										</BreadcrumbPage>
 									</BreadcrumbItem>
 								) : (
 									<BreadcrumbItem className="text-lg">
 										<BreadcrumbLink asChild>
-											<Link href="#">{path}</Link>
+											<Link href={`/${path}`}>
+												{path.replace("%20", " ")}
+											</Link>
 										</BreadcrumbLink>
 									</BreadcrumbItem>
 								)}

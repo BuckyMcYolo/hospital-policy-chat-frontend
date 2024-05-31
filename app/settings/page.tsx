@@ -1,3 +1,5 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
 import {
 	Card,
@@ -11,6 +13,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Input } from "@/components/ui/input"
 import Link from "next/link"
 import React from "react"
+import { toast } from "sonner"
 
 const Page = () => {
 	return (
@@ -24,7 +27,7 @@ const Page = () => {
 					x-chunk="dashboard-04-chunk-0"
 				>
 					<Link href="#" className="font-semibold text-primary">
-						General
+						Account
 					</Link>
 					<Link href="#">Security</Link>
 					<Link href="#">Integrations</Link>
@@ -35,48 +38,62 @@ const Page = () => {
 				<div className="grid gap-6">
 					<Card x-chunk="dashboard-04-chunk-1">
 						<CardHeader>
-							<CardTitle>Store Name</CardTitle>
+							<CardTitle>Your Email</CardTitle>
 							<CardDescription>
-								Used to identify your store in the marketplace.
+								Used to identify your account and send you
+								important notifications.
 							</CardDescription>
 						</CardHeader>
 						<CardContent>
 							<form>
-								<Input placeholder="Store Name" />
+								<Input placeholder="Email" />
 							</form>
 						</CardContent>
 						<CardFooter className="border-t px-6 py-4">
-							<Button>Save</Button>
+							<Button
+								onClick={() => {
+									toast.success(" This doesn't do anything!")
+								}}
+							>
+								Save
+							</Button>
 						</CardFooter>
 					</Card>
 					<Card x-chunk="dashboard-04-chunk-2">
 						<CardHeader>
-							<CardTitle>Plugins Directory</CardTitle>
+							<CardTitle>
+								I volunteer to sell my data and soul
+							</CardTitle>
 							<CardDescription>
-								The directory within your project, in which your
-								plugins are located.
+								We will sell your data to the highest bidder.
 							</CardDescription>
 						</CardHeader>
 						<CardContent>
 							<form className="flex flex-col gap-4">
-								<Input
+								{/* <Input
 									placeholder="Project Name"
 									defaultValue="/content/plugins"
-								/>
+								/> */}
 								<div className="flex items-center space-x-2">
-									<Checkbox id="include" defaultChecked />
+									<Checkbox id="include" />
 									<label
 										htmlFor="include"
 										className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
 									>
-										Allow administrators to change the
-										directory.
+										Please sell all of my data
 									</label>
 								</div>
 							</form>
 						</CardContent>
 						<CardFooter className="border-t px-6 py-4">
-							<Button>Save</Button>
+							<Button
+								onClick={() => {
+									// funnier face
+									toast.success("Data sold! ( ͡° ͜ʖ ͡°)")
+								}}
+							>
+								Save
+							</Button>
 						</CardFooter>
 					</Card>
 				</div>

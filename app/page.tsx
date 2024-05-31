@@ -33,7 +33,7 @@ export default function Home() {
 						</CardDescription>
 					</Card>
 				</Link>
-				<Link href="/voice">
+				<Link href="/unit-voice-chat">
 					<Card className="p-4 max-w-96 cursor-pointer hover:border-foreground">
 						<CardTitle>Unit Q&A (Voice)</CardTitle>
 						<CardDescription className="pt-2">

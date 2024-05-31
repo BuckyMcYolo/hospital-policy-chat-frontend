@@ -68,9 +68,9 @@ const SideBarLinks = () => {
 				<Tooltip>
 					<TooltipTrigger asChild>
 						<Link
-							href="/chart"
+							href="/patients"
 							className={`flex h-9 w-9 items-center justify-center rounded-lg ${
-								pathname.includes("/chart")
+								pathname.includes("/patients")
 									? "bg-accent text-accent-foreground"
 									: "text-muted-foreground"
 							} transition-colors hover:text-foreground md:h-8 md:w-8`}
@@ -86,9 +86,9 @@ const SideBarLinks = () => {
 				<Tooltip>
 					<TooltipTrigger asChild>
 						<Link
-							href="/voice"
+							href="/unit-voice-chat"
 							className={`flex h-9 w-9 items-center justify-center rounded-lg ${
-								pathname.includes("/voice")
+								pathname.includes("/unit-voice-chat")
 									? "bg-accent text-accent-foreground"
 									: "text-muted-foreground"
 							} transition-colors hover:text-foreground md:h-8 md:w-8`}
