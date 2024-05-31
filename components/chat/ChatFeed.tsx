@@ -17,6 +17,7 @@ import {
 import { Button } from "../ui/button"
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip"
 import { toast } from "sonner"
+import { Card, CardContent, CardHeader } from "../ui/card"
 
 type ChatFeedProps = {
 	messages: Message[]
@@ -24,6 +25,8 @@ type ChatFeedProps = {
 	reload: () => void
 	stop: () => void
 	isLoading: boolean
+	append: (message?: Message) => void
+	setInput: (input: string) => void
 }
 
 const ChatFeed = ({
@@ -32,6 +35,8 @@ const ChatFeed = ({
 	reload,
 	stop,
 	isLoading,
+	append,
+	setInput,
 }: ChatFeedProps) => {
 	const scrollTobottom = useRef<HTMLDivElement>(null)
 
@@ -45,9 +50,52 @@ const ChatFeed = ({
 
 	const isPending = isLoading && !isLastMessageFromAssistant
 
+	const suggestedMessages: Message[] = [
+		{
+			id: "1",
+			role: "user",
+			content: "Whats the policy for inserting a nasogastric tube?",
+			annotations: [],
+		},
+		{
+			id: "2",
+			role: "user",
+			content: "What is the policy for removing a central line?",
+			annotations: [],
+		},
+		{
+			id: "3",
+			role: "user",
+			content: "Where are the art lines located?",
+			annotations: [],
+		},
+		{
+			id: "4",
+			role: "user",
+			content: "Where can I find supplies for inserting a feeding tube?",
+			annotations: [],
+		},
+	]
+
 	return (
 		<ScrollArea className="h-[86%] p-4">
 			<div className="flex flex-col gap-3 max-w-2xl w-full mx-auto pb-10">
+				{messages.length === 0 && (
+					<main className="grid grid-cols-2 gap-4 pt-10">
+						{suggestedMessages.map((message: Message) => (
+							<Card
+								key={message.id}
+								className="hover:border-foreground cursor-pointer hover:shadow-md dark:hover:shadow-muted-foreground"
+								onClick={() => {
+									append(message)
+									setInput("")
+								}}
+							>
+								<CardHeader>{message.content}</CardHeader>
+							</Card>
+						))}
+					</main>
+				)}
 				{messages.map((message: Message, index) => (
 					<div className=" " key={message.id}>
 						<ChatCard

@@ -14,22 +14,31 @@ export default function Home() {
 			<h1 className="text-3xl pb-6 font-semibold underline underline-offset-8 ">
 				Available Demos
 			</h1>
-			<div className="flex flex-col md:flex-row  gap-5">
+			<div className="flex flex-col lg:flex-row gap-5">
 				<Link href="/policies-and-supplies">
 					<Card className="p-4 max-w-96 cursor-pointer hover:border-foreground">
 						<CardTitle>Supplies and policies chat</CardTitle>
 						<CardDescription className="pt-2">
 							Ask questions about your hospital policies and
-							supplies locations through text or voice
+							supplies locations through a chat interface
 						</CardDescription>
 					</Card>
 				</Link>
-				<Link href="/policies-and-supplies">
+				<Link href="/chart">
 					<Card className="p-4 max-w-96 cursor-pointer hover:border-foreground">
 						<CardTitle>Patient chart Q&A</CardTitle>
 						<CardDescription className="pt-2">
-							Ask questions about a demo patient chart through
-							text or voice
+							Ask questions about a demo patient chart through a
+							chat interface
+						</CardDescription>
+					</Card>
+				</Link>
+				<Link href="/voice">
+					<Card className="p-4 max-w-96 cursor-pointer hover:border-foreground">
+						<CardTitle>Unit Q&A (Voice)</CardTitle>
+						<CardDescription className="pt-2">
+							Ask questions about a demo unit filled with patients
+							through a voice interface
 						</CardDescription>
 					</Card>
 				</Link>

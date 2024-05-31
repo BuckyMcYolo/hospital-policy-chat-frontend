@@ -1,7 +1,7 @@
 "use client"
 
 import React from "react"
-import { CircleUser, Laptop, Moon, Sun } from "lucide-react"
+import { CircleUser, Laptop, LogOut, Moon, Sun } from "lucide-react"
 import { Button } from "../ui/button"
 import {
 	DropdownMenu,
@@ -16,6 +16,19 @@ import { useTheme } from "next-themes"
 
 const ProfileDropdown = () => {
 	const { setTheme, systemTheme, theme } = useTheme()
+
+	async function logout() {
+		const res = await fetch("/password/remove", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+		})
+
+		if (res.ok) {
+			window.location.reload()
+		}
+	}
 
 	return (
 		<DropdownMenu>
@@ -34,6 +47,7 @@ const ProfileDropdown = () => {
 				<DropdownMenuItem className="py-2">Settings</DropdownMenuItem>
 				<DropdownMenuItem className="py-2">Support</DropdownMenuItem>
 				<DropdownMenuItem
+					className="cursor-default"
 					onClick={(e) => {
 						e.preventDefault()
 					}}
@@ -64,7 +78,12 @@ const ProfileDropdown = () => {
 					</ToggleGroup>
 				</DropdownMenuItem>
 				<DropdownMenuSeparator />
-				<DropdownMenuItem>Logout</DropdownMenuItem>
+				<DropdownMenuItem
+					onClick={logout}
+					className="flex items-center gap-3"
+				>
+					Logout <LogOut size={17} />
+				</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>
 	)

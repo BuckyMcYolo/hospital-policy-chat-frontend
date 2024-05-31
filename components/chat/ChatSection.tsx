@@ -21,9 +21,8 @@ const Chat = () => {
 		isLoading,
 		stop,
 		reload,
+		append,
 	} = useChat({
-		initialInput:
-			"Can you tell me about the policy for inserting a nasogastric tube?",
 		initialMessages: [],
 		api:
 			// process.env.NODE_ENV === "development"
@@ -40,6 +39,10 @@ const Chat = () => {
 				reload={reload}
 				stop={stop}
 				isLoading={isLoading}
+				append={(message?: Message | undefined) =>
+					message && append(message)
+				}
+				setInput={setInput}
 			/>
 			<ChatInput
 				input={input}
