@@ -85,7 +85,7 @@ const ChatFeed = ({
 						{suggestedMessages.map((message: Message) => (
 							<Card
 								key={message.id}
-								className="hover:border-foreground cursor-pointer hover:shadow-md dark:hover:shadow-muted-foreground"
+								className="hover:border-foreground cursor-pointer hover:shadow dark:hover:shadow-muted-foreground"
 								onClick={() => {
 									append(message)
 									setInput("")

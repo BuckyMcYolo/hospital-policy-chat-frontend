@@ -77,6 +77,40 @@ type Procedure = {
 	results: string
 }
 
+type MedicationOrder = {
+	date: Date
+	time: string
+	prn: boolean
+	medication: Medication
+	type: "medication"
+}
+
+type ImagingOrder = {
+	date: Date
+	time: string
+	type: "X-ray" | "CT" | "MRI" | "Ultrasound" | "Other"
+}
+
+type LabOrder = {
+	date: Date
+	time: string
+	type: "CBC" | "CMP" | "Lipid Panel" | "Thyroid Panel" | "Other"
+}
+
+type ProcedureOrder = {
+	date: Date
+	time: string
+	type: "EKG" | "Colonoscopy" | "Endoscopy" | "Other"
+}
+
+type Order = {
+	date: Date
+	time: string
+	type: MedicationOrder | ImagingOrder | LabOrder | ProcedureOrder
+	status: "pending" | "completed" | "cancelled"
+	priority: "low" | "medium" | "high"
+}
+
 export type Patient = {
 	name: string
 	dateOfBirth: Date | string
@@ -94,6 +128,7 @@ export type Patient = {
 	insurance: {
 		provider: string
 		policyNumber: string
+		expirationDate?: Date | string
 	}
 	allergies: Allergy[]
 	medications: Medication[]
@@ -106,6 +141,7 @@ export type Patient = {
 	labs: Lab[]
 	imaging: Imaging[]
 	procedures: Procedure[]
+	orders?: Order[]
 	notes: string
 }
 
@@ -126,6 +162,7 @@ export const patient1: Patient = {
 	insurance: {
 		provider: "Blue Cross Blue Shield",
 		policyNumber: "123456789",
+		expirationDate: "12/31/2026",
 	},
 	allergies: [
 		{
@@ -139,6 +176,31 @@ export const patient1: Patient = {
 			name: "Lisinopril",
 			dose: "10 mg",
 			frequency: "daily",
+		},
+		{
+			name: "Aspirin",
+			dose: "81 mg",
+			frequency: "daily",
+		},
+		{
+			name: "Atorvastatin",
+			dose: "20 mg",
+			frequency: "daily",
+		},
+		{
+			name: "Metoprolol",
+			dose: "25 mg",
+			frequency: "twice daily",
+		},
+		{
+			name: "Hydrochlorothiazide",
+			dose: "12.5 mg",
+			frequency: "daily",
+		},
+		{
+			name: "Metformin",
+			dose: "500 mg",
+			frequency: "twice daily",
 		},
 	],
 	medicalHistory: [
@@ -282,6 +344,59 @@ export const patient1: Patient = {
 			results: "Normal",
 		},
 	],
+	orders: [
+		{
+			date: new Date("01/01/2021"),
+			time: "9:00 AM",
+			type: {
+				date: new Date("01/01/2021"),
+				time: "9:00 AM",
+				prn: false,
+				type: "medication",
+				medication: {
+					name: "Lisinopril",
+					dose: "10 mg",
+					frequency: "daily",
+				},
+			},
+			status: "completed",
+			priority: "medium",
+		},
+		{
+			date: new Date("01/01/2021"),
+			time: "9:00 AM",
+			type: {
+				date: new Date("01/01/2021"),
+				time: "9:00 AM",
+				type: "X-ray",
+			},
+			status: "completed",
+			priority: "medium",
+		},
+		{
+			date: new Date("01/01/2021"),
+			time: "9:00 AM",
+			type: {
+				date: new Date("01/01/2021"),
+				time: "9:00 AM",
+				type: "CBC",
+			},
+			status: "completed",
+			priority: "medium",
+		},
+		{
+			date: new Date("01/01/2021"),
+			time: "9:00 AM",
+			type: {
+				date: new Date("01/01/2021"),
+				time: "9:00 AM",
+				type: "EKG",
+			},
+			status: "completed",
+			priority: "medium",
+		},
+	],
+
 	notes: "Patient is in good health.",
 }
 
@@ -302,6 +417,7 @@ export const patient2: Patient = {
 	insurance: {
 		provider: "United Healthcare",
 		policyNumber: "987654321",
+		expirationDate: "12/31/2023",
 	},
 	allergies: [
 		{
@@ -406,6 +522,7 @@ export const patient3: Patient = {
 	insurance: {
 		provider: "Cigna",
 		policyNumber: "1122334455",
+		expirationDate: "10/31/2024",
 	},
 	allergies: [
 		{
@@ -529,6 +646,7 @@ export const patient4: Patient = {
 	insurance: {
 		provider: "Aetna",
 		policyNumber: "9988776655",
+		expirationDate: "09/30/2026",
 	},
 	allergies: [
 		{
@@ -639,6 +757,7 @@ export const patient5: Patient = {
 	insurance: {
 		provider: "Kaiser Permanente",
 		policyNumber: "3344556677",
+		expirationDate: "05/31/2025",
 	},
 	allergies: [
 		{
@@ -749,6 +868,7 @@ export const patient6: Patient = {
 	insurance: {
 		provider: "Humana",
 		policyNumber: "2233445566",
+		expirationDate: "08/31/2024",
 	},
 	allergies: [
 		{
@@ -889,6 +1009,7 @@ export const patient7: Patient = {
 	insurance: {
 		provider: "Anthem",
 		policyNumber: "5566778899",
+		expirationDate: "06/30/2027",
 	},
 	allergies: [
 		{
@@ -992,6 +1113,7 @@ export const patient8: Patient = {
 	insurance: {
 		provider: "WellCare",
 		policyNumber: "6677889900",
+		expirationDate: "04/30/2025",
 	},
 	allergies: [
 		{
@@ -1138,10 +1260,11 @@ export const patients: Patient[] = [
 	patient8,
 ]
 
-interface Admission extends Patient {
+export interface Admission extends Patient {
 	admissionDate: Date
-	dischargeDate: Date | null
+	expectedDischarge: Date | null
 	admissionReason: string
+	admissionReasonPriority: "high" | "medium" | "low"
 	admissionLocation: string
 	admittingDoctor: string
 	attendingDoctor: string
@@ -1153,8 +1276,9 @@ export const curentAdmissions = [
 	{
 		...patient1,
 		admissionDate: new Date("05/30/2024"),
-		dischargeDate: null,
+		expectedDischarge: new Date("06/02/2024"),
 		admissionReason: "Chest Pain",
+		admissionReasonPriority: "high",
 		admissionLocation: "Emergency Department",
 		admittingDoctor: "Dr. Johnson",
 		attendingDoctor: "Dr. Smith",
@@ -1164,8 +1288,9 @@ export const curentAdmissions = [
 	{
 		...patient2,
 		admissionDate: new Date("05/30/2024"),
-		dischargeDate: null,
+		expectedDischarge: new Date("06/11/2024"),
 		admissionReason: "Shortness of Breath",
+		admissionReasonPriority: "medium",
 		admissionLocation: "Emergency Department",
 		admittingDoctor: "Dr. Lee",
 		attendingDoctor: "Dr. Patel",
@@ -1175,8 +1300,9 @@ export const curentAdmissions = [
 	{
 		...patient3,
 		admissionDate: new Date("05/28/2024"),
-		dischargeDate: null,
+		expectedDischarge: new Date("06/01/2024"),
 		admissionReason: "Abdominal Pain",
+		admissionReasonPriority: "low",
 		admissionLocation: "Emergency Department",
 		admittingDoctor: "Dr. Martinez",
 		attendingDoctor: "Dr. Johnson",
@@ -1186,8 +1312,9 @@ export const curentAdmissions = [
 	{
 		...patient4,
 		admissionDate: new Date("04/29/2024"),
-		dischargeDate: null,
+		expectedDischarge: new Date("05/02/2024"),
 		admissionReason: "Fever",
+		admissionReasonPriority: "low",
 		admissionLocation: "Emergency Department",
 		admittingDoctor: "Dr. Patel",
 		attendingDoctor: "Dr. Lee",
@@ -1197,8 +1324,9 @@ export const curentAdmissions = [
 	{
 		...patient5,
 		admissionDate: new Date("05/30/2024"),
-		dischargeDate: null,
+		expectedDischarge: new Date("06/02/2024"),
 		admissionReason: "Headache",
+		admissionReasonPriority: "low",
 		admissionLocation: "Emergency Department",
 		admittingDoctor: "Dr. Smith",
 		attendingDoctor: "Dr. Martinez",
@@ -1208,8 +1336,9 @@ export const curentAdmissions = [
 	{
 		...patient6,
 		admissionDate: new Date("05/29/2024"),
-		dischargeDate: null,
+		expectedDischarge: new Date("06/01/2024"),
 		admissionReason: "Dizziness",
+		admissionReasonPriority: "low",
 		admissionLocation: "Emergency Department",
 		admittingDoctor: "Dr. Johnson",
 		attendingDoctor: "Dr. Patel",
@@ -1219,8 +1348,9 @@ export const curentAdmissions = [
 	{
 		...patient7,
 		admissionDate: new Date("05/15/2024"),
-		dischargeDate: null,
+		expectedDischarge: new Date("05/18/2024"),
 		admissionReason: "Nausea",
+		admissionReasonPriority: "low",
 		admissionLocation: "Emergency Department",
 		admittingDoctor: "Dr. Lee",
 		attendingDoctor: "Dr. Smith",
@@ -1230,8 +1360,9 @@ export const curentAdmissions = [
 	{
 		...patient8,
 		admissionDate: new Date("05/30/2024"),
-		dischargeDate: null,
+		expectedDischarge: new Date("06/06/2024"),
 		admissionReason: "Chest Pain",
+		admissionReasonPriority: "high",
 		admissionLocation: "Emergency Department",
 		admittingDoctor: "Dr. Johnson",
 		attendingDoctor: "Dr. Smith",

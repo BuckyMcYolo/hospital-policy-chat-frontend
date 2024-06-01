@@ -1,7 +1,10 @@
 import React from "react"
 import {
+	ArrowDown,
+	ArrowUp,
 	ChevronLeft,
 	ChevronRight,
+	CirclePlus,
 	Copy,
 	CornerDownLeft,
 	CreditCard,
@@ -44,6 +47,14 @@ import {
 	TooltipTrigger,
 } from "@/components/ui/tooltip"
 import { ScrollArea } from "@/components/ui/scroll-area"
+import { curentAdmissions } from "@/components/patients/patientExamples"
+import moment from "moment"
+import PatientHeaderCard from "@/components/patients/cards/PatientHeaderCard"
+import ChatSection from "@/components/patients/chat/ChatSection"
+import MedicationCard from "@/components/patients/cards/MedicationCard"
+import LabCard from "@/components/patients/cards/LabCard"
+import OrdersCard from "@/components/patients/cards/OrdersCard"
+import ProceduresAndImagingCard from "@/components/patients/cards/ProceduresAndImaging"
 
 const newCard = (
 	<Card className="w-full">
@@ -212,94 +223,41 @@ const newCard = (
 )
 
 export default function Page({ params }: { params: { slug: string } }) {
+	const currentPatient = curentAdmissions.find(
+		(admission) => admission.name === params.slug.replace("%20", " ")
+	)
+
+	if (!currentPatient) {
+		return <div>Patient not found</div>
+	}
+
 	return (
-		<div className="flex flex-row h-full w-full items-center gap-4 p-4">
-			<Tabs className="sm:hidden">
-				<TabsList defaultValue="chart">
+		<div className="flex flex-col sm:flex-row h-full w-full items-center gap-4 p-4">
+			<Tabs className="sm:hidden w-[250px]" defaultValue="chart">
+				<TabsList className="grid w-full grid-cols-2">
 					<TabsTrigger value="chart">Chart</TabsTrigger>
 					<TabsTrigger value="chat">Chat</TabsTrigger>
 				</TabsList>
 				<TabsContent value="chart">chart</TabsContent>
 				<TabsContent value="chat">chat</TabsContent>
 			</Tabs>
-			<ScrollArea className="h-full w-2/3 flex flex-col">
+			<ScrollArea className="h-full w-full sm:w-3/5 lg:w-2/3 flex flex-col">
+				<div className="grid grid-cols-1 gap-4 pr-5 pb-4">
+					<PatientHeaderCard currentPatient={currentPatient} />
+				</div>
+
 				<div className="grid grid-cols-1 lg:grid-cols-2 gap-4 pr-5">
-					{Array.from([1, 2]).map((_, index) => (
-						<Card key={index}>{newCard}</Card>
-					))}
+					<MedicationCard currentPatient={currentPatient} />
+					<LabCard currentPatient={currentPatient} />
 				</div>
 				<div className="grid grid-cols-1 lg:grid-cols-2 gap-4 pr-5 pt-4">
-					{Array.from([1, 2]).map((_, index) => (
-						<Card key={index}>{newCard}</Card>
-					))}
+					<OrdersCard currentPatient={currentPatient} />
+					<ProceduresAndImagingCard currentPatient={currentPatient} />
 				</div>
 			</ScrollArea>
 
-			<div className="relative flex h-full min-h-[50vh] flex-col rounded-xl bg-muted dark:bg-muted/50 lg:col-span-2 w-1/3">
-				<Badge variant="outline" className="absolute right-3 top-3">
-					Chat
-				</Badge>
-				<div className="flex-1" />
-				<form
-					className="relative overflow-hidden rounded-lg border bg-background focus-within:ring-1 focus-within:ring-ring"
-					x-chunk="dashboard-03-chunk-1"
-				>
-					<Label htmlFor="message" className="sr-only">
-						Message
-					</Label>
-					<Textarea
-						id="message"
-						placeholder="Type your message here..."
-						className="min-h-12 resize-none border-0 p-3 shadow-none focus-visible:ring-0"
-					/>
-					<div className="flex items-center p-3 pt-0">
-						<Tooltip>
-							<TooltipTrigger asChild>
-								<Button variant="ghost" size="icon">
-									<Mic className="size-5" />
-									<span className="sr-only">
-										Speech to Text
-									</span>
-								</Button>
-							</TooltipTrigger>
-							<TooltipContent side="top">
-								Use Speech to Text
-							</TooltipContent>
-						</Tooltip>
-
-						<Tooltip>
-							<TooltipTrigger asChild>
-								<Button
-									// onClick={(e) => {
-									// 	e.preventDefault()
-									// 	setInput("")
-									// 	setMessages([])
-									// }}
-									variant="ghost"
-									size="icon"
-								>
-									<TrashIcon className="size-5" />
-									<span className="sr-only">
-										Clear Chat history
-									</span>
-								</Button>
-							</TooltipTrigger>
-							<TooltipContent side="top">
-								Clear Chat history
-							</TooltipContent>
-						</Tooltip>
-
-						<Button
-							type="submit"
-							size="sm"
-							className="ml-auto gap-1.5"
-						>
-							Send Message
-							<CornerDownLeft className="size-3.5" />
-						</Button>
-					</div>
-				</form>
-			</div>
+			{/* chat section */}
+			<ChatSection />
 		</div>
 	)
 }
