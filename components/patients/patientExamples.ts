@@ -88,13 +88,23 @@ type MedicationOrder = {
 type ImagingOrder = {
 	date: Date
 	time: string
-	type: "X-ray" | "CT" | "MRI" | "Ultrasound" | "Other"
+	type: "X-ray" | "CT" | "MRI" | "Ultrasound" | "Bronchoscopy" | "Other"
 }
 
 type LabOrder = {
 	date: Date
 	time: string
-	type: "CBC" | "CMP" | "Lipid Panel" | "Thyroid Panel" | "Other"
+	type:
+		| "CBC"
+		| "CMP"
+		| "Lipid Panel"
+		| "Thyroid Panel"
+		| "Hemoglobin A1c"
+		| "Pulmonary Function Test"
+		| "Basic Metabolic Panel"
+		| "Urinalysis"
+		| "H. Pylori Test"
+		| "Other"
 }
 
 type ProcedureOrder = {
@@ -113,7 +123,7 @@ type Order = {
 
 export type Patient = {
 	name: string
-	dateOfBirth: Date | string
+	dateOfBirth: Date
 	address: string
 	phone: string
 	email: {
@@ -128,7 +138,7 @@ export type Patient = {
 	insurance: {
 		provider: string
 		policyNumber: string
-		expirationDate?: Date | string
+		expirationDate?: Date
 	}
 	allergies: Allergy[]
 	medications: Medication[]
@@ -147,7 +157,7 @@ export type Patient = {
 
 export const patient1: Patient = {
 	name: "John Doe",
-	dateOfBirth: "01/01/1990",
+	dateOfBirth: new Date("01/01/1990"),
 	address: "123 Main St, Anytown, USA",
 	phone: "555-555-5555",
 	email: {
@@ -162,13 +172,18 @@ export const patient1: Patient = {
 	insurance: {
 		provider: "Blue Cross Blue Shield",
 		policyNumber: "123456789",
-		expirationDate: "12/31/2026",
+		expirationDate: new Date("12/31/2026"),
 	},
 	allergies: [
 		{
 			name: "Penicillin",
-			reaction: "rash",
-			severity: "mild",
+			reaction: "Anaphylaxis",
+			severity: "severe",
+		},
+		{
+			name: "Codeine",
+			reaction: "Rash",
+			severity: "moderate",
 		},
 	],
 	medications: [
@@ -208,6 +223,14 @@ export const patient1: Patient = {
 			condition: "Hypertension",
 			dateStarted: new Date("01/01/2010"),
 		},
+		{
+			condition: "Hyperlipidemia",
+			dateStarted: new Date("01/01/2010"),
+		},
+		{
+			condition: "Type 2 Diabetes",
+			dateStarted: new Date("07/21/2018"),
+		},
 	],
 	surgeries: [
 		{
@@ -237,7 +260,7 @@ export const patient1: Patient = {
 	],
 	appointments: [
 		{
-			date: new Date("01/01/2021"),
+			date: new Date("06/02/2024"),
 			time: "9:00 AM",
 			reason: "Annual Physical",
 			doctor: "Dr. Smith",
@@ -246,7 +269,7 @@ export const patient1: Patient = {
 	],
 	labs: [
 		{
-			date: new Date("01/01/2021"),
+			date: new Date("06/02/2024"),
 			type: "Complete Blood Count (CBC)",
 			results: [
 				{
@@ -282,7 +305,7 @@ export const patient1: Patient = {
 			],
 		},
 		{
-			date: new Date("01/01/2021"),
+			date: new Date("06/02/2024"),
 			type: "Comprehensive Metabolic Panel (CMP)",
 			results: [
 				{
@@ -332,24 +355,24 @@ export const patient1: Patient = {
 	],
 	imaging: [
 		{
-			date: new Date("01/01/2021"),
+			date: new Date("06/02/2024"),
 			type: "Chest X-ray",
 			results: "Normal",
 		},
 	],
 	procedures: [
 		{
-			date: new Date("01/01/2021"),
+			date: new Date("06/02/2024"),
 			type: "EKG",
 			results: "Normal",
 		},
 	],
 	orders: [
 		{
-			date: new Date("01/01/2021"),
+			date: new Date("06/02/2024 9:00 AM"),
 			time: "9:00 AM",
 			type: {
-				date: new Date("01/01/2021"),
+				date: new Date("06/02/2024 9:00 AM"),
 				time: "9:00 AM",
 				prn: false,
 				type: "medication",
@@ -362,22 +385,12 @@ export const patient1: Patient = {
 			status: "completed",
 			priority: "medium",
 		},
+
 		{
-			date: new Date("01/01/2021"),
+			date: new Date("06/02/2024"),
 			time: "9:00 AM",
 			type: {
-				date: new Date("01/01/2021"),
-				time: "9:00 AM",
-				type: "X-ray",
-			},
-			status: "completed",
-			priority: "medium",
-		},
-		{
-			date: new Date("01/01/2021"),
-			time: "9:00 AM",
-			type: {
-				date: new Date("01/01/2021"),
+				date: new Date("06/02/2024"),
 				time: "9:00 AM",
 				type: "CBC",
 			},
@@ -385,12 +398,23 @@ export const patient1: Patient = {
 			priority: "medium",
 		},
 		{
-			date: new Date("01/01/2021"),
+			date: new Date("06/02/2024"),
 			time: "9:00 AM",
 			type: {
-				date: new Date("01/01/2021"),
+				date: new Date("06/02/2024"),
 				time: "9:00 AM",
 				type: "EKG",
+			},
+			status: "completed",
+			priority: "medium",
+		},
+		{
+			date: new Date("06/02/2024"),
+			time: "2:00 PM",
+			type: {
+				date: new Date("06/02/2024"),
+				time: "2:00 PM",
+				type: "X-ray",
 			},
 			status: "completed",
 			priority: "medium",
@@ -402,7 +426,7 @@ export const patient1: Patient = {
 
 export const patient2: Patient = {
 	name: "Jane Smith",
-	dateOfBirth: "05/15/1985",
+	dateOfBirth: new Date("05/15/1985"),
 	address: "456 Elm St, Othertown, USA",
 	phone: "555-555-1234",
 	email: {
@@ -417,13 +441,23 @@ export const patient2: Patient = {
 	insurance: {
 		provider: "United Healthcare",
 		policyNumber: "987654321",
-		expirationDate: "12/31/2023",
+		expirationDate: new Date("12/31/2023"),
 	},
 	allergies: [
 		{
 			name: "Peanuts",
 			reaction: "anaphylaxis",
 			severity: "severe",
+		},
+		{
+			name: "Shellfish",
+			reaction: "hives",
+			severity: "moderate",
+		},
+		{
+			name: "Latex",
+			reaction: "rash",
+			severity: "mild",
 		},
 	],
 	medications: [
@@ -432,11 +466,39 @@ export const patient2: Patient = {
 			dose: "500 mg",
 			frequency: "twice daily",
 		},
+		{
+			name: "Atorvastatin",
+			dose: "20 mg",
+			frequency: "daily",
+		},
+		{
+			name: "Aspirin",
+			dose: "81 mg",
+			frequency: "daily",
+		},
+		{
+			name: "Lisinopril",
+			dose: "10 mg",
+			frequency: "daily",
+		},
+		{
+			name: "Metoprolol",
+			dose: "25 mg",
+			frequency: "twice daily",
+		},
 	],
 	medicalHistory: [
 		{
 			condition: "Type 2 Diabetes",
 			dateStarted: new Date("01/01/2012"),
+		},
+		{
+			condition: "Hyperlipidemia",
+			dateStarted: new Date("01/01/2015"),
+		},
+		{
+			condition: "Hypertension",
+			dateStarted: new Date("01/01/2015"),
 		},
 	],
 	surgeries: [
@@ -462,7 +524,7 @@ export const patient2: Patient = {
 	immunizations: [
 		{
 			name: "COVID-19 Vaccine",
-			date: new Date("01/01/2021"),
+			date: new Date("06/02/2024"),
 		},
 	],
 	appointments: [
@@ -502,12 +564,54 @@ export const patient2: Patient = {
 			results: "Normal",
 		},
 	],
+	orders: [
+		{
+			date: new Date("06/02/2024 9:00 AM"),
+			time: "9:00 AM",
+			type: {
+				date: new Date("06/02/2024 9:00 AM"),
+				time: "9:00 AM",
+				prn: false,
+				type: "medication",
+				medication: {
+					name: "Metformin",
+					dose: "500 mg",
+					frequency: "twice daily",
+				},
+			},
+			status: "completed",
+			priority: "medium",
+		},
+		{
+			date: new Date("06/02/2024"),
+			time: "10:00 AM",
+			type: {
+				date: new Date("06/02/2024"),
+				time: "10:00 AM",
+				type: "Hemoglobin A1c",
+			},
+			status: "completed",
+			priority: "medium",
+		},
+		{
+			date: new Date("06/02/2024"),
+			time: "11:00 AM",
+			type: {
+				date: new Date("06/02/2024"),
+				time: "11:00 AM",
+				type: "Other",
+			},
+			status: "completed",
+			priority: "medium",
+		},
+	],
+
 	notes: "Patient is managing diabetes well with medication and lifestyle changes.",
 }
 
 export const patient3: Patient = {
 	name: "Michael Johnson",
-	dateOfBirth: "12/20/1975",
+	dateOfBirth: new Date("12/20/1975"),
 	address: "789 Pine St, Anothertown, USA",
 	phone: "555-555-9876",
 	email: {
@@ -522,13 +626,23 @@ export const patient3: Patient = {
 	insurance: {
 		provider: "Cigna",
 		policyNumber: "1122334455",
-		expirationDate: "10/31/2024",
+		expirationDate: new Date("10/31/2024"),
 	},
 	allergies: [
 		{
 			name: "Latex",
 			reaction: "hives",
 			severity: "moderate",
+		},
+		{
+			name: "Penicillin",
+			reaction: "rash",
+			severity: "mild",
+		},
+		{
+			name: "Dust",
+			reaction: "sneezing",
+			severity: "mild",
 		},
 	],
 	medications: [
@@ -537,11 +651,40 @@ export const patient3: Patient = {
 			dose: "20 mg",
 			frequency: "daily",
 		},
+		{
+			name: "Aspirin",
+			dose: "81 mg",
+			frequency: "daily",
+		},
+		{
+			name: "Metoprolol",
+			dose: "25 mg",
+			frequency: "twice daily",
+		},
+		{
+			name: "Lisinopril",
+			dose: "10 mg",
+			frequency: "daily",
+		},
+		{
+			name: "Hydrochlorothiazide",
+			dose: "12.5 mg",
+			frequency: "daily",
+		},
+		{
+			name: "Metformin",
+			dose: "500 mg",
+			frequency: "twice daily",
+		},
 	],
 	medicalHistory: [
 		{
 			condition: "Hyperlipidemia",
 			dateStarted: new Date("01/01/2018"),
+		},
+		{
+			condition: "Asthma",
+			dateStarted: new Date("01/01/1990"),
 		},
 	],
 	surgeries: [
@@ -626,12 +769,53 @@ export const patient3: Patient = {
 			results: "Normal",
 		},
 	],
+	orders: [
+		{
+			date: new Date("06/01/2022 2:00 PM"),
+			time: "2:00 PM",
+			type: {
+				date: new Date("06/01/2022 2:00 PM"),
+				time: "2:00 PM",
+				prn: false,
+				type: "medication",
+				medication: {
+					name: "Atorvastatin",
+					dose: "20 mg",
+					frequency: "daily",
+				},
+			},
+			status: "completed",
+			priority: "medium",
+		},
+		{
+			date: new Date("06/01/2022"),
+			time: "3:00 PM",
+			type: {
+				date: new Date("06/01/2022"),
+				time: "3:00 PM",
+				type: "Lipid Panel",
+			},
+			status: "completed",
+			priority: "medium",
+		},
+		{
+			date: new Date("06/01/2022"),
+			time: "4:00 PM",
+			type: {
+				date: new Date("06/01/2022"),
+				time: "4:00 PM",
+				type: "Colonoscopy",
+			},
+			status: "pending",
+			priority: "medium",
+		},
+	],
 	notes: "Patient is advised to continue with current medication and diet.",
 }
 
 export const patient4: Patient = {
 	name: "Emily Davis",
-	dateOfBirth: "03/10/1995",
+	dateOfBirth: new Date("03/10/1995"),
 	address: "1010 Birch St, Yetanothertown, USA",
 	phone: "555-555-4321",
 	email: {
@@ -646,13 +830,18 @@ export const patient4: Patient = {
 	insurance: {
 		provider: "Aetna",
 		policyNumber: "9988776655",
-		expirationDate: "09/30/2026",
+		expirationDate: new Date("07/31/2025"),
 	},
 	allergies: [
 		{
 			name: "Shellfish",
 			reaction: "swelling",
 			severity: "severe",
+		},
+		{
+			name: "Pollen",
+			reaction: "sneezing",
+			severity: "mild",
 		},
 	],
 	medications: [
@@ -661,11 +850,36 @@ export const patient4: Patient = {
 			dose: "2 puffs",
 			frequency: "as needed",
 		},
+		{
+			name: "Fluticasone",
+			dose: "1 puff",
+			frequency: "daily",
+		},
+		{
+			name: "Montelukast",
+			dose: "10 mg",
+			frequency: "daily",
+		},
+		{
+			name: "Zyrtec",
+			dose: "10 mg",
+			frequency: "daily",
+		},
+		{
+			name: "Singulair",
+			dose: "10 mg",
+			frequency: "daily",
+		},
 	],
 	medicalHistory: [
 		{
 			condition: "Asthma",
-			dateStarted: new Date("01/01/2005"),
+			dateStarted: new Date("03/10/1995"),
+		},
+
+		{
+			condition: "Eczema",
+			dateStarted: new Date("05/11/2005"),
 		},
 	],
 	surgeries: [
@@ -737,12 +951,53 @@ export const patient4: Patient = {
 			results: "Normal",
 		},
 	],
+	orders: [
+		{
+			date: new Date("07/01/2022 11:00 AM"),
+			time: "11:00 AM",
+			type: {
+				date: new Date("07/01/2022 11:00 AM"),
+				time: "11:00 AM",
+				prn: false,
+				type: "medication",
+				medication: {
+					name: "Albuterol",
+					dose: "2 puffs",
+					frequency: "as needed",
+				},
+			},
+			status: "completed",
+			priority: "medium",
+		},
+		{
+			date: new Date("07/01/2022"),
+			time: "12:00 PM",
+			type: {
+				date: new Date("07/01/2022"),
+				time: "12:00 PM",
+				type: "Pulmonary Function Test",
+			},
+			status: "completed",
+			priority: "medium",
+		},
+		{
+			date: new Date("07/01/2022"),
+			time: "1:00 PM",
+			type: {
+				date: new Date("07/01/2022"),
+				time: "1:00 PM",
+				type: "Bronchoscopy",
+			},
+			status: "completed",
+			priority: "medium",
+		},
+	],
 	notes: "Patient's asthma is well controlled with current medication.",
 }
 
 export const patient5: Patient = {
 	name: "Alice Brown",
-	dateOfBirth: "08/25/1965",
+	dateOfBirth: new Date("08/25/1945"),
 	address: "111 Maple St, Smalltown, USA",
 	phone: "555-555-6543",
 	email: {
@@ -757,13 +1012,18 @@ export const patient5: Patient = {
 	insurance: {
 		provider: "Kaiser Permanente",
 		policyNumber: "3344556677",
-		expirationDate: "05/31/2025",
+		expirationDate: new Date("05/31/2025"),
 	},
 	allergies: [
 		{
 			name: "Aspirin",
 			reaction: "stomach upset",
 			severity: "moderate",
+		},
+		{
+			name: "Shellfish",
+			reaction: "rash",
+			severity: "mild",
 		},
 	],
 	medications: [
@@ -772,11 +1032,40 @@ export const patient5: Patient = {
 			dose: "75 mcg",
 			frequency: "daily",
 		},
+		{
+			name: "Aspirin",
+			dose: "81 mg",
+			frequency: "daily",
+		},
+		{
+			name: "Atorvastatin",
+			dose: "20 mg",
+			frequency: "daily",
+		},
+		{
+			name: "Metoprolol",
+			dose: "25 mg",
+			frequency: "twice daily",
+		},
+		{
+			name: "Lisinopril",
+			dose: "10 mg",
+			frequency: "daily",
+		},
+		{
+			name: "Elavil",
+			dose: "25 mg",
+			frequency: "daily",
+		},
 	],
 	medicalHistory: [
 		{
 			condition: "Hypothyroidism",
-			dateStarted: new Date("01/01/2015"),
+			dateStarted: new Date("03/01/2015"),
+		},
+		{
+			condition: "Hypertension",
+			dateStarted: new Date("03/01/2015"),
 		},
 	],
 	surgeries: [
@@ -848,12 +1137,42 @@ export const patient5: Patient = {
 			results: "Successful cataract removal",
 		},
 	],
+	orders: [
+		{
+			date: new Date("05/01/2022 1:00 PM"),
+			time: "1:00 PM",
+			type: {
+				date: new Date("05/01/2022 1:00 PM"),
+				time: "1:00 PM",
+				prn: false,
+				type: "medication",
+				medication: {
+					name: "Levothyroxine",
+					dose: "75 mcg",
+					frequency: "daily",
+				},
+			},
+			status: "completed",
+			priority: "medium",
+		},
+		{
+			date: new Date("05/01/2022"),
+			time: "2:00 PM",
+			type: {
+				date: new Date("05/01/2022"),
+				time: "2:00 PM",
+				type: "Thyroid Panel",
+			},
+			status: "completed",
+			priority: "low",
+		},
+	],
 	notes: "Patient is stable with current thyroid medication.",
 }
 
 export const patient6: Patient = {
 	name: "Robert Wilson",
-	dateOfBirth: "11/30/1970",
+	dateOfBirth: new Date("06/15/1950"),
 	address: "222 Oak St, Bigtown, USA",
 	phone: "555-555-3456",
 	email: {
@@ -868,11 +1187,21 @@ export const patient6: Patient = {
 	insurance: {
 		provider: "Humana",
 		policyNumber: "2233445566",
-		expirationDate: "08/31/2024",
+		expirationDate: new Date("08/31/2025"),
 	},
 	allergies: [
 		{
 			name: "Dust",
+			reaction: "sneezing",
+			severity: "mild",
+		},
+		{
+			name: "Penicillin",
+			reaction: "rash",
+			severity: "mild",
+		},
+		{
+			name: "Pollen",
 			reaction: "sneezing",
 			severity: "mild",
 		},
@@ -883,11 +1212,36 @@ export const patient6: Patient = {
 			dose: "5 mg",
 			frequency: "daily",
 		},
+		{
+			name: "Atorvastatin",
+			dose: "20 mg",
+			frequency: "daily",
+		},
+		{
+			name: "Metoprolol",
+			dose: "25 mg",
+			frequency: "twice daily",
+		},
+		{
+			name: "Hydrochlorothiazide",
+			dose: "12.5 mg",
+			frequency: "daily",
+		},
+		{
+			name: "Metformin",
+			dose: "500 mg",
+			frequency: "twice daily",
+		},
 	],
 	medicalHistory: [
 		{
 			condition: "Hypertension",
 			dateStarted: new Date("01/01/2015"),
+		},
+
+		{
+			condition: "Hernia",
+			dateStarted: new Date("01/01/2010"),
 		},
 	],
 	surgeries: [
@@ -989,12 +1343,42 @@ export const patient6: Patient = {
 			results: "Normal",
 		},
 	],
+	orders: [
+		{
+			date: new Date("07/01/2022 3:00 PM"),
+			time: "3:00 PM",
+			type: {
+				date: new Date("07/01/2022 3:00 PM"),
+				time: "3:00 PM",
+				prn: false,
+				type: "medication",
+				medication: {
+					name: "Amlodipine",
+					dose: "5 mg",
+					frequency: "daily",
+				},
+			},
+			status: "completed",
+			priority: "medium",
+		},
+		{
+			date: new Date("07/01/2022"),
+			time: "4:00 PM",
+			type: {
+				date: new Date("07/01/2022"),
+				time: "4:00 PM",
+				type: "Basic Metabolic Panel",
+			},
+			status: "completed",
+			priority: "medium",
+		},
+	],
 	notes: "Patient's hypertension is well-controlled with current medication.",
 }
 
 export const patient7: Patient = {
 	name: "Linda Green",
-	dateOfBirth: "04/22/1990",
+	dateOfBirth: new Date("04/05/1942"),
 	address: "333 Cedar St, Littletown, USA",
 	phone: "555-555-5678",
 	email: {
@@ -1009,13 +1393,23 @@ export const patient7: Patient = {
 	insurance: {
 		provider: "Anthem",
 		policyNumber: "5566778899",
-		expirationDate: "06/30/2027",
+		expirationDate: new Date("06/30/2027"),
 	},
 	allergies: [
 		{
 			name: "Gluten",
 			reaction: "bloating",
 			severity: "moderate",
+		},
+		{
+			name: "Dairy",
+			reaction: "gas",
+			severity: "mild",
+		},
+		{
+			name: "Pollen",
+			reaction: "sneezing",
+			severity: "mild",
 		},
 	],
 	medications: [
@@ -1024,10 +1418,34 @@ export const patient7: Patient = {
 			dose: "20 mg",
 			frequency: "daily",
 		},
+		{
+			name: "Famotidine",
+			dose: "20 mg",
+			frequency: "daily",
+		},
+		{
+			name: "Metoclopramide",
+			dose: "10 mg",
+			frequency: "as needed",
+		},
+		{
+			name: "Sucralfate",
+			dose: "1 g",
+			frequency: "four times daily",
+		},
+		{
+			name: "Simethicone",
+			dose: "125 mg",
+			frequency: "as needed",
+		},
 	],
 	medicalHistory: [
 		{
 			condition: "GERD",
+			dateStarted: new Date("01/01/2016"),
+		},
+		{
+			condition: "Celiac Disease",
 			dateStarted: new Date("01/01/2016"),
 		},
 	],
@@ -1094,11 +1512,41 @@ export const patient7: Patient = {
 			results: "No abnormalities",
 		},
 	],
+	orders: [
+		{
+			date: new Date("08/01/2022 4:00 PM"),
+			time: "4:00 PM",
+			type: {
+				date: new Date("08/01/2022 4:00 PM"),
+				time: "4:00 PM",
+				prn: false,
+				type: "medication",
+				medication: {
+					name: "Omeprazole",
+					dose: "20 mg",
+					frequency: "daily",
+				},
+			},
+			status: "completed",
+			priority: "medium",
+		},
+		{
+			date: new Date("08/01/2022"),
+			time: "5:00 PM",
+			type: {
+				date: new Date("08/01/2022"),
+				time: "5:00 PM",
+				type: "H. Pylori Test",
+			},
+			status: "completed",
+			priority: "medium",
+		},
+	],
 	notes: "Patient is advised to continue with current GERD medication and dietary changes.",
 }
 export const patient8: Patient = {
 	name: "David Clark",
-	dateOfBirth: "09/14/1980",
+	dateOfBirth: new Date("02/10/1960"),
 	address: "444 Willow St, Middletown, USA",
 	phone: "555-555-7890",
 	email: {
@@ -1113,13 +1561,23 @@ export const patient8: Patient = {
 	insurance: {
 		provider: "WellCare",
 		policyNumber: "6677889900",
-		expirationDate: "04/30/2025",
+		expirationDate: new Date("09/30/2026"),
 	},
 	allergies: [
 		{
 			name: "Sulfa Drugs",
 			reaction: "rash",
 			severity: "moderate",
+		},
+		{
+			name: "Penicillin",
+			reaction: "hives",
+			severity: "moderate",
+		},
+		{
+			name: "Dust",
+			reaction: "sneezing",
+			severity: "mild",
 		},
 	],
 	medications: [
@@ -1128,10 +1586,43 @@ export const patient8: Patient = {
 			dose: "50 mg",
 			frequency: "daily",
 		},
+		{
+			name: "Warfarin",
+			dose: "5 mg",
+			frequency: "daily",
+		},
+		{
+			name: "Lisinopril",
+			dose: "10 mg",
+			frequency: "daily",
+		},
+		{
+			name: "Atorvastatin",
+			dose: "20 mg",
+			frequency: "daily",
+		},
+		{
+			name: "Aspirin",
+			dose: "81 mg",
+			frequency: "daily",
+		},
+		{
+			name: "Metformin",
+			dose: "500 mg",
+			frequency: "twice daily",
+		},
 	],
 	medicalHistory: [
 		{
 			condition: "Atrial Fibrillation",
+			dateStarted: new Date("01/01/2020"),
+		},
+		{
+			condition: "Hypertension",
+			dateStarted: new Date("01/01/2020"),
+		},
+		{
+			condition: "Hyperlipidemia",
 			dateStarted: new Date("01/01/2020"),
 		},
 	],
@@ -1244,6 +1735,47 @@ export const patient8: Patient = {
 			date: new Date("12/01/2022"),
 			type: "Cardioversion",
 			results: "Successful restoration of normal heart rhythm",
+		},
+	],
+	orders: [
+		{
+			date: new Date("12/01/2022 10:00 AM"),
+			time: "10:00 AM",
+			type: {
+				date: new Date("12/01/2022 10:00 AM"),
+				time: "10:00 AM",
+				prn: false,
+				type: "medication",
+				medication: {
+					name: "Metoprolol",
+					dose: "50 mg",
+					frequency: "daily",
+				},
+			},
+			status: "completed",
+			priority: "medium",
+		},
+		{
+			date: new Date("12/01/2022"),
+			time: "11:00 AM",
+			type: {
+				date: new Date("12/01/2022"),
+				time: "11:00 AM",
+				type: "CMP",
+			},
+			status: "completed",
+			priority: "medium",
+		},
+		{
+			date: new Date("12/01/2022"),
+			time: "12:00 PM",
+			type: {
+				date: new Date("12/01/2022"),
+				time: "12:00 PM",
+				type: "Lipid Panel",
+			},
+			status: "completed",
+			priority: "medium",
 		},
 	],
 	notes: "Patient is advised to maintain current medication and follow-up in 6 months.",

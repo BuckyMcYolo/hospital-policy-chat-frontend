@@ -24,7 +24,7 @@ export default function Home() {
 						</CardDescription>
 					</Card>
 				</Link>
-				<Link href="/chart">
+				<Link href="/patients">
 					<Card className="p-4 max-w-96 cursor-pointer hover:border-foreground">
 						<CardTitle>Patient chart Q&A</CardTitle>
 						<CardDescription className="pt-2">

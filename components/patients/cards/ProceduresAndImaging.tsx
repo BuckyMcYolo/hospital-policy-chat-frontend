@@ -27,9 +27,11 @@ import {
 	ChevronRight,
 	Copy,
 	CreditCard,
+	Image,
 	MoreVertical,
 	Syringe,
 	Truck,
+	UserSearch,
 } from "lucide-react"
 import React from "react"
 import { Admission } from "../patientExamples"
@@ -76,9 +78,9 @@ const ProceduresAndImagingCard = ({
 				</div>
 				<div className="ml-auto flex items-center gap-1">
 					<Button size="sm" variant="outline" className="h-8 gap-1">
-						<Syringe className="h-3.5 w-3.5" />
+						<Image className="h-3.5 w-3.5" />
 						<span className="lg:sr-only xl:not-sr-only xl:whitespace-nowrap">
-							Order new panel
+							New Imaging
 						</span>
 					</Button>
 					<DropdownMenu>

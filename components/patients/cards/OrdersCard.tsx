@@ -80,9 +80,8 @@ const OrdersCard = ({ currentPatient }: { currentPatient: Admission }) => {
 						</DropdownMenuTrigger>
 						<DropdownMenuContent align="end">
 							<DropdownMenuItem>Edit</DropdownMenuItem>
-							<DropdownMenuItem>Export</DropdownMenuItem>
 							<DropdownMenuSeparator />
-							<DropdownMenuItem>Trash</DropdownMenuItem>
+							<DropdownMenuItem>Delete Orders</DropdownMenuItem>
 						</DropdownMenuContent>
 					</DropdownMenu>
 				</div>
@@ -103,7 +102,6 @@ const OrdersCard = ({ currentPatient }: { currentPatient: Admission }) => {
 								<TableHead>Order Type</TableHead>
 								<TableHead>Status</TableHead>
 								<TableHead>Time</TableHead>
-								<TableHead>Actions</TableHead>
 							</TableRow>
 						</TableHeader>
 						<TableBody>

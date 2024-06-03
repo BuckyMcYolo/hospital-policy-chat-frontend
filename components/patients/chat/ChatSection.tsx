@@ -37,14 +37,14 @@ const ChatSection = () => {
 		})
 
 	return (
-		<div className="relative flex h-full min-h-[50vh] flex-col rounded-xl bg-muted dark:bg-muted/50 lg:col-span-2 w-full sm:w-2/5 lg:w-1/3 p-4">
+		<div className="relative flex h-full min-h-[50vh] flex-col rounded-xl bg-muted dark:bg-muted/50 lg:col-span-2 p-4">
 			<Badge
 				variant="outline"
 				className="absolute left-2 top-2 bg-white dark:bg-black"
 			>
 				Chat
 			</Badge>
-			<div className="flex-1 h-1/4 pt-2" id="messageFeed">
+			<div className="flex-1 h-5/6 pt-2" id="messageFeed">
 				<ScrollArea className="h-full">
 					{messages.map((message) => (
 						<div

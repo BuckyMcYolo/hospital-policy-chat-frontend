@@ -13,8 +13,8 @@ import {
 	Paperclip,
 	TrashIcon,
 	Truck,
+	CalendarDays,
 } from "lucide-react"
-
 import { Button } from "@/components/ui/button"
 import {
 	Card,
@@ -49,6 +49,12 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area"
 import moment from "moment"
 import { Admission } from "../patientExamples"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import {
+	HoverCard,
+	HoverCardContent,
+	HoverCardTrigger,
+} from "@/components/ui/hover-card"
 
 const PatientHeaderCard = ({
 	currentPatient,
@@ -60,7 +66,74 @@ const PatientHeaderCard = ({
 			<CardHeader className="flex flex-row items-start justify-between">
 				<div className="grid gap-0.5">
 					<CardTitle className="group flex items-center gap-2 text-xl">
-						{currentPatient?.name}{" "}
+						<HoverCard>
+							<HoverCardTrigger asChild>
+								<Button variant="link" className="text-xl p-0">
+									{currentPatient?.name}{" "}
+								</Button>
+							</HoverCardTrigger>
+							<HoverCardContent className="w-fit">
+								<div className="flex justify-between space-x-4">
+									<Avatar>
+										<AvatarFallback>
+											{currentPatient?.name[0]}
+											{currentPatient.name.split(" ")[1]
+												? currentPatient.name.split(
+														" "
+												  )[1][0]
+												: ""}
+										</AvatarFallback>
+									</Avatar>
+									<div className="space-y-1">
+										<h4 className="text-sm font-semibold">
+											{currentPatient?.name}
+										</h4>
+										<p className="text-sm">
+											{currentPatient?.phone}
+										</p>
+										<div className="flex items-center pt-2">
+											<CalendarDays className="mr-2 h-4 w-4 opacity-70" />{" "}
+											<span className="text-xs text-muted-foreground">
+												{moment(
+													currentPatient.dateOfBirth
+												).format("MM/DD/YYYY")}{" "}
+												(
+												{moment().diff(
+													currentPatient.dateOfBirth,
+													"years"
+												)}{" "}
+												yo)
+											</span>
+										</div>
+									</div>
+								</div>
+								<Separator className="my-2" />
+								<div className="grid grid-cols-1 gap-2">
+									<h2 className="text-sm font-semibold">
+										Emergency Contact
+									</h2>
+									<div className=" text-muted-foreground">
+										<p className="text-sm capitalize">
+											{
+												currentPatient?.emergencyContact
+													?.name
+											}{" "}
+											-{" "}
+											{
+												currentPatient?.emergencyContact
+													?.relationship
+											}
+										</p>
+										<p className="text-sm">
+											{
+												currentPatient?.emergencyContact
+													?.phone
+											}
+										</p>
+									</div>
+								</div>
+							</HoverCardContent>
+						</HoverCard>
 						<Button
 							size="icon"
 							variant="outline"
@@ -85,7 +158,7 @@ const PatientHeaderCard = ({
 						</span>
 					</CardDescription>
 				</div>
-				<div className="flex flex-col items-center">
+				<div className="hidden sm:flex flex-col items-center">
 					<p className="text-foreground/70 text-sm">
 						Attending: {currentPatient.attendingDoctor}
 					</p>
@@ -276,7 +349,7 @@ const PatientHeaderCard = ({
 							<div className="font-semibold text-base pb-1">
 								Admission Profile
 							</div>
-							<ul className="grid grid-cols-1  gap-2 ">
+							<ul className="grid grid-cols-1 lg:grid-cols-2 gap-1 lg:gap-6">
 								<div className="grid grid-cols-1 gap-2">
 									<li className="flex items-center justify-between">
 										<span className="text-muted-foreground">
@@ -358,6 +431,82 @@ const PatientHeaderCard = ({
 											).format("MM/DD/YYYY")}
 										</span>
 									</li>
+								</div>
+							</ul>
+						</section>
+						<Separator className="my-3" />
+						<section className="px-6 py-2 grid grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-4">
+							<ul className="grid grid-cols-1 gap-1 lg:gap-6">
+								<div className="grid grid-cols-1 gap-2">
+									<div className="font-semibold text-base pb-1">
+										Past Medical History
+									</div>
+									{currentPatient?.medicalHistory.map(
+										(history, index) => (
+											<li
+												key={index}
+												className="flex items-center justify-between"
+											>
+												<span className="text-muted-foreground">
+													{history.condition}
+												</span>
+												<span>
+													{moment(
+														history.dateStarted
+													).format("MM/DD/YYYY")}
+												</span>
+											</li>
+										)
+									)}
+								</div>
+							</ul>
+							<ul className="grid grid-cols-1 gap-1 lg:gap-6">
+								<div className="grid grid-cols-1 gap-2">
+									<div className="font-semibold text-base pb-1">
+										Allergies
+									</div>
+									{currentPatient?.allergies.map(
+										(allergy, index) => (
+											<li
+												key={index}
+												className="flex items-center justify-between"
+											>
+												<span className="text-muted-foreground">
+													{allergy.name}
+												</span>
+												<span className="capitalize">
+													{allergy.reaction}
+												</span>
+												<span className="capitalize">
+													<Badge
+														variant="outline"
+														className={`ml-1 capitalize ${
+															allergy.severity ===
+															"severe"
+																? "text-red-500"
+																: allergy.severity ===
+																  "mild"
+																? "text-yellow-500"
+																: allergy.severity ===
+																  "moderate"
+																? "text-blue-500"
+																: "text-green-500"
+														}
+														`}
+													>
+														{allergy.severity}
+														{allergy.severity ===
+														"severe" ? (
+															<ArrowUp className="h-3 w-3 ml-0.5" />
+														) : allergy.severity ===
+														  "mild" ? (
+															<ArrowDown className="h-3 w-3 ml-0.5" />
+														) : null}
+													</Badge>
+												</span>
+											</li>
+										)
+									)}
 								</div>
 							</ul>
 						</section>
