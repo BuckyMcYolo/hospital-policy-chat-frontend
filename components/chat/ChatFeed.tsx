@@ -13,11 +13,14 @@ import {
 	RefreshCw,
 	ThumbsDown,
 	ThumbsUp,
+	AudioLines,
+	Volume2,
 } from "lucide-react"
 import { Button } from "../ui/button"
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip"
 import { toast } from "sonner"
 import { Card, CardContent, CardHeader } from "../ui/card"
+import { getTextToSpeech } from "@/lib/textToSpeech"
 
 type ChatFeedProps = {
 	messages: Message[]
@@ -39,6 +42,8 @@ const ChatFeed = ({
 	setInput,
 }: ChatFeedProps) => {
 	const scrollTobottom = useRef<HTMLDivElement>(null)
+
+	const [isAudioPlaying, setIsAudioPlaying] = useState(false)
 
 	useEffect(() => {
 		scrollTobottom.current?.scrollIntoView({ behavior: "smooth" })
@@ -76,6 +81,30 @@ const ChatFeed = ({
 			annotations: [],
 		},
 	]
+
+	const handleAudio = async (message: Message) => {
+		try {
+			const audioData = await getTextToSpeech(message.content)
+			const url = `http://localhost:5000` + audioData
+			const currentAudioUrl = url + "?t=" + new Date().getTime() // Add cache-busting query parameter
+
+			if (url) {
+				const audio = new Audio(currentAudioUrl)
+				audio.crossOrigin = "anonymous"
+				// audio.src = url
+				console.log("Playing audio...", audio)
+				audio.play()
+				setIsAudioPlaying(true)
+				audio.onended = () => {
+					setIsAudioPlaying(false)
+				}
+			} else {
+				console.error("No URL generated for audio.")
+			}
+		} catch (error) {
+			console.error("Error playing audio:", error)
+		}
+	}
 
 	return (
 		<ScrollArea className="h-[86%] p-4">
@@ -189,6 +218,24 @@ const ChatFeed = ({
 									</TooltipTrigger>
 									<TooltipContent>
 										Down vote the current response
+									</TooltipContent>
+								</Tooltip>
+								<Tooltip>
+									<TooltipTrigger asChild>
+										<Button
+											size="icon"
+											variant="ghost"
+											onMouseDown={() =>
+												handleAudio(message)
+											}
+											className="w-5 h-5"
+											disabled={isLoading}
+										>
+											<Volume2 className="w-4 h-4" />
+										</Button>
+									</TooltipTrigger>
+									<TooltipContent>
+										Text to Speech
 									</TooltipContent>
 								</Tooltip>
 							</div>
