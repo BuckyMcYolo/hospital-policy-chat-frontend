@@ -37,7 +37,7 @@ const ChatSection = ({ currentPatient }: { currentPatient: Admission }) => {
 		api:
 			process.env.NODE_ENV === "development"
 				? "http://localhost:5000/v1/chat/patient"
-				: "https://test.hospital-policy-chat.com/v1/chat/stream",
+				: "https://test.hospital-policy-chat.com/v1/chat/patient",
 		onError: (error) => {
 			toast.error(error.message)
 		},
