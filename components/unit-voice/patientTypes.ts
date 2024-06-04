@@ -1,0 +1,1547 @@
+enum Gender {
+	Male = "Male",
+	Female = "Female",
+	Other = "Other",
+}
+
+enum BloodType {
+	A_POS = "A+",
+	A_NEG = "A-",
+	B_POS = "B+",
+	B_NEG = "B-",
+	AB_POS = "AB+",
+	AB_NEG = "AB-",
+	O_POS = "O+",
+	O_NEG = "O-",
+}
+
+enum UnitType {
+	ICU = "ICU",
+	FloorUnit = "Floor Unit",
+}
+
+enum VitalStatus {
+	Stable = "Stable",
+	Critical = "Critical",
+	Improving = "Improving",
+	Deteriorating = "Deteriorating",
+}
+
+interface ContactInfo {
+	name: string
+	relation: string
+	phone: string
+	email?: string
+}
+
+interface Medication {
+	name: string
+	dosage: string
+	frequency: string
+	route: string // e.g., oral, IV, etc.
+}
+
+interface Allergy {
+	allergen: string
+	reaction: string
+	severity: "Mild" | "Moderate" | "Severe"
+}
+
+interface VitalSign {
+	HR: number
+	BP: string
+	RR: number
+	O2Sat: number
+	temp: number
+	timestamp: Date
+}
+
+interface Order {
+	description: string
+	repeatable: boolean
+	frequency?: string // e.g., 'daily', 'every 4 hours'
+	lastCompleted?: Date
+}
+
+interface VentSettings {
+	O2Percentage: number
+	PEEP: number
+	TV: number
+	RR: number
+}
+
+interface Line {
+	type: string // e.g., IV, central line
+	location: string
+}
+
+interface Lab {
+	name: string
+	value: number | string
+	referenceRange: string
+	timestamp: Date
+}
+
+interface Diagnosis {
+	description: string
+	ICD10Code: string
+}
+
+interface Provider {
+	name: string
+	role: "Attending Physician" | "Nurse"
+	phone: string
+}
+
+interface Input {
+	input: number // in mL
+	route: "oral" | "IV" | "NG" | "other"
+	timestamp: Date
+}
+
+interface Output {
+	output: number // in mL
+	route: "urine" | "stool" | "vomit" | "blood" | "other"
+	timestamp: Date
+}
+
+interface Patient {
+	id: string
+	firstName: string
+	lastName: string
+	gender: Gender
+	dateOfBirth: Date
+	bloodType: BloodType
+	admissionDate: Date
+	chiefComplaint: string
+	unitType: UnitType
+	roomNumber: string
+	diagnosis: Diagnosis[]
+	medications: Medication[]
+	allergies: Allergy[]
+	contactInfo: ContactInfo[]
+	vitalSigns: VitalSign[]
+	orders: Order[]
+	O2Therapy?: string // e.g., 'Intubated'
+	ventSettings?: VentSettings
+	lines: Line[]
+	labs: Lab[]
+	providers: Provider[]
+	inputs: Input[]
+	outputs: Output[]
+	netFluidBalance: number
+	vitalStatus: VitalStatus
+}
+
+// Example patient data
+const patients: Patient[] = [
+	{
+		id: "P001",
+		firstName: "John",
+		lastName: "Doe",
+		gender: Gender.Male,
+		dateOfBirth: new Date("1985-02-15"),
+		bloodType: BloodType.O_POS,
+		admissionDate: new Date("2024-06-01"),
+		chiefComplaint: "Severe respiratory distress",
+		unitType: UnitType.ICU,
+		roomNumber: "ICU-101",
+		diagnosis: [
+			{ description: "Pneumonia", ICD10Code: "J18.9" },
+			{ description: "Sepsis", ICD10Code: "A41.9" },
+		],
+		medications: [
+			{
+				name: "Amoxicillin",
+				dosage: "500mg",
+				frequency: "8 hours",
+				route: "Oral",
+			},
+			{
+				name: "Ibuprofen",
+				dosage: "200mg",
+				frequency: "6 hours",
+				route: "Oral",
+			},
+		],
+		allergies: [
+			{
+				allergen: "Penicillin",
+				reaction: "Rash",
+				severity: "Moderate",
+			},
+		],
+		contactInfo: [
+			{
+				name: "Jane Doe",
+				relation: "Spouse",
+				phone: "123-456-7890",
+				email: "jane.doe@example.com",
+			},
+		],
+		vitalSigns: [
+			{
+				HR: 75,
+				BP: "120/80",
+				RR: 16,
+				O2Sat: 98,
+				temp: 37.5,
+				timestamp: new Date("2024-06-01T06:00:00Z"),
+			},
+			{
+				HR: 76,
+				BP: "121/81",
+				RR: 16,
+				O2Sat: 98,
+				temp: 37.5,
+				timestamp: new Date("2024-06-01T06:15:00Z"),
+			},
+			{
+				HR: 77,
+				BP: "122/82",
+				RR: 16,
+				O2Sat: 98,
+				temp: 37.6,
+				timestamp: new Date("2024-06-01T06:30:00Z"),
+			},
+			{
+				HR: 78,
+				BP: "123/83",
+				RR: 16,
+				O2Sat: 98,
+				temp: 37.6,
+				timestamp: new Date("2024-06-01T06:45:00Z"),
+			},
+			{
+				HR: 79,
+				BP: "124/84",
+				RR: 16,
+				O2Sat: 98,
+				temp: 37.6,
+				timestamp: new Date("2024-06-01T07:00:00Z"),
+			},
+			{
+				HR: 80,
+				BP: "125/85",
+				RR: 16,
+				O2Sat: 98,
+				temp: 37.6,
+				timestamp: new Date("2024-06-01T07:15:00Z"),
+			},
+			{
+				HR: 81,
+				BP: "126/86",
+				RR: 16,
+				O2Sat: 98,
+				temp: 37.7,
+				timestamp: new Date("2024-06-01T07:30:00Z"),
+			},
+			{
+				HR: 82,
+				BP: "127/87",
+				RR: 16,
+				O2Sat: 98,
+				temp: 37.7,
+				timestamp: new Date("2024-06-01T07:45:00Z"),
+			},
+			{
+				HR: 83,
+				BP: "128/88",
+				RR: 16,
+				O2Sat: 98,
+				temp: 37.7,
+				timestamp: new Date("2024-06-01T08:00:00Z"),
+			},
+			{
+				HR: 84,
+				BP: "129/89",
+				RR: 16,
+				O2Sat: 98,
+				temp: 37.7,
+				timestamp: new Date("2024-06-01T08:15:00Z"),
+			},
+			{
+				HR: 85,
+				BP: "130/90",
+				RR: 16,
+				O2Sat: 98,
+				temp: 37.8,
+				timestamp: new Date("2024-06-01T08:30:00Z"),
+			},
+			{
+				HR: 86,
+				BP: "131/91",
+				RR: 16,
+				O2Sat: 98,
+				temp: 37.8,
+				timestamp: new Date("2024-06-01T08:45:00Z"),
+			},
+			{
+				HR: 87,
+				BP: "132/92",
+				RR: 16,
+				O2Sat: 98,
+				temp: 37.8,
+				timestamp: new Date("2024-06-01T09:00:00Z"),
+			},
+			{
+				HR: 88,
+				BP: "133/93",
+				RR: 16,
+				O2Sat: 98,
+				temp: 37.8,
+				timestamp: new Date("2024-06-01T09:15:00Z"),
+			},
+			{
+				HR: 89,
+				BP: "134/94",
+				RR: 16,
+				O2Sat: 98,
+				temp: 37.9,
+				timestamp: new Date("2024-06-01T09:30:00Z"),
+			},
+			{
+				HR: 90,
+				BP: "135/95",
+				RR: 16,
+				O2Sat: 98,
+				temp: 37.9,
+				timestamp: new Date("2024-06-01T09:45:00Z"),
+			},
+			{
+				HR: 91,
+				BP: "136/96",
+				RR: 16,
+				O2Sat: 98,
+				temp: 37.9,
+				timestamp: new Date("2024-06-01T10:00:00Z"),
+			},
+			{
+				HR: 92,
+				BP: "137/97",
+				RR: 16,
+				O2Sat: 98,
+				temp: 37.9,
+				timestamp: new Date("2024-06-01T10:15:00Z"),
+			},
+			{
+				HR: 93,
+				BP: "138/98",
+				RR: 16,
+				O2Sat: 98,
+				temp: 38.0,
+				timestamp: new Date("2024-06-01T10:30:00Z"),
+			},
+			{
+				HR: 94,
+				BP: "139/99",
+				RR: 16,
+				O2Sat: 98,
+				temp: 38.0,
+				timestamp: new Date("2024-06-01T10:45:00Z"),
+			},
+			{
+				HR: 95,
+				BP: "140/100",
+				RR: 16,
+				O2Sat: 98,
+				temp: 38.0,
+				timestamp: new Date("2024-06-01T11:00:00Z"),
+			},
+		],
+		orders: [
+			{
+				description: "Morning meds",
+				repeatable: true,
+				frequency: "daily",
+				lastCompleted: new Date("2024-06-01T08:00:00Z"),
+			},
+			{
+				description: "Chest X-ray",
+				repeatable: true,
+				frequency: "daily",
+				lastCompleted: new Date("2024-06-01T07:00:00Z"),
+			},
+			{
+				description: "ABG",
+				repeatable: true,
+				frequency: "every 8 hours",
+				lastCompleted: new Date("2024-06-01T06:00:00Z"),
+			},
+		],
+		O2Therapy: "Intubated",
+		ventSettings: {
+			O2Percentage: 40,
+			PEEP: 5,
+			TV: 500,
+			RR: 16,
+		},
+		lines: [
+			{ type: "IV", location: "Right arm" },
+			{ type: "Central line", location: "Right subclavian" },
+		],
+		labs: [
+			{
+				name: "WBC",
+				value: 11.0,
+				referenceRange: "4.0-11.0 x10^3/uL",
+				timestamp: new Date("2024-06-01T06:00:00Z"),
+			},
+			{
+				name: "Hemoglobin",
+				value: 13.5,
+				referenceRange: "13.5-17.5 g/dL",
+				timestamp: new Date("2024-06-01T06:00:00Z"),
+			},
+			{
+				name: "Platelets",
+				value: 250,
+				referenceRange: "150-450 x10^3/uL",
+				timestamp: new Date("2024-06-01T06:00:00Z"),
+			},
+		],
+		providers: [
+			{
+				name: "Dr. Smith",
+				role: "Attending Physician",
+				phone: "987-654-3210",
+			},
+			{ name: "Nurse Johnson", role: "Nurse", phone: "123-555-7890" },
+		],
+		inputs: [
+			{
+				input: 1000,
+				route: "IV",
+				timestamp: new Date("2024-06-01T06:00:00Z"),
+			},
+			{
+				input: 500,
+				route: "oral",
+				timestamp: new Date("2024-06-01T12:00:00Z"),
+			},
+		],
+		outputs: [
+			{
+				output: 800,
+				route: "urine",
+				timestamp: new Date("2024-06-01T06:00:00Z"),
+			},
+			{
+				output: 400,
+				route: "urine",
+				timestamp: new Date("2024-06-01T12:00:00Z"),
+			},
+		],
+		netFluidBalance: 300,
+		vitalStatus: VitalStatus.Stable,
+	},
+	{
+		id: "P002",
+		firstName: "Jane",
+		lastName: "Smith",
+		gender: Gender.Female,
+		dateOfBirth: new Date("1990-07-22"),
+		bloodType: BloodType.A_POS,
+		admissionDate: new Date("2024-06-02"),
+		chiefComplaint: "Abdominal pain",
+		unitType: UnitType.FloorUnit,
+		roomNumber: "201",
+		diagnosis: [{ description: "Appendicitis", ICD10Code: "K35.80" }],
+		medications: [
+			{
+				name: "Morphine",
+				dosage: "10mg",
+				frequency: "4 hours",
+				route: "IV",
+			},
+		],
+		allergies: [
+			{
+				allergen: "Aspirin",
+				reaction: "Hives",
+				severity: "Severe",
+			},
+		],
+		contactInfo: [
+			{
+				name: "John Smith",
+				relation: "Brother",
+				phone: "321-654-0987",
+				email: "john.smith@example.com",
+			},
+		],
+		vitalSigns: [
+			{
+				HR: 85,
+				BP: "130/85",
+				RR: 18,
+				O2Sat: 99,
+				temp: 37.2,
+				timestamp: new Date("2024-06-02T06:00:00Z"),
+			},
+			{
+				HR: 86,
+				BP: "131/86",
+				RR: 18,
+				O2Sat: 99,
+				temp: 37.3,
+				timestamp: new Date("2024-06-02T06:15:00Z"),
+			},
+			{
+				HR: 87,
+				BP: "132/87",
+				RR: 18,
+				O2Sat: 99,
+				temp: 37.3,
+				timestamp: new Date("2024-06-02T06:30:00Z"),
+			},
+			{
+				HR: 88,
+				BP: "133/88",
+				RR: 18,
+				O2Sat: 99,
+				temp: 37.3,
+				timestamp: new Date("2024-06-02T06:45:00Z"),
+			},
+			{
+				HR: 89,
+				BP: "134/89",
+				RR: 18,
+				O2Sat: 99,
+				temp: 37.3,
+				timestamp: new Date("2024-06-02T07:00:00Z"),
+			},
+			{
+				HR: 90,
+				BP: "135/90",
+				RR: 18,
+				O2Sat: 99,
+				temp: 37.3,
+				timestamp: new Date("2024-06-02T07:15:00Z"),
+			},
+			{
+				HR: 91,
+				BP: "136/91",
+				RR: 18,
+				O2Sat: 99,
+				temp: 37.4,
+				timestamp: new Date("2024-06-02T07:30:00Z"),
+			},
+			{
+				HR: 92,
+				BP: "137/92",
+				RR: 18,
+				O2Sat: 99,
+				temp: 37.4,
+				timestamp: new Date("2024-06-02T07:45:00Z"),
+			},
+			{
+				HR: 93,
+				BP: "138/93",
+				RR: 18,
+				O2Sat: 99,
+				temp: 37.4,
+				timestamp: new Date("2024-06-02T08:00:00Z"),
+			},
+			{
+				HR: 94,
+				BP: "139/94",
+				RR: 18,
+				O2Sat: 99,
+				temp: 37.4,
+				timestamp: new Date("2024-06-02T08:15:00Z"),
+			},
+			{
+				HR: 95,
+				BP: "140/95",
+				RR: 18,
+				O2Sat: 99,
+				temp: 37.5,
+				timestamp: new Date("2024-06-02T08:30:00Z"),
+			},
+			{
+				HR: 96,
+				BP: "141/96",
+				RR: 18,
+				O2Sat: 99,
+				temp: 37.5,
+				timestamp: new Date("2024-06-02T08:45:00Z"),
+			},
+			{
+				HR: 97,
+				BP: "142/97",
+				RR: 18,
+				O2Sat: 99,
+				temp: 37.5,
+				timestamp: new Date("2024-06-02T09:00:00Z"),
+			},
+			{
+				HR: 98,
+				BP: "143/98",
+				RR: 18,
+				O2Sat: 99,
+				temp: 37.5,
+				timestamp: new Date("2024-06-02T09:15:00Z"),
+			},
+			{
+				HR: 99,
+				BP: "144/99",
+				RR: 18,
+				O2Sat: 99,
+				temp: 37.6,
+				timestamp: new Date("2024-06-02T09:30:00Z"),
+			},
+			{
+				HR: 100,
+				BP: "145/100",
+				RR: 18,
+				O2Sat: 99,
+				temp: 37.6,
+				timestamp: new Date("2024-06-02T09:45:00Z"),
+			},
+			{
+				HR: 101,
+				BP: "146/101",
+				RR: 18,
+				O2Sat: 99,
+				temp: 37.6,
+				timestamp: new Date("2024-06-02T10:00:00Z"),
+			},
+			{
+				HR: 102,
+				BP: "147/102",
+				RR: 18,
+				O2Sat: 99,
+				temp: 37.6,
+				timestamp: new Date("2024-06-02T10:15:00Z"),
+			},
+			{
+				HR: 103,
+				BP: "148/103",
+				RR: 18,
+				O2Sat: 99,
+				temp: 37.7,
+				timestamp: new Date("2024-06-02T10:30:00Z"),
+			},
+			{
+				HR: 104,
+				BP: "149/104",
+				RR: 18,
+				O2Sat: 99,
+				temp: 37.7,
+				timestamp: new Date("2024-06-02T10:45:00Z"),
+			},
+			{
+				HR: 105,
+				BP: "150/105",
+				RR: 18,
+				O2Sat: 99,
+				temp: 37.7,
+				timestamp: new Date("2024-06-02T11:00:00Z"),
+			},
+		],
+		orders: [
+			{
+				description: "Blood test",
+				repeatable: false,
+				lastCompleted: new Date("2024-06-02T08:00:00Z"),
+			},
+			{
+				description: "Ultrasound",
+				repeatable: false,
+				lastCompleted: new Date("2024-06-02T09:00:00Z"),
+			},
+		],
+		lines: [{ type: "IV", location: "Left arm" }],
+		labs: [
+			{
+				name: "CRP",
+				value: 50,
+				referenceRange: "<10 mg/L",
+				timestamp: new Date("2024-06-02T06:00:00Z"),
+			},
+			{
+				name: "WBC",
+				value: 12.0,
+				referenceRange: "4.0-11.0 x10^3/uL",
+				timestamp: new Date("2024-06-02T06:00:00Z"),
+			},
+		],
+		providers: [
+			{
+				name: "Dr. Brown",
+				role: "Attending Physician",
+				phone: "987-555-4321",
+			},
+			{ name: "Nurse Adams", role: "Nurse", phone: "123-555-6789" },
+		],
+		inputs: [
+			{
+				input: 750,
+				route: "IV",
+				timestamp: new Date("2024-06-02T06:00:00Z"),
+			},
+			{
+				input: 500,
+				route: "oral",
+				timestamp: new Date("2024-06-02T12:00:00Z"),
+			},
+		],
+		outputs: [
+			{
+				output: 600,
+				route: "urine",
+				timestamp: new Date("2024-06-02T06:00:00Z"),
+			},
+			{
+				output: 300,
+				route: "urine",
+				timestamp: new Date("2024-06-02T12:00:00Z"),
+			},
+		],
+		netFluidBalance: 350,
+		vitalStatus: VitalStatus.Improving,
+	},
+	{
+		id: "P003",
+		firstName: "Michael",
+		lastName: "Johnson",
+		gender: Gender.Male,
+		dateOfBirth: new Date("1975-03-18"),
+		bloodType: BloodType.B_NEG,
+		admissionDate: new Date("2024-06-03"),
+		chiefComplaint: "Chest pain",
+		unitType: UnitType.ICU,
+		roomNumber: "ICU-102",
+		diagnosis: [
+			{ description: "Myocardial infarction", ICD10Code: "I21.9" },
+		],
+		medications: [
+			{
+				name: "Aspirin",
+				dosage: "81mg",
+				frequency: "daily",
+				route: "Oral",
+			},
+			{
+				name: "Nitroglycerin",
+				dosage: "0.4mg",
+				frequency: "PRN",
+				route: "Sublingual",
+			},
+		],
+		allergies: [],
+		contactInfo: [
+			{
+				name: "Sarah Johnson",
+				relation: "Wife",
+				phone: "456-789-1230",
+				email: "sarah.johnson@example.com",
+			},
+		],
+		vitalSigns: [
+			{
+				HR: 95,
+				BP: "140/90",
+				RR: 20,
+				O2Sat: 96,
+				temp: 37.0,
+				timestamp: new Date("2024-06-03T06:00:00Z"),
+			},
+			{
+				HR: 96,
+				BP: "141/91",
+				RR: 20,
+				O2Sat: 96,
+				temp: 37.1,
+				timestamp: new Date("2024-06-03T06:15:00Z"),
+			},
+			{
+				HR: 97,
+				BP: "142/92",
+				RR: 20,
+				O2Sat: 96,
+				temp: 37.1,
+				timestamp: new Date("2024-06-03T06:30:00Z"),
+			},
+			{
+				HR: 98,
+				BP: "143/93",
+				RR: 20,
+				O2Sat: 96,
+				temp: 37.1,
+				timestamp: new Date("2024-06-03T06:45:00Z"),
+			},
+			{
+				HR: 99,
+				BP: "144/94",
+				RR: 20,
+				O2Sat: 96,
+				temp: 37.1,
+				timestamp: new Date("2024-06-03T07:00:00Z"),
+			},
+			{
+				HR: 100,
+				BP: "145/95",
+				RR: 20,
+				O2Sat: 96,
+				temp: 37.1,
+				timestamp: new Date("2024-06-03T07:15:00Z"),
+			},
+			{
+				HR: 101,
+				BP: "146/96",
+				RR: 20,
+				O2Sat: 96,
+				temp: 37.2,
+				timestamp: new Date("2024-06-03T07:30:00Z"),
+			},
+			{
+				HR: 102,
+				BP: "147/97",
+				RR: 20,
+				O2Sat: 96,
+				temp: 37.2,
+				timestamp: new Date("2024-06-03T07:45:00Z"),
+			},
+			{
+				HR: 103,
+				BP: "148/98",
+				RR: 20,
+				O2Sat: 96,
+				temp: 37.2,
+				timestamp: new Date("2024-06-03T08:00:00Z"),
+			},
+			{
+				HR: 104,
+				BP: "149/99",
+				RR: 20,
+				O2Sat: 96,
+				temp: 37.2,
+				timestamp: new Date("2024-06-03T08:15:00Z"),
+			},
+			{
+				HR: 105,
+				BP: "150/100",
+				RR: 20,
+				O2Sat: 96,
+				temp: 37.3,
+				timestamp: new Date("2024-06-03T08:30:00Z"),
+			},
+			{
+				HR: 106,
+				BP: "151/101",
+				RR: 20,
+				O2Sat: 96,
+				temp: 37.3,
+				timestamp: new Date("2024-06-03T08:45:00Z"),
+			},
+			{
+				HR: 107,
+				BP: "152/102",
+				RR: 20,
+				O2Sat: 96,
+				temp: 37.3,
+				timestamp: new Date("2024-06-03T09:00:00Z"),
+			},
+			{
+				HR: 108,
+				BP: "153/103",
+				RR: 20,
+				O2Sat: 96,
+				temp: 37.3,
+				timestamp: new Date("2024-06-03T09:15:00Z"),
+			},
+			{
+				HR: 109,
+				BP: "154/104",
+				RR: 20,
+				O2Sat: 96,
+				temp: 37.4,
+				timestamp: new Date("2024-06-03T09:30:00Z"),
+			},
+			{
+				HR: 110,
+				BP: "155/105",
+				RR: 20,
+				O2Sat: 96,
+				temp: 37.4,
+				timestamp: new Date("2024-06-03T09:45:00Z"),
+			},
+			{
+				HR: 111,
+				BP: "156/106",
+				RR: 20,
+				O2Sat: 96,
+				temp: 37.4,
+				timestamp: new Date("2024-06-03T10:00:00Z"),
+			},
+			{
+				HR: 112,
+				BP: "157/107",
+				RR: 20,
+				O2Sat: 96,
+				temp: 37.4,
+				timestamp: new Date("2024-06-03T10:15:00Z"),
+			},
+			{
+				HR: 113,
+				BP: "158/108",
+				RR: 20,
+				O2Sat: 96,
+				temp: 37.5,
+				timestamp: new Date("2024-06-03T10:30:00Z"),
+			},
+			{
+				HR: 114,
+				BP: "159/109",
+				RR: 20,
+				O2Sat: 96,
+				temp: 37.5,
+				timestamp: new Date("2024-06-03T10:45:00Z"),
+			},
+			{
+				HR: 115,
+				BP: "160/110",
+				RR: 20,
+				O2Sat: 96,
+				temp: 37.5,
+				timestamp: new Date("2024-06-03T11:00:00Z"),
+			},
+		],
+		orders: [
+			{
+				description: "EKG",
+				repeatable: false,
+				lastCompleted: new Date("2024-06-03T08:00:00Z"),
+			},
+			{
+				description: "Troponin",
+				repeatable: true,
+				frequency: "every 6 hours",
+				lastCompleted: new Date("2024-06-03T06:00:00Z"),
+			},
+		],
+		lines: [
+			{ type: "IV", location: "Left arm" },
+			{ type: "Central line", location: "Right internal jugular" },
+		],
+		labs: [
+			{
+				name: "Troponin",
+				value: 1.5,
+				referenceRange: "<0.04 ng/mL",
+				timestamp: new Date("2024-06-03T06:00:00Z"),
+			},
+			{
+				name: "CK-MB",
+				value: 10,
+				referenceRange: "0-5 ng/mL",
+				timestamp: new Date("2024-06-03T06:00:00Z"),
+			},
+		],
+		providers: [
+			{
+				name: "Dr. Williams",
+				role: "Attending Physician",
+				phone: "987-555-8765",
+			},
+			{ name: "Nurse Davis", role: "Nurse", phone: "123-555-4321" },
+		],
+		inputs: [
+			{
+				input: 1000,
+				route: "IV",
+				timestamp: new Date("2024-06-03T06:00:00Z"),
+			},
+			{
+				input: 750,
+				route: "oral",
+				timestamp: new Date("2024-06-03T12:00:00Z"),
+			},
+		],
+		outputs: [
+			{
+				output: 900,
+				route: "urine",
+				timestamp: new Date("2024-06-03T06:00:00Z"),
+			},
+			{
+				output: 500,
+				route: "urine",
+				timestamp: new Date("2024-06-03T12:00:00Z"),
+			},
+		],
+		netFluidBalance: 350,
+		vitalStatus: VitalStatus.Critical,
+	},
+	{
+		id: "P004",
+		firstName: "Emily",
+		lastName: "Davis",
+		gender: Gender.Female,
+		dateOfBirth: new Date("2000-11-05"),
+		bloodType: BloodType.A_NEG,
+		admissionDate: new Date("2024-06-04"),
+		chiefComplaint: "Severe headache",
+		unitType: UnitType.FloorUnit,
+		roomNumber: "202",
+		diagnosis: [{ description: "Migraine", ICD10Code: "G43.909" }],
+		medications: [
+			{
+				name: "Sumatriptan",
+				dosage: "100mg",
+				frequency: "PRN",
+				route: "Oral",
+			},
+		],
+		allergies: [
+			{
+				allergen: "Ibuprofen",
+				reaction: "Anaphylaxis",
+				severity: "Severe",
+			},
+		],
+		contactInfo: [
+			{
+				name: "Anna Davis",
+				relation: "Mother",
+				phone: "789-012-3456",
+				email: "anna.davis@example.com",
+			},
+		],
+		vitalSigns: [
+			{
+				HR: 80,
+				BP: "120/70",
+				RR: 16,
+				O2Sat: 100,
+				temp: 36.8,
+				timestamp: new Date("2024-06-04T06:00:00Z"),
+			},
+			{
+				HR: 81,
+				BP: "121/71",
+				RR: 16,
+				O2Sat: 100,
+				temp: 36.8,
+				timestamp: new Date("2024-06-04T06:15:00Z"),
+			},
+			{
+				HR: 82,
+				BP: "122/72",
+				RR: 16,
+				O2Sat: 100,
+				temp: 36.8,
+				timestamp: new Date("2024-06-04T06:30:00Z"),
+			},
+			{
+				HR: 83,
+				BP: "123/73",
+				RR: 16,
+				O2Sat: 100,
+				temp: 36.8,
+				timestamp: new Date("2024-06-04T06:45:00Z"),
+			},
+			{
+				HR: 84,
+				BP: "124/74",
+				RR: 16,
+				O2Sat: 100,
+				temp: 36.8,
+				timestamp: new Date("2024-06-04T07:00:00Z"),
+			},
+			{
+				HR: 85,
+				BP: "125/75",
+				RR: 16,
+				O2Sat: 100,
+				temp: 36.8,
+				timestamp: new Date("2024-06-04T07:15:00Z"),
+			},
+			{
+				HR: 86,
+				BP: "126/76",
+				RR: 16,
+				O2Sat: 100,
+				temp: 36.8,
+				timestamp: new Date("2024-06-04T07:30:00Z"),
+			},
+			{
+				HR: 87,
+				BP: "127/77",
+				RR: 16,
+				O2Sat: 100,
+				temp: 36.8,
+				timestamp: new Date("2024-06-04T07:45:00Z"),
+			},
+			{
+				HR: 88,
+				BP: "128/78",
+				RR: 16,
+				O2Sat: 100,
+				temp: 36.8,
+				timestamp: new Date("2024-06-04T08:00:00Z"),
+			},
+			{
+				HR: 89,
+				BP: "129/79",
+				RR: 16,
+				O2Sat: 100,
+				temp: 36.8,
+				timestamp: new Date("2024-06-04T08:15:00Z"),
+			},
+			{
+				HR: 90,
+				BP: "130/80",
+				RR: 16,
+				O2Sat: 100,
+				temp: 36.8,
+				timestamp: new Date("2024-06-04T08:30:00Z"),
+			},
+			{
+				HR: 91,
+				BP: "131/81",
+				RR: 16,
+				O2Sat: 100,
+				temp: 36.8,
+				timestamp: new Date("2024-06-04T08:45:00Z"),
+			},
+			{
+				HR: 92,
+				BP: "132/82",
+				RR: 16,
+				O2Sat: 100,
+				temp: 36.8,
+				timestamp: new Date("2024-06-04T09:00:00Z"),
+			},
+			{
+				HR: 93,
+				BP: "133/83",
+				RR: 16,
+				O2Sat: 100,
+				temp: 36.8,
+				timestamp: new Date("2024-06-04T09:15:00Z"),
+			},
+			{
+				HR: 94,
+				BP: "134/84",
+				RR: 16,
+				O2Sat: 100,
+				temp: 36.8,
+				timestamp: new Date("2024-06-04T09:30:00Z"),
+			},
+			{
+				HR: 95,
+				BP: "135/85",
+				RR: 16,
+				O2Sat: 100,
+				temp: 36.8,
+				timestamp: new Date("2024-06-04T09:45:00Z"),
+			},
+			{
+				HR: 96,
+				BP: "136/86",
+				RR: 16,
+				O2Sat: 100,
+				temp: 36.8,
+				timestamp: new Date("2024-06-04T10:00:00Z"),
+			},
+			{
+				HR: 97,
+				BP: "137/87",
+				RR: 16,
+				O2Sat: 100,
+				temp: 36.8,
+				timestamp: new Date("2024-06-04T10:15:00Z"),
+			},
+			{
+				HR: 98,
+				BP: "138/88",
+				RR: 16,
+				O2Sat: 100,
+				temp: 36.8,
+				timestamp: new Date("2024-06-04T10:30:00Z"),
+			},
+			{
+				HR: 99,
+				BP: "139/89",
+				RR: 16,
+				O2Sat: 100,
+				temp: 36.8,
+				timestamp: new Date("2024-06-04T10:45:00Z"),
+			},
+			{
+				HR: 100,
+				BP: "140/90",
+				RR: 16,
+				O2Sat: 100,
+				temp: 36.8,
+				timestamp: new Date("2024-06-04T11:00:00Z"),
+			},
+		],
+		orders: [
+			{
+				description: "CT Scan",
+				repeatable: false,
+				lastCompleted: new Date("2024-06-04T08:00:00Z"),
+			},
+			{
+				description: "Blood test",
+				repeatable: false,
+				lastCompleted: new Date("2024-06-04T09:00:00Z"),
+			},
+		],
+		lines: [],
+		labs: [
+			{
+				name: "CRP",
+				value: 8,
+				referenceRange: "<10 mg/L",
+				timestamp: new Date("2024-06-04T06:00:00Z"),
+			},
+			{
+				name: "ESR",
+				value: 20,
+				referenceRange: "0-20 mm/hr",
+				timestamp: new Date("2024-06-04T06:00:00Z"),
+			},
+		],
+		providers: [
+			{
+				name: "Dr. Harris",
+				role: "Attending Physician",
+				phone: "987-555-0987",
+			},
+			{ name: "Nurse White", role: "Nurse", phone: "123-555-6780" },
+		],
+		inputs: [
+			{
+				input: 500,
+				route: "oral",
+				timestamp: new Date("2024-06-04T06:00:00Z"),
+			},
+			{
+				input: 750,
+				route: "oral",
+				timestamp: new Date("2024-06-04T12:00:00Z"),
+			},
+		],
+		outputs: [
+			{
+				output: 400,
+				route: "urine",
+				timestamp: new Date("2024-06-04T06:00:00Z"),
+			},
+			{
+				output: 500,
+				route: "urine",
+				timestamp: new Date("2024-06-04T12:00:00Z"),
+			},
+		],
+		netFluidBalance: 350,
+		vitalStatus: VitalStatus.Stable,
+	},
+	{
+		id: "P005",
+		firstName: "David",
+		lastName: "Martinez",
+		gender: Gender.Male,
+		dateOfBirth: new Date("1982-09-14"),
+		bloodType: BloodType.AB_POS,
+		admissionDate: new Date("2024-06-05"),
+		chiefComplaint: "Shortness of breath",
+		unitType: UnitType.ICU,
+		roomNumber: "ICU-103",
+		diagnosis: [{ description: "COPD exacerbation", ICD10Code: "J44.1" }],
+		medications: [
+			{
+				name: "Albuterol",
+				dosage: "2.5mg",
+				frequency: "PRN",
+				route: "Inhalation",
+			},
+			{
+				name: "Prednisone",
+				dosage: "40mg",
+				frequency: "daily",
+				route: "Oral",
+			},
+		],
+		allergies: [
+			{
+				allergen: "Latex",
+				reaction: "Rash",
+				severity: "Mild",
+			},
+		],
+		contactInfo: [
+			{
+				name: "Maria Martinez",
+				relation: "Wife",
+				phone: "567-890-1234",
+				email: "maria.martinez@example.com",
+			},
+		],
+		vitalSigns: [
+			{
+				HR: 85,
+				BP: "130/80",
+				RR: 22,
+				O2Sat: 92,
+				temp: 36.7,
+				timestamp: new Date("2024-06-05T06:00:00Z"),
+			},
+			{
+				HR: 86,
+				BP: "131/81",
+				RR: 22,
+				O2Sat: 92,
+				temp: 36.7,
+				timestamp: new Date("2024-06-05T06:15:00Z"),
+			},
+			{
+				HR: 87,
+				BP: "132/82",
+				RR: 22,
+				O2Sat: 92,
+				temp: 36.7,
+				timestamp: new Date("2024-06-05T06:30:00Z"),
+			},
+			{
+				HR: 88,
+				BP: "133/83",
+				RR: 22,
+				O2Sat: 92,
+				temp: 36.7,
+				timestamp: new Date("2024-06-05T06:45:00Z"),
+			},
+			{
+				HR: 89,
+				BP: "134/84",
+				RR: 22,
+				O2Sat: 92,
+				temp: 36.7,
+				timestamp: new Date("2024-06-05T07:00:00Z"),
+			},
+			{
+				HR: 90,
+				BP: "135/85",
+				RR: 22,
+				O2Sat: 92,
+				temp: 36.7,
+				timestamp: new Date("2024-06-05T07:15:00Z"),
+			},
+			{
+				HR: 91,
+				BP: "136/86",
+				RR: 22,
+				O2Sat: 92,
+				temp: 36.7,
+				timestamp: new Date("2024-06-05T07:30:00Z"),
+			},
+			{
+				HR: 92,
+				BP: "137/87",
+				RR: 22,
+				O2Sat: 92,
+				temp: 36.7,
+				timestamp: new Date("2024-06-05T07:45:00Z"),
+			},
+			{
+				HR: 93,
+				BP: "138/88",
+				RR: 22,
+				O2Sat: 92,
+				temp: 36.7,
+				timestamp: new Date("2024-06-05T08:00:00Z"),
+			},
+			{
+				HR: 94,
+				BP: "139/89",
+				RR: 22,
+				O2Sat: 92,
+				temp: 36.7,
+				timestamp: new Date("2024-06-05T08:15:00Z"),
+			},
+			{
+				HR: 95,
+				BP: "140/90",
+				RR: 22,
+				O2Sat: 92,
+				temp: 36.7,
+				timestamp: new Date("2024-06-05T08:30:00Z"),
+			},
+			{
+				HR: 96,
+				BP: "141/91",
+				RR: 22,
+				O2Sat: 92,
+				temp: 36.7,
+				timestamp: new Date("2024-06-05T08:45:00Z"),
+			},
+			{
+				HR: 97,
+				BP: "142/92",
+				RR: 22,
+				O2Sat: 92,
+				temp: 36.7,
+				timestamp: new Date("2024-06-05T09:00:00Z"),
+			},
+			{
+				HR: 98,
+				BP: "143/93",
+				RR: 22,
+				O2Sat: 92,
+				temp: 36.7,
+				timestamp: new Date("2024-06-05T09:15:00Z"),
+			},
+			{
+				HR: 99,
+				BP: "144/94",
+				RR: 22,
+				O2Sat: 92,
+				temp: 36.7,
+				timestamp: new Date("2024-06-05T09:30:00Z"),
+			},
+			{
+				HR: 100,
+				BP: "145/95",
+				RR: 22,
+				O2Sat: 92,
+				temp: 36.7,
+				timestamp: new Date("2024-06-05T09:45:00Z"),
+			},
+			{
+				HR: 101,
+				BP: "146/96",
+				RR: 22,
+				O2Sat: 92,
+				temp: 36.7,
+				timestamp: new Date("2024-06-05T10:00:00Z"),
+			},
+			{
+				HR: 102,
+				BP: "147/97",
+				RR: 22,
+				O2Sat: 92,
+				temp: 36.7,
+				timestamp: new Date("2024-06-05T10:15:00Z"),
+			},
+			{
+				HR: 103,
+				BP: "148/98",
+				RR: 22,
+				O2Sat: 92,
+				temp: 36.7,
+				timestamp: new Date("2024-06-05T10:30:00Z"),
+			},
+			{
+				HR: 104,
+				BP: "149/99",
+				RR: 22,
+				O2Sat: 92,
+				temp: 36.7,
+				timestamp: new Date("2024-06-05T10:45:00Z"),
+			},
+			{
+				HR: 105,
+				BP: "150/100",
+				RR: 22,
+				O2Sat: 92,
+				temp: 36.7,
+				timestamp: new Date("2024-06-05T11:00:00Z"),
+			},
+		],
+		orders: [
+			{
+				description: "ABG",
+				repeatable: true,
+				frequency: "every 8 hours",
+				lastCompleted: new Date("2024-06-05T06:00:00Z"),
+			},
+			{
+				description: "Chest X-ray",
+				repeatable: true,
+				frequency: "daily",
+				lastCompleted: new Date("2024-06-05T07:00:00Z"),
+			},
+		],
+		O2Therapy: "Non-invasive ventilation",
+		ventSettings: {
+			O2Percentage: 50,
+			PEEP: 10,
+			TV: 600,
+			RR: 18,
+		},
+		lines: [
+			{ type: "IV", location: "Left hand" },
+			{ type: "Central line", location: "Right femoral" },
+		],
+		labs: [
+			{
+				name: "ABG - pH",
+				value: 7.35,
+				referenceRange: "7.35-7.45",
+				timestamp: new Date("2024-06-05T06:00:00Z"),
+			},
+			{
+				name: "ABG - PaO2",
+				value: 70,
+				referenceRange: "75-100 mmHg",
+				timestamp: new Date("2024-06-05T06:00:00Z"),
+			},
+		],
+		providers: [
+			{
+				name: "Dr. Taylor",
+				role: "Attending Physician",
+				phone: "987-555-5678",
+			},
+			{ name: "Nurse Lee", role: "Nurse", phone: "123-555-9876" },
+		],
+		inputs: [
+			{
+				input: 1000,
+				route: "IV",
+				timestamp: new Date("2024-06-05T06:00:00Z"),
+			},
+			{
+				input: 750,
+				route: "oral",
+				timestamp: new Date("2024-06-05T12:00:00Z"),
+			},
+		],
+		outputs: [
+			{
+				output: 800,
+				route: "urine",
+				timestamp: new Date("2024-06-05T06:00:00Z"),
+			},
+			{
+				output: 600,
+				route: "urine",
+				timestamp: new Date("2024-06-05T12:00:00Z"),
+			},
+		],
+		netFluidBalance: 350,
+		vitalStatus: VitalStatus.Improving,
+	},
+]
+
+export { Gender, BloodType, UnitType, VitalStatus, patients }
+export type {
+	ContactInfo,
+	Medication,
+	Allergy,
+	VitalSign,
+	Order,
+	VentSettings,
+	Line,
+	Lab,
+	Diagnosis,
+	Provider,
+	Input,
+	Output,
+	Patient,
+}

@@ -9,7 +9,13 @@ import {
 	TooltipContent,
 	TooltipTrigger,
 } from "@/components/ui/tooltip"
-import { CornerDownLeft, Mic, TrashIcon } from "lucide-react"
+import {
+	CornerDownLeft,
+	Loader2,
+	Mic,
+	StopCircle,
+	TrashIcon,
+} from "lucide-react"
 import React, { FormEvent, useEffect, useRef } from "react"
 import { useChat } from "ai/react"
 import { ScrollArea } from "@/components/ui/scroll-area"
@@ -57,7 +63,7 @@ const ChatSection = ({ currentPatient }: { currentPatient: Admission }) => {
 			>
 				Chat
 			</Badge>
-			<div className="flex-1 h-5/6 pt-2" id="messageFeed">
+			<div className="flex-1 h-2/3 pt-2" id="messageFeed">
 				<ScrollArea className="h-full p-4">
 					<section className="flex flex-col gap-2 pb-10">
 						{messages.map((message) => (
@@ -82,6 +88,11 @@ const ChatSection = ({ currentPatient }: { currentPatient: Admission }) => {
 								</div>
 							</div>
 						))}
+						{isLoading && (
+							<div className="flex justify-center items-center">
+								<Loader2 className="animate-spin size-4" />
+							</div>
+						)}
 					</section>
 					<div ref={scrollRef}></div>
 				</ScrollArea>
@@ -89,7 +100,7 @@ const ChatSection = ({ currentPatient }: { currentPatient: Admission }) => {
 			<form
 				className="relative overflow-hidden rounded-lg border bg-background focus-within:ring-1 focus-within:ring-ring m-3"
 				x-chunk="dashboard-03-chunk-1"
-				onSubmit={handleSubmit}
+				// onSubmit={handleSubmit}
 			>
 				<Label htmlFor="message" className="sr-only">
 					Message
@@ -143,9 +154,26 @@ const ChatSection = ({ currentPatient }: { currentPatient: Admission }) => {
 						</TooltipContent>
 					</Tooltip>
 
-					<Button type="submit" size="sm" className="ml-auto gap-1.5">
-						Send Message
-						<CornerDownLeft className="size-3.5" />
+					<Button
+						onClick={(e) => {
+							if (isLoading) {
+								stop()
+							} else {
+								handleSubmit(
+									e as unknown as FormEvent<HTMLFormElement>
+								)
+							}
+						}}
+						size="sm"
+						className="ml-auto gap-1.5"
+						disabled={!isLoading && !input}
+					>
+						{isLoading ? "Stop" : "Send Message"}
+						{isLoading ? (
+							<StopCircle className="size-3.5" />
+						) : (
+							<CornerDownLeft className="size-3.5" />
+						)}
 					</Button>
 				</div>
 			</form>

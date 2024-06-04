@@ -15,6 +15,7 @@ import {
 	ThumbsUp,
 	AudioLines,
 	Volume2,
+	StopCircle,
 } from "lucide-react"
 import { Button } from "../ui/button"
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip"
@@ -44,6 +45,7 @@ const ChatFeed = ({
 	const scrollTobottom = useRef<HTMLDivElement>(null)
 
 	const [isAudioPlaying, setIsAudioPlaying] = useState(false)
+	const [audioState, setAudioState] = useState<HTMLAudioElement | null>(null)
 
 	useEffect(() => {
 		scrollTobottom.current?.scrollIntoView({ behavior: "smooth" })
@@ -82,24 +84,56 @@ const ChatFeed = ({
 		},
 	]
 
+	// async function getTextToSpeech(text: string): Promise<any> {
+	// 	try {
+	// 		if (!text) {
+	// 			throw new Error("Text is required")
+	// 		}
+
+	// 		const res = await fetch(
+	// 			"https://test.hospital-policy-chat.com/v1/tts",
+	// 			{
+	// 				method: "POST",
+	// 				headers: {
+	// 					"Content-Type": "application/json",
+	// 				},
+	// 				body: JSON.stringify({ text }),
+	// 			}
+	// 		)
+	// 		const data = await res.json()
+	// 		return data.audioUrl
+	// 		// const arrayBuffer = await res.arrayBuffer()
+
+	// 		// if (!arrayBuffer) {
+	// 		// 	throw new Error("Error getting audio")
+	// 		// }
+	// 		// const blob = new Blob([arrayBuffer], { type: "audio/wav" })
+	// 		// console.log(blob)
+	// 		// const url = URL.createObjectURL(blob)
+	// 		// console.log(url)
+	// 		// return url
+	// 	} catch (error) {
+	// 		console.error(error)
+	// 	}
+	// }
+
 	const handleAudio = async (message: Message) => {
 		try {
-			const audioData = await getTextToSpeech(message.content)
-			const url = `http://localhost:5000` + audioData
-			const currentAudioUrl = url + "?t=" + new Date().getTime() // Add cache-busting query parameter
-
-			if (url) {
-				const audio = new Audio(currentAudioUrl)
-				audio.crossOrigin = "anonymous"
-				// audio.src = url
-				console.log("Playing audio...", audio)
-				audio.play()
-				setIsAudioPlaying(true)
-				audio.onended = () => {
-					setIsAudioPlaying(false)
-				}
-			} else {
-				console.error("No URL generated for audio.")
+			const res = await fetch("http://localhost:5000/v1/tts", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ text: message.content }),
+			})
+			const blob = await res.blob()
+			const audioUrl = URL.createObjectURL(blob)
+			const audioPlayer = new Audio(audioUrl)
+			setAudioState(audioPlayer)
+			audioPlayer.play()
+			setIsAudioPlaying(true)
+			audioPlayer.onended = () => {
+				setIsAudioPlaying(false)
 			}
 		} catch (error) {
 			console.error("Error playing audio:", error)
@@ -225,13 +259,25 @@ const ChatFeed = ({
 										<Button
 											size="icon"
 											variant="ghost"
-											onMouseDown={() =>
-												handleAudio(message)
-											}
+											onMouseDown={() => {
+												if (
+													isAudioPlaying &&
+													audioState
+												) {
+													audioState.pause()
+													setIsAudioPlaying(false)
+												} else {
+													handleAudio(message)
+												}
+											}}
 											className="w-5 h-5"
 											disabled={isLoading}
 										>
-											<Volume2 className="w-4 h-4" />
+											{isAudioPlaying ? (
+												<StopCircle className="w-4 h-4" />
+											) : (
+												<Volume2 className="w-4 h-4" />
+											)}
 										</Button>
 									</TooltipTrigger>
 									<TooltipContent>

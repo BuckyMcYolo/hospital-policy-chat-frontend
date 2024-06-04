@@ -4,13 +4,16 @@ export async function getTextToSpeech(text: string): Promise<any> {
 			throw new Error("Text is required")
 		}
 
-		const res = await fetch("http://localhost:5000/v1/tts", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({ text }),
-		})
+		const res = await fetch(
+			"https://test.hospital-policy-chat.com/v1/tts",
+			{
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ text }),
+			}
+		)
 		const data = await res.json()
 		return data.audioUrl
 		// const arrayBuffer = await res.arrayBuffer()
