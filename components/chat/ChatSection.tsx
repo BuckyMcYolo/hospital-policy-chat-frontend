@@ -31,6 +31,7 @@ const Chat = () => {
 			"https://test.hospital-policy-chat.com/v1/chat/stream",
 	})
 
+	console.log(messages)
 	return (
 		<>
 			<ChatFeed

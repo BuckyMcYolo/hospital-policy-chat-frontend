@@ -30,6 +30,8 @@ import {
 } from "@/components/ui/card"
 import { Mic, StopCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { useChat } from "ai/react"
+import { toast } from "sonner"
 
 const Page = () => {
 	const [role, setRole] = useState<string | null>(null)
@@ -39,6 +41,26 @@ const Page = () => {
 	const captionsRef = useRef<HTMLDivElement | null>(null)
 
 	const [patientList, setPatientList] = useState<Patient[] | null>([])
+
+	const { messages, data, setMessages, reload, stop, isLoading, append } =
+		useChat({
+			// body: {
+			// 	patientwithAdmission: currentPatient,
+			// },
+			api:
+				process.env.NODE_ENV === "development"
+					? "http://localhost:5000/v1/chat/voice"
+					: "https://test.hospital-policy-chat.com/v1/chat/stream",
+			onError: (error) => {
+				console.log(error)
+				toast.error(error.message)
+			},
+			onFinish(message) {
+				console.log(message)
+			},
+		})
+
+	console.log(messages)
 
 	useEffect(() => {
 		if (role === "unitNurse") {
@@ -69,11 +91,17 @@ const Page = () => {
 			const data = JSON.parse(event.data)
 			console.log("client: data received", data)
 			if (data.channel.alternatives[0].transcript !== "") {
-				if (captionsRef.current) {
-					captionsRef.current.innerHTML = data
-						? `<span>${data.channel.alternatives[0].transcript}</span>`
-						: ""
-				}
+				// Sudo code:
+				//Once I receive the STT response I need to make a new API Request to get the AI response from my question (Groq) and pass in my patient list as a parameter
+				append({
+					role: "user",
+					content: data.channel.alternatives[0].transcript,
+					id: String(messages.length + 1),
+				})
+				//
+				//In that API Request I can just send back the TTS audio and play it here and show some UI for AI Speech
+				//
+				//Also will need some state to prevent duplicate STT requests from getting sent to the WS server while the first is being processed
 			}
 		})
 
