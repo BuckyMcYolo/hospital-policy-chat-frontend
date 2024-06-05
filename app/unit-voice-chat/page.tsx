@@ -21,19 +21,19 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table"
-import SiriAnimation from "@/components/misc/siriAnimation"
 import {
 	Card,
 	CardContent,
 	CardDescription,
 	CardTitle,
 } from "@/components/ui/card"
-import { Mic, StopCircle, Triangle } from "lucide-react"
+import { Mic } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useChat, Message } from "ai/react"
 import { toast } from "sonner"
 import moment from "moment"
-import Siriwave from "react-siriwave"
+import Siriwave from "siriwave"
+import { useTheme } from "next-themes"
 
 const Page = () => {
 	const [role, setRole] = useState<string | null>(null)
@@ -42,23 +42,33 @@ const Page = () => {
 	const socket = useRef<WebSocket | null>(null)
 	const captionsRef = useRef<HTMLDivElement | null>(null)
 	const [patientList, setPatientList] = useState<Patient[] | null>([])
-	const [audioState, setAudioState] = useState<HTMLAudioElement | null>(null)
+	const audioState = useRef<HTMLAudioElement | null>(null)
 	const [isAudioPlaying, setIsAudioPlaying] = useState(false)
+
+	const siriwaveRef = useRef<Siriwave | null>(null)
+	const ttsSiriwaveRef = useRef<Siriwave | null>(null)
 
 	const audioContext = useRef<AudioContext | null>(null)
 	const analyser = useRef<AnalyserNode | null>(null)
 	const dataArray = useRef<Uint8Array | null>(null)
 	const animationFrameId = useRef<number | null>(null)
-	const [amplitude, setAmplitude] = useState(0)
-	//tts waveform
-	const [ttsAmplitude, setTtsAmplitude] = useState(0)
 	const ttsAudioContext = useRef<AudioContext | null>(null)
 	const ttsAnalyser = useRef<AnalyserNode | null>(null)
 	const ttsDataArray = useRef<Uint8Array | null>(null)
 	const ttsAnimationFrameId = useRef<number | null>(null)
 
+	const { theme } = useTheme()
+
 	const handleAudio = async (message: Message) => {
 		try {
+			// Check if there is an existing audio playing and stop it
+			if (audioState.current) {
+				audioState.current.pause()
+				audioState.current.currentTime = 0
+				setIsAudioPlaying(false)
+				audioState.current = null
+			}
+
 			const res = await fetch("http://localhost:5000/v1/tts", {
 				method: "POST",
 				headers: {
@@ -83,18 +93,24 @@ const Page = () => {
 			ttsDataArray.current = new Uint8Array(ttsAnalyser.current.fftSize)
 
 			// Set the new audio state and play the audio
-			setAudioState(newAudio)
+			if (!audioState.current) {
+				audioState.current = newAudio
+				newAudio.play()
+				setIsAudioPlaying(true)
 
-			newAudio.play()
-			setIsAudioPlaying(true)
+				newAudio.onended = () => {
+					setIsAudioPlaying(false)
+					cancelAnimationFrame(ttsAnimationFrameId.current!) // Stop the TTS waveform drawing
+					audioState.current = null
+				}
 
-			newAudio.onended = () => {
-				setIsAudioPlaying(false)
-				cancelAnimationFrame(ttsAnimationFrameId.current!) // Stop the TTS waveform drawing
+				// Start drawing the TTS waveform
+				drawTTSWaveform()
+			} else {
+				toast.error(
+					"Please abort the current audio message before requesting a new one."
+				)
 			}
-
-			// Start drawing the TTS waveform
-			drawTTSWaveform()
 		} catch (error) {
 			console.error("Error playing audio:", error)
 		}
@@ -106,7 +122,7 @@ const Page = () => {
 				{
 					role: "system",
 					content:
-						"Your name is Ava.  Please provide with short and conise responses. Your output is being streamed to a speech model. Here are some tips for acheiving better audio output: 1. If you need to insert a longer pause in your audio, use the ellipsis: .... A comma (,) present in your text will be treated as a very short pause. 2. Filler words such as um and uh can also be used to offer a more natural sounding audio output. Please use longer words instead of acronyms. For example, use 'Oxygen' instead of '02'.",
+						"Your name is Ava.  Please provide with short and concise responses. Your output is being streamed to a speech model. Here are some tips for achieving better audio output: 1. If you need to insert a longer pause in your audio, use the ellipsis: .... A comma (,) present in your text will be treated as a very short pause. 2. Filler words such as um and uh can also be used to offer a more natural sounding audio output. Please use longer words instead of acronyms. For example, use 'Oxygen' instead of '02'.",
 					id: "1wbjkjfgbkj",
 				},
 			],
@@ -121,15 +137,6 @@ const Page = () => {
 			onFinish(message) {
 				handleAudio(message)
 			},
-			// onResponse(response) {
-			// 	async function getAudio() {
-			// 	const blob = await response.blob()
-			// 	const audioUrl = URL.createObjectURL(blob)
-			// 	const audioPlayer = new Audio(audioUrl)
-			// 	audioPlayer.play()
-			// 	}
-			// 	getAudio()
-			// },
 			body: {
 				patientList,
 			},
@@ -140,18 +147,13 @@ const Page = () => {
 			const nursePatientList = patients
 				.filter((patient) => patient.unitType === "ICU")
 				.slice(0, 2)
-
 			setPatientList(nursePatientList)
 		} else if (role === "chargeNurse") {
 			const nursePatientList = patients
 				.filter((patient) => patient.unitType === "ICU")
 				.slice(0, 8)
-
-			const reducedChargeNursePatientList = []
-
-			for (let i = 0; i < nursePatientList.length; i++) {
-				const patient = nursePatientList[i]
-				const reducedPatient = {
+			const reducedChargeNursePatientList = nursePatientList.map(
+				(patient) => ({
 					firstName: patient.firstName,
 					lastName: patient.lastName,
 					dateOfBirth: patient.dateOfBirth,
@@ -162,37 +164,28 @@ const Page = () => {
 					admissionDate: patient.admissionDate,
 					chiefComplaint: patient.chiefComplaint,
 					unitType: patient.unitType,
-				}
-				reducedChargeNursePatientList.push(reducedPatient)
-			}
-
+				})
+			)
 			setPatientList(reducedChargeNursePatientList)
 		} else if (role === "physician") {
-			const physicianPatientList = []
-
-			for (let i = 0; i < patients.length; i++) {
-				const patient = patients[i]
-				const reducedPatient = {
-					firstName: patient.firstName,
-					lastName: patient.lastName,
-					dateOfBirth: patient.dateOfBirth,
-					vitalStatus: patient.vitalStatus,
-					roomNumber: patient.roomNumber,
-					id: patient.id,
-					gender: patient.gender,
-					admissionDate: patient.admissionDate,
-					chiefComplaint: patient.chiefComplaint,
-					unitType: patient.unitType,
-				}
-				physicianPatientList.push(reducedPatient)
-			}
-
+			const physicianPatientList = patients.map((patient) => ({
+				firstName: patient.firstName,
+				lastName: patient.lastName,
+				dateOfBirth: patient.dateOfBirth,
+				vitalStatus: patient.vitalStatus,
+				roomNumber: patient.roomNumber,
+				id: patient.id,
+				gender: patient.gender,
+				admissionDate: patient.admissionDate,
+				chiefComplaint: patient.chiefComplaint,
+				unitType: patient.unitType,
+			}))
 			setPatientList(physicianPatientList)
 		}
 	}, [role])
 
 	useEffect(() => {
-		if (role) {
+		if (role && !socket.current) {
 			socket.current = new WebSocket("ws://localhost:5000")
 
 			socket.current.addEventListener("open", async () => {
@@ -206,32 +199,30 @@ const Page = () => {
 					data.type === "Results" &&
 					data.channel.alternatives[0].transcript !== ""
 				) {
-					// Sudo code:
-					//Once I receive the STT response I need to make a new API Request to get the AI response from my question (Groq) and pass in my patient list as a parameter
-
 					append({
 						role: "user",
 						content: data.channel.alternatives[0].transcript,
 						id: String(messages.length + 1),
 					})
-					//
-					//In that API Request I can just send back the TTS audio and play it here and show some UI for AI Speech
-					//
-					//Also will need some state to prevent duplicate STT requests from getting sent to the WS server while the first is being processed
 				}
 			})
 
 			socket.current.addEventListener("close", () => {
 				console.log("client: disconnected from server")
 			})
+			handleButtonClick()
 		}
+	}, [role, socket.current])
 
-		// return () => {
-		// 	if (socket.current) {
-		// 		socket.current.close()
-		// 	}
-		// }
-	}, [role])
+	//disconnect on unmount or page change
+	useEffect(() => {
+		return () => {
+			if (socket.current) {
+				socket.current.close()
+				window.location.reload()
+			}
+		}
+	}, [])
 
 	const getMicrophone = async (): Promise<MediaRecorder> => {
 		try {
@@ -271,18 +262,47 @@ const Page = () => {
 			microphone.onstop = () => {
 				console.log("client: microphone closed")
 				setRecording(false)
-				cancelAnimationFrame(animationFrameId.current!)
+				cancelAnimationFrame(animationFrameId.current!) // Stop the Siriwave drawing
+				if (siriwaveRef.current) {
+					siriwaveRef.current.stop()
+				}
+				siriwaveRef.current = null
 			}
 
 			microphone.ondataavailable = (event: BlobEvent) => {
-				console.log(event.data)
-
 				console.log("client: microphone data received")
 				if (
 					event.data.size > 0 &&
 					socket.readyState === WebSocket.OPEN
 				) {
 					socket.send(event.data)
+				}
+				// Check audio level
+				if (analyser.current && dataArray.current) {
+					// console.log("CHECKING AUDIO LEVEL")
+					analyser.current.getByteTimeDomainData(dataArray.current)
+
+					// Normalize the amplitude for monitoring
+					let sum = 0
+					for (let i = 0; i < dataArray.current.length; i++) {
+						sum +=
+							(dataArray.current[i] - 128) *
+							(dataArray.current[i] - 128)
+					}
+					const rms = Math.sqrt(sum / dataArray.current.length)
+					const amplitude = rms / 128.0
+
+					// console.log("amplitude", amplitude)
+
+					const threshold = 0.2 // Set your desired threshold level here
+					if (amplitude > threshold) {
+						if (audioState.current) {
+							audioState.current.pause()
+							audioState.current.currentTime = 0
+							setIsAudioPlaying(false)
+							audioState.current = null
+						}
+					}
 				}
 			}
 
@@ -314,10 +334,27 @@ const Page = () => {
 	}
 
 	const drawSiriWave = () => {
+		if (!siriwaveRef.current) {
+			const container = document.getElementById("siriwave")
+			if (container) {
+				siriwaveRef.current = new Siriwave({
+					container,
+					width: 300,
+					height: 100,
+					style: "ios",
+					speed: 0.1,
+					amplitude: 0.1,
+					frequency: 10,
+					color: theme === "dark" ? "#fff" : "#000",
+					autostart: true,
+					cover: true,
+				})
+				siriwaveRef.current.start()
+			}
+		}
+
 		const draw = () => {
 			if (!analyser.current || !dataArray.current) return
-
-			// if (!recording) return
 			animationFrameId.current = requestAnimationFrame(draw)
 
 			analyser.current.getByteTimeDomainData(dataArray.current)
@@ -329,18 +366,36 @@ const Page = () => {
 					(dataArray.current[i] - 128) * (dataArray.current[i] - 128)
 			}
 			const rms = Math.sqrt(sum / dataArray.current.length)
-			const amplitude = (rms / 128.0) * 25
+			const amplitude = (rms / 128.0) * 20
 
-			// Debugging: log the amplitude
-			// console.log("Amplitude:", amplitude)
-
-			setAmplitude(amplitude)
+			if (siriwaveRef.current) {
+				siriwaveRef.current.setAmplitude(amplitude)
+			}
 		}
 
 		draw()
 	}
 
 	const drawTTSWaveform = () => {
+		if (!ttsSiriwaveRef.current) {
+			const container = document.getElementById("tts-siriwave")
+			if (container) {
+				ttsSiriwaveRef.current = new Siriwave({
+					container,
+					width: 300,
+					height: 100,
+					style: "ios",
+					speed: 0.1,
+					amplitude: 0.1,
+					frequency: 10,
+					color: theme === "dark" ? "#3b82f6" : "#0000FF",
+					autostart: true,
+					cover: true,
+				})
+				ttsSiriwaveRef.current.start()
+			}
+		}
+
 		const draw = () => {
 			if (!ttsAnalyser.current || !ttsDataArray.current) return
 
@@ -356,12 +411,11 @@ const Page = () => {
 					(ttsDataArray.current[i] - 128)
 			}
 			const rms = Math.sqrt(sum / ttsDataArray.current.length)
-			const amplitude = (rms / 128.0) * 25
+			const amplitude = (rms / 128.0) * 20
 
-			// Debugging: log the amplitude
-			// console.log("TTS Amplitude:", amplitude)
-
-			setTtsAmplitude(amplitude)
+			if (ttsSiriwaveRef.current) {
+				ttsSiriwaveRef.current.setAmplitude(amplitude)
+			}
 		}
 
 		draw()
@@ -468,61 +522,14 @@ const Page = () => {
 				</Table>
 			) : null}
 
-			<div className="absolute bottom-0 ">
+			<div className="absolute bottom-0">
 				<Card className="py-3 w-64 text-center">
 					<CardTitle>
-						<Button
-							onClick={handleButtonClick}
-							variant="ghost"
-							size="icon"
-							id="record"
-							disabled={!role}
-						>
-							<Mic
-								className={`w-6 h-6 ${
-									recording ? "text-red-500" : ""
-								}`}
-							/>
-						</Button>
-						<Button
-							onClick={() => {
-								append({
-									role: "user",
-									content:
-										"What is David MArtinezes date of birth",
-									id: String(messages.length + 1),
-								})
-							}}
-							variant="ghost"
-							size="icon"
-							id="stop"
-						>
-							<Mic className="w-6 h-6" />
-						</Button>
-						<div>
-							You
-							<Siriwave
-								theme="ios"
-								speed={0.1}
-								amplitude={amplitude}
-								frequency={10}
-								//light blue
-								color="#00bfff"
-								cover={true}
-								autostart={true}
-							/>{" "}
-							AI
-							<Siriwave
-								theme="ios"
-								speed={0.1}
-								amplitude={ttsAmplitude}
-								frequency={10}
-								color="#ff0000"
-								cover={true}
-								autostart={true}
-							/>
-						</div>
 						<div id="captions" ref={captionsRef}></div>
+						{siriwaveRef.current && "You"}
+						<div id="siriwave" />
+						{ttsSiriwaveRef.current && "AI"}
+						<div id="tts-siriwave" />
 					</CardTitle>
 				</Card>
 			</div>
