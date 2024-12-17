@@ -1,36 +1,40 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Hospital Policy Chat - Frontend
 
-## Getting Started
+The frontend application for an AI-powered healthcare assistant platform, built with Next.js 14 and React Server Components.
 
-First, run the development server:
+🔗 [Live Demo](https://hopital-policy-chat.vercel.app/)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Features 3 demo apps
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 1. Hospital Policy Search
+- Interactive chat interface for querying hospital policies and/or supplies
+- Real-time supply location assistance
+- Markdown rendering for formatted responses
+- Responsive design for various device sizes
+- See Sources in chat history for verifying what the AI outputs
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 2. Patient Information Q&A
+- Click on a patient to view their:
+  - Vital signs
+  - Lab results
+  - Medications
+  - Medical orders
+- Ask the AI about any of the information in the chat window to the right
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### 3. Voice Interaction System
+- Voice-enabled chat interface
+- Real-time speech-to-text conversion
+- Natural text-to-speech responses
+- Role-based interaction modes (ICU Nurse, Charge Nurse, Doctor)
+- Ask the AI any questions about your current patients (roles with less patients such as the ICU nurse will receive more in depth information on their patient while roles with many patients (ie Dr) will receive more general information)
 
-## Learn More
+## Tech Stack
 
-To learn more about Next.js, take a look at the following resources:
+- **Framework**: Next.js 14 & React 18 with Server Components
+- **Styling**: ShadCn & Tailwind CSS
+- **API Integration**: 
+  - makes API requests to [Backend](https://github.com/BuckyMcYolo/hospital-policy-chat-backend)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## License
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+MIT License
