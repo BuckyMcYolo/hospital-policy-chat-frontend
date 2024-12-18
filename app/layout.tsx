@@ -13,11 +13,11 @@ const rubik = Rubik({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
 	title: "Hospital Policy Chat",
-	description: "Chat with a bot to learn about hospital policies.",
+	description: "Chat with a bot to learn about hospital policies."
 }
 
 export default function RootLayout({
-	children,
+	children
 }: Readonly<{
 	children: React.ReactNode
 }>) {
@@ -43,7 +43,7 @@ export default function RootLayout({
 						</TooltipProvider>
 					)}
 				</ThemeProvider>
-				<Toaster />
+				<Toaster richColors />
 			</body>
 		</html>
 	)

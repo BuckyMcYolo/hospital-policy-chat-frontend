@@ -3,7 +3,7 @@ import moment from "moment"
 enum Gender {
 	Male = "Male",
 	Female = "Female",
-	Other = "Other",
+	Other = "Other"
 }
 
 enum BloodType {
@@ -14,19 +14,19 @@ enum BloodType {
 	AB_POS = "AB+",
 	AB_NEG = "AB-",
 	O_POS = "O+",
-	O_NEG = "O-",
+	O_NEG = "O-"
 }
 
 enum UnitType {
 	ICU = "ICU",
-	FloorUnit = "Floor Unit",
+	FloorUnit = "Floor Unit"
 }
 
 enum VitalStatus {
 	Stable = "Stable",
 	Critical = "Critical",
 	Improving = "Improving",
-	Deteriorating = "Deteriorating",
+	Deteriorating = "Deteriorating"
 }
 
 interface ContactInfo {
@@ -150,36 +150,36 @@ const patients: Patient[] = [
 		roomNumber: "ICU-101",
 		diagnosis: [
 			{ description: "Pneumonia", ICD10Code: "J18.9" },
-			{ description: "Sepsis", ICD10Code: "A41.9" },
+			{ description: "Sepsis", ICD10Code: "A41.9" }
 		],
 		medications: [
 			{
 				name: "Amoxicillin",
 				dosage: "500mg",
 				frequency: "8 hours",
-				route: "Oral",
+				route: "Oral"
 			},
 			{
 				name: "Ibuprofen",
 				dosage: "200mg",
 				frequency: "6 hours",
-				route: "Oral",
-			},
+				route: "Oral"
+			}
 		],
 		allergies: [
 			{
 				allergen: "Penicillin",
 				reaction: "Rash",
-				severity: "Moderate",
-			},
+				severity: "Moderate"
+			}
 		],
 		contactInfo: [
 			{
 				name: "Jane Doe",
 				relation: "Spouse",
 				phone: "123-456-7890",
-				email: "jane.doe@example.com",
-			},
+				email: "jane.doe@example.com"
+			}
 		],
 		vitalSigns: [
 			{
@@ -188,7 +188,7 @@ const patients: Patient[] = [
 				RR: 16,
 				O2Sat: 98,
 				temp: 37.5,
-				timestamp: moment("2024-06-01T06:00:00Z").toDate(),
+				timestamp: moment("2024-06-01T06:00:00Z").toDate()
 			},
 			{
 				HR: 76,
@@ -196,7 +196,7 @@ const patients: Patient[] = [
 				RR: 16,
 				O2Sat: 98,
 				temp: 37.5,
-				timestamp: moment("2024-06-01T06:15:00Z").toDate(),
+				timestamp: moment("2024-06-01T06:15:00Z").toDate()
 			},
 			{
 				HR: 77,
@@ -204,7 +204,7 @@ const patients: Patient[] = [
 				RR: 16,
 				O2Sat: 98,
 				temp: 37.6,
-				timestamp: moment("2024-06-01T06:30:00Z").toDate(),
+				timestamp: moment("2024-06-01T06:30:00Z").toDate()
 			},
 			{
 				HR: 78,
@@ -212,7 +212,7 @@ const patients: Patient[] = [
 				RR: 16,
 				O2Sat: 98,
 				temp: 37.6,
-				timestamp: moment("2024-06-01T06:45:00Z").toDate(),
+				timestamp: moment("2024-06-01T06:45:00Z").toDate()
 			},
 			{
 				HR: 79,
@@ -220,7 +220,7 @@ const patients: Patient[] = [
 				RR: 16,
 				O2Sat: 98,
 				temp: 37.6,
-				timestamp: moment("2024-06-01T07:00:00Z").toDate(),
+				timestamp: moment("2024-06-01T07:00:00Z").toDate()
 			},
 			{
 				HR: 80,
@@ -228,7 +228,7 @@ const patients: Patient[] = [
 				RR: 16,
 				O2Sat: 98,
 				temp: 37.6,
-				timestamp: moment("2024-06-01T07:15:00Z").toDate(),
+				timestamp: moment("2024-06-01T07:15:00Z").toDate()
 			},
 			{
 				HR: 81,
@@ -236,7 +236,7 @@ const patients: Patient[] = [
 				RR: 16,
 				O2Sat: 98,
 				temp: 37.7,
-				timestamp: moment("2024-06-01T07:30:00Z").toDate(),
+				timestamp: moment("2024-06-01T07:30:00Z").toDate()
 			},
 			{
 				HR: 82,
@@ -244,7 +244,7 @@ const patients: Patient[] = [
 				RR: 16,
 				O2Sat: 98,
 				temp: 37.7,
-				timestamp: moment("2024-06-01T07:45:00Z").toDate(),
+				timestamp: moment("2024-06-01T07:45:00Z").toDate()
 			},
 			{
 				HR: 83,
@@ -252,7 +252,7 @@ const patients: Patient[] = [
 				RR: 16,
 				O2Sat: 98,
 				temp: 37.7,
-				timestamp: moment("2024-06-01T08:00:00Z").toDate(),
+				timestamp: moment("2024-06-01T08:00:00Z").toDate()
 			},
 			{
 				HR: 84,
@@ -260,7 +260,7 @@ const patients: Patient[] = [
 				RR: 16,
 				O2Sat: 98,
 				temp: 37.7,
-				timestamp: moment("2024-06-01T08:15:00Z").toDate(),
+				timestamp: moment("2024-06-01T08:15:00Z").toDate()
 			},
 			{
 				HR: 85,
@@ -268,7 +268,7 @@ const patients: Patient[] = [
 				RR: 16,
 				O2Sat: 98,
 				temp: 37.8,
-				timestamp: moment("2024-06-01T08:30:00Z").toDate(),
+				timestamp: moment("2024-06-01T08:30:00Z").toDate()
 			},
 			{
 				HR: 86,
@@ -276,7 +276,7 @@ const patients: Patient[] = [
 				RR: 16,
 				O2Sat: 98,
 				temp: 37.8,
-				timestamp: moment("2024-06-01T08:45:00Z").toDate(),
+				timestamp: moment("2024-06-01T08:45:00Z").toDate()
 			},
 			{
 				HR: 87,
@@ -284,7 +284,7 @@ const patients: Patient[] = [
 				RR: 16,
 				O2Sat: 98,
 				temp: 37.8,
-				timestamp: moment("2024-06-01T09:00:00Z").toDate(),
+				timestamp: moment("2024-06-01T09:00:00Z").toDate()
 			},
 			{
 				HR: 88,
@@ -292,7 +292,7 @@ const patients: Patient[] = [
 				RR: 16,
 				O2Sat: 98,
 				temp: 37.8,
-				timestamp: moment("2024-06-01T09:15:00Z").toDate(),
+				timestamp: moment("2024-06-01T09:15:00Z").toDate()
 			},
 			{
 				HR: 89,
@@ -300,7 +300,7 @@ const patients: Patient[] = [
 				RR: 16,
 				O2Sat: 98,
 				temp: 37.9,
-				timestamp: moment("2024-06-01T09:30:00Z").toDate(),
+				timestamp: moment("2024-06-01T09:30:00Z").toDate()
 			},
 			{
 				HR: 90,
@@ -308,7 +308,7 @@ const patients: Patient[] = [
 				RR: 16,
 				O2Sat: 98,
 				temp: 37.9,
-				timestamp: moment("2024-06-01T09:45:00Z").toDate(),
+				timestamp: moment("2024-06-01T09:45:00Z").toDate()
 			},
 			{
 				HR: 91,
@@ -316,7 +316,7 @@ const patients: Patient[] = [
 				RR: 16,
 				O2Sat: 98,
 				temp: 37.9,
-				timestamp: moment("2024-06-01T10:00:00Z").toDate(),
+				timestamp: moment("2024-06-01T10:00:00Z").toDate()
 			},
 			{
 				HR: 92,
@@ -324,7 +324,7 @@ const patients: Patient[] = [
 				RR: 16,
 				O2Sat: 98,
 				temp: 37.9,
-				timestamp: moment("2024-06-01T10:15:00Z").toDate(),
+				timestamp: moment("2024-06-01T10:15:00Z").toDate()
 			},
 			{
 				HR: 93,
@@ -332,7 +332,7 @@ const patients: Patient[] = [
 				RR: 16,
 				O2Sat: 98,
 				temp: 38.0,
-				timestamp: moment("2024-06-01T10:30:00Z").toDate(),
+				timestamp: moment("2024-06-01T10:30:00Z").toDate()
 			},
 			{
 				HR: 94,
@@ -340,7 +340,7 @@ const patients: Patient[] = [
 				RR: 16,
 				O2Sat: 98,
 				temp: 38.0,
-				timestamp: moment("2024-06-01T10:45:00Z").toDate(),
+				timestamp: moment("2024-06-01T10:45:00Z").toDate()
 			},
 			{
 				HR: 95,
@@ -348,94 +348,94 @@ const patients: Patient[] = [
 				RR: 16,
 				O2Sat: 98,
 				temp: 38.0,
-				timestamp: moment("2024-06-01T11:00:00Z").toDate(),
-			},
+				timestamp: moment("2024-06-01T11:00:00Z").toDate()
+			}
 		],
 		orders: [
 			{
 				description: "Morning meds",
 				repeatable: true,
 				frequency: "daily",
-				lastCompleted: moment("2024-06-01T08:00:00Z").toDate(),
+				lastCompleted: moment("2024-06-01T08:00:00Z").toDate()
 			},
 			{
 				description: "Chest X-ray",
 				repeatable: true,
 				frequency: "daily",
-				lastCompleted: moment("2024-06-01T07:00:00Z").toDate(),
+				lastCompleted: moment("2024-06-01T07:00:00Z").toDate()
 			},
 			{
 				description: "ABG",
 				repeatable: true,
 				frequency: "every 8 hours",
-				lastCompleted: moment("2024-06-01T06:00:00Z").toDate(),
-			},
+				lastCompleted: moment("2024-06-01T06:00:00Z").toDate()
+			}
 		],
 		O2Therapy: "Intubated",
 		ventSettings: {
 			O2Percentage: 40,
 			PEEP: 5,
 			TV: 500,
-			RR: 16,
+			RR: 16
 		},
 		lines: [
 			{ type: "IV", location: "Right arm" },
-			{ type: "Central line", location: "Right subclavian" },
+			{ type: "Central line", location: "Right subclavian" }
 		],
 		labs: [
 			{
 				name: "WBC",
 				value: 11.0,
 				referenceRange: "4.0-11.0 x10^3/uL",
-				timestamp: moment("2024-06-01T06:00:00Z").toDate(),
+				timestamp: moment("2024-06-01T06:00:00Z").toDate()
 			},
 			{
 				name: "Hemoglobin",
 				value: 13.5,
 				referenceRange: "13.5-17.5 g/dL",
-				timestamp: moment("2024-06-01T06:00:00Z").toDate(),
+				timestamp: moment("2024-06-01T06:00:00Z").toDate()
 			},
 			{
 				name: "Platelets",
 				value: 250,
 				referenceRange: "150-450 x10^3/uL",
-				timestamp: moment("2024-06-01T06:00:00Z").toDate(),
-			},
+				timestamp: moment("2024-06-01T06:00:00Z").toDate()
+			}
 		],
 		providers: [
 			{
 				name: "Dr. Smith",
 				role: "Attending Physician",
-				phone: "987-654-3210",
+				phone: "987-654-3210"
 			},
-			{ name: "Nurse Johnson", role: "Nurse", phone: "123-555-7890" },
+			{ name: "Nurse Johnson", role: "Nurse", phone: "123-555-7890" }
 		],
 		inputs: [
 			{
 				input: 1000,
 				route: "IV",
-				timestamp: moment("2024-06-01T06:00:00Z").toDate(),
+				timestamp: moment("2024-06-01T06:00:00Z").toDate()
 			},
 			{
 				input: 500,
 				route: "oral",
-				timestamp: moment("2024-06-01T12:00:00Z").toDate(),
-			},
+				timestamp: moment("2024-06-01T12:00:00Z").toDate()
+			}
 		],
 		outputs: [
 			{
 				output: 800,
 				route: "urine",
-				timestamp: moment("2024-06-01T06:00:00Z").toDate(),
+				timestamp: moment("2024-06-01T06:00:00Z").toDate()
 			},
 			{
 				output: 400,
 				route: "urine",
-				timestamp: moment("2024-06-01T12:00:00Z").toDate(),
-			},
+				timestamp: moment("2024-06-01T12:00:00Z").toDate()
+			}
 		],
 		netFluidBalance: 300,
-		vitalStatus: VitalStatus.Stable,
+		vitalStatus: VitalStatus.Stable
 	},
 	{
 		id: "P002",
@@ -454,23 +454,23 @@ const patients: Patient[] = [
 				name: "Morphine",
 				dosage: "10mg",
 				frequency: "4 hours",
-				route: "IV",
-			},
+				route: "IV"
+			}
 		],
 		allergies: [
 			{
 				allergen: "Aspirin",
 				reaction: "Hives",
-				severity: "Severe",
-			},
+				severity: "Severe"
+			}
 		],
 		contactInfo: [
 			{
 				name: "John Smith",
 				relation: "Brother",
 				phone: "321-654-0987",
-				email: "john.smith@example.com",
-			},
+				email: "john.smith@example.com"
+			}
 		],
 		vitalSigns: [
 			{
@@ -479,7 +479,7 @@ const patients: Patient[] = [
 				RR: 18,
 				O2Sat: 99,
 				temp: 37.2,
-				timestamp: moment("2024-06-02T06:00:00Z").toDate(),
+				timestamp: moment("2024-06-02T06:00:00Z").toDate()
 			},
 			{
 				HR: 86,
@@ -487,7 +487,7 @@ const patients: Patient[] = [
 				RR: 18,
 				O2Sat: 99,
 				temp: 37.3,
-				timestamp: moment("2024-06-02T06:15:00Z").toDate(),
+				timestamp: moment("2024-06-02T06:15:00Z").toDate()
 			},
 			{
 				HR: 87,
@@ -495,7 +495,7 @@ const patients: Patient[] = [
 				RR: 18,
 				O2Sat: 99,
 				temp: 37.3,
-				timestamp: moment("2024-06-02T06:30:00Z").toDate(),
+				timestamp: moment("2024-06-02T06:30:00Z").toDate()
 			},
 			{
 				HR: 88,
@@ -503,7 +503,7 @@ const patients: Patient[] = [
 				RR: 18,
 				O2Sat: 99,
 				temp: 37.3,
-				timestamp: moment("2024-06-02T06:45:00Z").toDate(),
+				timestamp: moment("2024-06-02T06:45:00Z").toDate()
 			},
 			{
 				HR: 89,
@@ -511,7 +511,7 @@ const patients: Patient[] = [
 				RR: 18,
 				O2Sat: 99,
 				temp: 37.3,
-				timestamp: moment("2024-06-02T07:00:00Z").toDate(),
+				timestamp: moment("2024-06-02T07:00:00Z").toDate()
 			},
 			{
 				HR: 90,
@@ -519,7 +519,7 @@ const patients: Patient[] = [
 				RR: 18,
 				O2Sat: 99,
 				temp: 37.3,
-				timestamp: moment("2024-06-02T07:15:00Z").toDate(),
+				timestamp: moment("2024-06-02T07:15:00Z").toDate()
 			},
 			{
 				HR: 91,
@@ -527,7 +527,7 @@ const patients: Patient[] = [
 				RR: 18,
 				O2Sat: 99,
 				temp: 37.4,
-				timestamp: moment("2024-06-02T07:30:00Z").toDate(),
+				timestamp: moment("2024-06-02T07:30:00Z").toDate()
 			},
 			{
 				HR: 92,
@@ -535,7 +535,7 @@ const patients: Patient[] = [
 				RR: 18,
 				O2Sat: 99,
 				temp: 37.4,
-				timestamp: moment("2024-06-02T07:45:00Z").toDate(),
+				timestamp: moment("2024-06-02T07:45:00Z").toDate()
 			},
 			{
 				HR: 93,
@@ -543,7 +543,7 @@ const patients: Patient[] = [
 				RR: 18,
 				O2Sat: 99,
 				temp: 37.4,
-				timestamp: moment("2024-06-02T08:00:00Z").toDate(),
+				timestamp: moment("2024-06-02T08:00:00Z").toDate()
 			},
 			{
 				HR: 94,
@@ -551,7 +551,7 @@ const patients: Patient[] = [
 				RR: 18,
 				O2Sat: 99,
 				temp: 37.4,
-				timestamp: moment("2024-06-02T08:15:00Z").toDate(),
+				timestamp: moment("2024-06-02T08:15:00Z").toDate()
 			},
 			{
 				HR: 95,
@@ -559,7 +559,7 @@ const patients: Patient[] = [
 				RR: 18,
 				O2Sat: 99,
 				temp: 37.5,
-				timestamp: moment("2024-06-02T08:30:00Z").toDate(),
+				timestamp: moment("2024-06-02T08:30:00Z").toDate()
 			},
 			{
 				HR: 96,
@@ -567,7 +567,7 @@ const patients: Patient[] = [
 				RR: 18,
 				O2Sat: 99,
 				temp: 37.5,
-				timestamp: moment("2024-06-02T08:45:00Z").toDate(),
+				timestamp: moment("2024-06-02T08:45:00Z").toDate()
 			},
 			{
 				HR: 97,
@@ -575,7 +575,7 @@ const patients: Patient[] = [
 				RR: 18,
 				O2Sat: 99,
 				temp: 37.5,
-				timestamp: moment("2024-06-02T09:00:00Z").toDate(),
+				timestamp: moment("2024-06-02T09:00:00Z").toDate()
 			},
 			{
 				HR: 98,
@@ -583,7 +583,7 @@ const patients: Patient[] = [
 				RR: 18,
 				O2Sat: 99,
 				temp: 37.5,
-				timestamp: moment("2024-06-02T09:15:00Z").toDate(),
+				timestamp: moment("2024-06-02T09:15:00Z").toDate()
 			},
 			{
 				HR: 99,
@@ -591,7 +591,7 @@ const patients: Patient[] = [
 				RR: 18,
 				O2Sat: 99,
 				temp: 37.6,
-				timestamp: moment("2024-06-02T09:30:00Z").toDate(),
+				timestamp: moment("2024-06-02T09:30:00Z").toDate()
 			},
 			{
 				HR: 100,
@@ -599,7 +599,7 @@ const patients: Patient[] = [
 				RR: 18,
 				O2Sat: 99,
 				temp: 37.6,
-				timestamp: moment("2024-06-02T09:45:00Z").toDate(),
+				timestamp: moment("2024-06-02T09:45:00Z").toDate()
 			},
 			{
 				HR: 101,
@@ -607,7 +607,7 @@ const patients: Patient[] = [
 				RR: 18,
 				O2Sat: 99,
 				temp: 37.6,
-				timestamp: moment("2024-06-02T10:00:00Z").toDate(),
+				timestamp: moment("2024-06-02T10:00:00Z").toDate()
 			},
 			{
 				HR: 102,
@@ -615,7 +615,7 @@ const patients: Patient[] = [
 				RR: 18,
 				O2Sat: 99,
 				temp: 37.6,
-				timestamp: moment("2024-06-02T10:15:00Z").toDate(),
+				timestamp: moment("2024-06-02T10:15:00Z").toDate()
 			},
 			{
 				HR: 103,
@@ -623,7 +623,7 @@ const patients: Patient[] = [
 				RR: 18,
 				O2Sat: 99,
 				temp: 37.7,
-				timestamp: moment("2024-06-02T10:30:00Z").toDate(),
+				timestamp: moment("2024-06-02T10:30:00Z").toDate()
 			},
 			{
 				HR: 104,
@@ -631,7 +631,7 @@ const patients: Patient[] = [
 				RR: 18,
 				O2Sat: 99,
 				temp: 37.7,
-				timestamp: moment("2024-06-02T10:45:00Z").toDate(),
+				timestamp: moment("2024-06-02T10:45:00Z").toDate()
 			},
 			{
 				HR: 105,
@@ -639,20 +639,20 @@ const patients: Patient[] = [
 				RR: 18,
 				O2Sat: 99,
 				temp: 37.7,
-				timestamp: moment("2024-06-02T11:00:00Z").toDate(),
-			},
+				timestamp: moment("2024-06-02T11:00:00Z").toDate()
+			}
 		],
 		orders: [
 			{
 				description: "Blood test",
 				repeatable: false,
-				lastCompleted: moment("2024-06-02T08:00:00Z").toDate(),
+				lastCompleted: moment("2024-06-02T08:00:00Z").toDate()
 			},
 			{
 				description: "Ultrasound",
 				repeatable: false,
-				lastCompleted: moment("2024-06-02T09:00:00Z").toDate(),
-			},
+				lastCompleted: moment("2024-06-02T09:00:00Z").toDate()
+			}
 		],
 		lines: [{ type: "IV", location: "Left arm" }],
 		labs: [
@@ -660,49 +660,49 @@ const patients: Patient[] = [
 				name: "CRP",
 				value: 50,
 				referenceRange: "<10 mg/L",
-				timestamp: moment("2024-06-02T06:00:00Z").toDate(),
+				timestamp: moment("2024-06-02T06:00:00Z").toDate()
 			},
 			{
 				name: "WBC",
 				value: 12.0,
 				referenceRange: "4.0-11.0 x10^3/uL",
-				timestamp: moment("2024-06-02T06:00:00Z").toDate(),
-			},
+				timestamp: moment("2024-06-02T06:00:00Z").toDate()
+			}
 		],
 		providers: [
 			{
 				name: "Dr. Brown",
 				role: "Attending Physician",
-				phone: "987-555-4321",
+				phone: "987-555-4321"
 			},
-			{ name: "Nurse Adams", role: "Nurse", phone: "123-555-6789" },
+			{ name: "Nurse Adams", role: "Nurse", phone: "123-555-6789" }
 		],
 		inputs: [
 			{
 				input: 750,
 				route: "IV",
-				timestamp: moment("2024-06-02T06:00:00Z").toDate(),
+				timestamp: moment("2024-06-02T06:00:00Z").toDate()
 			},
 			{
 				input: 500,
 				route: "oral",
-				timestamp: moment("2024-06-02T12:00:00Z").toDate(),
-			},
+				timestamp: moment("2024-06-02T12:00:00Z").toDate()
+			}
 		],
 		outputs: [
 			{
 				output: 600,
 				route: "urine",
-				timestamp: moment("2024-06-02T06:00:00Z").toDate(),
+				timestamp: moment("2024-06-02T06:00:00Z").toDate()
 			},
 			{
 				output: 300,
 				route: "urine",
-				timestamp: moment("2024-06-02T12:00:00Z").toDate(),
-			},
+				timestamp: moment("2024-06-02T12:00:00Z").toDate()
+			}
 		],
 		netFluidBalance: 350,
-		vitalStatus: VitalStatus.Improving,
+		vitalStatus: VitalStatus.Improving
 	},
 	{
 		id: "P003",
@@ -716,21 +716,21 @@ const patients: Patient[] = [
 		unitType: UnitType.ICU,
 		roomNumber: "ICU-102",
 		diagnosis: [
-			{ description: "Myocardial infarction", ICD10Code: "I21.9" },
+			{ description: "Myocardial infarction", ICD10Code: "I21.9" }
 		],
 		medications: [
 			{
 				name: "Aspirin",
 				dosage: "81mg",
 				frequency: "daily",
-				route: "Oral",
+				route: "Oral"
 			},
 			{
 				name: "Nitroglycerin",
 				dosage: "0.4mg",
 				frequency: "PRN",
-				route: "Sublingual",
-			},
+				route: "Sublingual"
+			}
 		],
 		allergies: [],
 		contactInfo: [
@@ -738,8 +738,8 @@ const patients: Patient[] = [
 				name: "Sarah Johnson",
 				relation: "Wife",
 				phone: "456-789-1230",
-				email: "sarah.johnson@example.com",
-			},
+				email: "sarah.johnson@example.com"
+			}
 		],
 		vitalSigns: [
 			{
@@ -748,7 +748,7 @@ const patients: Patient[] = [
 				RR: 20,
 				O2Sat: 96,
 				temp: 37.0,
-				timestamp: moment("2024-06-03T06:00:00Z").toDate(),
+				timestamp: moment("2024-06-03T06:00:00Z").toDate()
 			},
 			{
 				HR: 96,
@@ -756,7 +756,7 @@ const patients: Patient[] = [
 				RR: 20,
 				O2Sat: 96,
 				temp: 37.1,
-				timestamp: moment("2024-06-03T06:15:00Z").toDate(),
+				timestamp: moment("2024-06-03T06:15:00Z").toDate()
 			},
 			{
 				HR: 97,
@@ -764,7 +764,7 @@ const patients: Patient[] = [
 				RR: 20,
 				O2Sat: 96,
 				temp: 37.1,
-				timestamp: moment("2024-06-03T06:30:00Z").toDate(),
+				timestamp: moment("2024-06-03T06:30:00Z").toDate()
 			},
 			{
 				HR: 98,
@@ -772,7 +772,7 @@ const patients: Patient[] = [
 				RR: 20,
 				O2Sat: 96,
 				temp: 37.1,
-				timestamp: moment("2024-06-03T06:45:00Z").toDate(),
+				timestamp: moment("2024-06-03T06:45:00Z").toDate()
 			},
 			{
 				HR: 99,
@@ -780,7 +780,7 @@ const patients: Patient[] = [
 				RR: 20,
 				O2Sat: 96,
 				temp: 37.1,
-				timestamp: moment("2024-06-03T07:00:00Z").toDate(),
+				timestamp: moment("2024-06-03T07:00:00Z").toDate()
 			},
 			{
 				HR: 100,
@@ -788,7 +788,7 @@ const patients: Patient[] = [
 				RR: 20,
 				O2Sat: 96,
 				temp: 37.1,
-				timestamp: moment("2024-06-03T07:15:00Z").toDate(),
+				timestamp: moment("2024-06-03T07:15:00Z").toDate()
 			},
 			{
 				HR: 101,
@@ -796,7 +796,7 @@ const patients: Patient[] = [
 				RR: 20,
 				O2Sat: 96,
 				temp: 37.2,
-				timestamp: moment("2024-06-03T07:30:00Z").toDate(),
+				timestamp: moment("2024-06-03T07:30:00Z").toDate()
 			},
 			{
 				HR: 102,
@@ -804,7 +804,7 @@ const patients: Patient[] = [
 				RR: 20,
 				O2Sat: 96,
 				temp: 37.2,
-				timestamp: moment("2024-06-03T07:45:00Z").toDate(),
+				timestamp: moment("2024-06-03T07:45:00Z").toDate()
 			},
 			{
 				HR: 103,
@@ -812,7 +812,7 @@ const patients: Patient[] = [
 				RR: 20,
 				O2Sat: 96,
 				temp: 37.2,
-				timestamp: moment("2024-06-03T08:00:00Z").toDate(),
+				timestamp: moment("2024-06-03T08:00:00Z").toDate()
 			},
 			{
 				HR: 104,
@@ -820,7 +820,7 @@ const patients: Patient[] = [
 				RR: 20,
 				O2Sat: 96,
 				temp: 37.2,
-				timestamp: moment("2024-06-03T08:15:00Z").toDate(),
+				timestamp: moment("2024-06-03T08:15:00Z").toDate()
 			},
 			{
 				HR: 105,
@@ -828,7 +828,7 @@ const patients: Patient[] = [
 				RR: 20,
 				O2Sat: 96,
 				temp: 37.3,
-				timestamp: moment("2024-06-03T08:30:00Z").toDate(),
+				timestamp: moment("2024-06-03T08:30:00Z").toDate()
 			},
 			{
 				HR: 106,
@@ -836,7 +836,7 @@ const patients: Patient[] = [
 				RR: 20,
 				O2Sat: 96,
 				temp: 37.3,
-				timestamp: moment("2024-06-03T08:45:00Z").toDate(),
+				timestamp: moment("2024-06-03T08:45:00Z").toDate()
 			},
 			{
 				HR: 107,
@@ -844,7 +844,7 @@ const patients: Patient[] = [
 				RR: 20,
 				O2Sat: 96,
 				temp: 37.3,
-				timestamp: moment("2024-06-03T09:00:00Z").toDate(),
+				timestamp: moment("2024-06-03T09:00:00Z").toDate()
 			},
 			{
 				HR: 108,
@@ -852,7 +852,7 @@ const patients: Patient[] = [
 				RR: 20,
 				O2Sat: 96,
 				temp: 37.3,
-				timestamp: moment("2024-06-03T09:15:00Z").toDate(),
+				timestamp: moment("2024-06-03T09:15:00Z").toDate()
 			},
 			{
 				HR: 109,
@@ -860,7 +860,7 @@ const patients: Patient[] = [
 				RR: 20,
 				O2Sat: 96,
 				temp: 37.4,
-				timestamp: moment("2024-06-03T09:30:00Z").toDate(),
+				timestamp: moment("2024-06-03T09:30:00Z").toDate()
 			},
 			{
 				HR: 110,
@@ -868,7 +868,7 @@ const patients: Patient[] = [
 				RR: 20,
 				O2Sat: 96,
 				temp: 37.4,
-				timestamp: moment("2024-06-03T09:45:00Z").toDate(),
+				timestamp: moment("2024-06-03T09:45:00Z").toDate()
 			},
 			{
 				HR: 111,
@@ -876,7 +876,7 @@ const patients: Patient[] = [
 				RR: 20,
 				O2Sat: 96,
 				temp: 37.4,
-				timestamp: moment("2024-06-03T10:00:00Z").toDate(),
+				timestamp: moment("2024-06-03T10:00:00Z").toDate()
 			},
 			{
 				HR: 112,
@@ -884,7 +884,7 @@ const patients: Patient[] = [
 				RR: 20,
 				O2Sat: 96,
 				temp: 37.4,
-				timestamp: moment("2024-06-03T10:15:00Z").toDate(),
+				timestamp: moment("2024-06-03T10:15:00Z").toDate()
 			},
 			{
 				HR: 113,
@@ -892,7 +892,7 @@ const patients: Patient[] = [
 				RR: 20,
 				O2Sat: 96,
 				temp: 37.5,
-				timestamp: moment("2024-06-03T10:30:00Z").toDate(),
+				timestamp: moment("2024-06-03T10:30:00Z").toDate()
 			},
 			{
 				HR: 114,
@@ -900,7 +900,7 @@ const patients: Patient[] = [
 				RR: 20,
 				O2Sat: 96,
 				temp: 37.5,
-				timestamp: moment("2024-06-03T10:45:00Z").toDate(),
+				timestamp: moment("2024-06-03T10:45:00Z").toDate()
 			},
 			{
 				HR: 115,
@@ -908,74 +908,74 @@ const patients: Patient[] = [
 				RR: 20,
 				O2Sat: 96,
 				temp: 37.5,
-				timestamp: moment("2024-06-03T11:00:00Z").toDate(),
-			},
+				timestamp: moment("2024-06-03T11:00:00Z").toDate()
+			}
 		],
 		orders: [
 			{
 				description: "EKG",
 				repeatable: false,
-				lastCompleted: moment("2024-06-03T08:00:00Z").toDate(),
+				lastCompleted: moment("2024-06-03T08:00:00Z").toDate()
 			},
 			{
 				description: "Troponin",
 				repeatable: true,
 				frequency: "every 6 hours",
-				lastCompleted: moment("2024-06-03T06:00:00Z").toDate(),
-			},
+				lastCompleted: moment("2024-06-03T06:00:00Z").toDate()
+			}
 		],
 		lines: [
 			{ type: "IV", location: "Left arm" },
-			{ type: "Central line", location: "Right internal jugular" },
+			{ type: "Central line", location: "Right internal jugular" }
 		],
 		labs: [
 			{
 				name: "Troponin",
 				value: 1.5,
 				referenceRange: "<0.04 ng/mL",
-				timestamp: moment("2024-06-03T06:00:00Z").toDate(),
+				timestamp: moment("2024-06-03T06:00:00Z").toDate()
 			},
 			{
 				name: "CK-MB",
 				value: 10,
 				referenceRange: "0-5 ng/mL",
-				timestamp: moment("2024-06-03T06:00:00Z").toDate(),
-			},
+				timestamp: moment("2024-06-03T06:00:00Z").toDate()
+			}
 		],
 		providers: [
 			{
 				name: "Dr. Williams",
 				role: "Attending Physician",
-				phone: "987-555-8765",
+				phone: "987-555-8765"
 			},
-			{ name: "Nurse Davis", role: "Nurse", phone: "123-555-4321" },
+			{ name: "Nurse Davis", role: "Nurse", phone: "123-555-4321" }
 		],
 		inputs: [
 			{
 				input: 1000,
 				route: "IV",
-				timestamp: moment("2024-06-03T06:00:00Z").toDate(),
+				timestamp: moment("2024-06-03T06:00:00Z").toDate()
 			},
 			{
 				input: 750,
 				route: "oral",
-				timestamp: moment("2024-06-03T12:00:00Z").toDate(),
-			},
+				timestamp: moment("2024-06-03T12:00:00Z").toDate()
+			}
 		],
 		outputs: [
 			{
 				output: 900,
 				route: "urine",
-				timestamp: moment("2024-06-03T06:00:00Z").toDate(),
+				timestamp: moment("2024-06-03T06:00:00Z").toDate()
 			},
 			{
 				output: 500,
 				route: "urine",
-				timestamp: moment("2024-06-03T12:00:00Z").toDate(),
-			},
+				timestamp: moment("2024-06-03T12:00:00Z").toDate()
+			}
 		],
 		netFluidBalance: 350,
-		vitalStatus: VitalStatus.Critical,
+		vitalStatus: VitalStatus.Critical
 	},
 	{
 		id: "P004",
@@ -994,23 +994,23 @@ const patients: Patient[] = [
 				name: "Sumatriptan",
 				dosage: "100mg",
 				frequency: "PRN",
-				route: "Oral",
-			},
+				route: "Oral"
+			}
 		],
 		allergies: [
 			{
 				allergen: "Ibuprofen",
 				reaction: "Anaphylaxis",
-				severity: "Severe",
-			},
+				severity: "Severe"
+			}
 		],
 		contactInfo: [
 			{
 				name: "Anna Davis",
 				relation: "Mother",
 				phone: "789-012-3456",
-				email: "anna.davis@example.com",
-			},
+				email: "anna.davis@example.com"
+			}
 		],
 		vitalSigns: [
 			{
@@ -1019,7 +1019,7 @@ const patients: Patient[] = [
 				RR: 16,
 				O2Sat: 100,
 				temp: 36.8,
-				timestamp: moment("2024-06-04T06:00:00Z").toDate(),
+				timestamp: moment("2024-06-04T06:00:00Z").toDate()
 			},
 			{
 				HR: 81,
@@ -1027,7 +1027,7 @@ const patients: Patient[] = [
 				RR: 16,
 				O2Sat: 100,
 				temp: 36.8,
-				timestamp: moment("2024-06-04T06:15:00Z").toDate(),
+				timestamp: moment("2024-06-04T06:15:00Z").toDate()
 			},
 			{
 				HR: 82,
@@ -1035,7 +1035,7 @@ const patients: Patient[] = [
 				RR: 16,
 				O2Sat: 100,
 				temp: 36.8,
-				timestamp: moment("2024-06-04T06:30:00Z").toDate(),
+				timestamp: moment("2024-06-04T06:30:00Z").toDate()
 			},
 			{
 				HR: 83,
@@ -1043,7 +1043,7 @@ const patients: Patient[] = [
 				RR: 16,
 				O2Sat: 100,
 				temp: 36.8,
-				timestamp: moment("2024-06-04T06:45:00Z").toDate(),
+				timestamp: moment("2024-06-04T06:45:00Z").toDate()
 			},
 			{
 				HR: 84,
@@ -1051,7 +1051,7 @@ const patients: Patient[] = [
 				RR: 16,
 				O2Sat: 100,
 				temp: 36.8,
-				timestamp: moment("2024-06-04T07:00:00Z").toDate(),
+				timestamp: moment("2024-06-04T07:00:00Z").toDate()
 			},
 			{
 				HR: 85,
@@ -1059,7 +1059,7 @@ const patients: Patient[] = [
 				RR: 16,
 				O2Sat: 100,
 				temp: 36.8,
-				timestamp: moment("2024-06-04T07:15:00Z").toDate(),
+				timestamp: moment("2024-06-04T07:15:00Z").toDate()
 			},
 			{
 				HR: 86,
@@ -1067,7 +1067,7 @@ const patients: Patient[] = [
 				RR: 16,
 				O2Sat: 100,
 				temp: 36.8,
-				timestamp: moment("2024-06-04T07:30:00Z").toDate(),
+				timestamp: moment("2024-06-04T07:30:00Z").toDate()
 			},
 			{
 				HR: 87,
@@ -1075,7 +1075,7 @@ const patients: Patient[] = [
 				RR: 16,
 				O2Sat: 100,
 				temp: 36.8,
-				timestamp: moment("2024-06-04T07:45:00Z").toDate(),
+				timestamp: moment("2024-06-04T07:45:00Z").toDate()
 			},
 			{
 				HR: 88,
@@ -1083,7 +1083,7 @@ const patients: Patient[] = [
 				RR: 16,
 				O2Sat: 100,
 				temp: 36.8,
-				timestamp: moment("2024-06-04T08:00:00Z").toDate(),
+				timestamp: moment("2024-06-04T08:00:00Z").toDate()
 			},
 			{
 				HR: 89,
@@ -1091,7 +1091,7 @@ const patients: Patient[] = [
 				RR: 16,
 				O2Sat: 100,
 				temp: 36.8,
-				timestamp: moment("2024-06-04T08:15:00Z").toDate(),
+				timestamp: moment("2024-06-04T08:15:00Z").toDate()
 			},
 			{
 				HR: 90,
@@ -1099,7 +1099,7 @@ const patients: Patient[] = [
 				RR: 16,
 				O2Sat: 100,
 				temp: 36.8,
-				timestamp: moment("2024-06-04T08:30:00Z").toDate(),
+				timestamp: moment("2024-06-04T08:30:00Z").toDate()
 			},
 			{
 				HR: 91,
@@ -1107,7 +1107,7 @@ const patients: Patient[] = [
 				RR: 16,
 				O2Sat: 100,
 				temp: 36.8,
-				timestamp: moment("2024-06-04T08:45:00Z").toDate(),
+				timestamp: moment("2024-06-04T08:45:00Z").toDate()
 			},
 			{
 				HR: 92,
@@ -1115,7 +1115,7 @@ const patients: Patient[] = [
 				RR: 16,
 				O2Sat: 100,
 				temp: 36.8,
-				timestamp: moment("2024-06-04T09:00:00Z").toDate(),
+				timestamp: moment("2024-06-04T09:00:00Z").toDate()
 			},
 			{
 				HR: 93,
@@ -1123,7 +1123,7 @@ const patients: Patient[] = [
 				RR: 16,
 				O2Sat: 100,
 				temp: 36.8,
-				timestamp: moment("2024-06-04T09:15:00Z").toDate(),
+				timestamp: moment("2024-06-04T09:15:00Z").toDate()
 			},
 			{
 				HR: 94,
@@ -1131,7 +1131,7 @@ const patients: Patient[] = [
 				RR: 16,
 				O2Sat: 100,
 				temp: 36.8,
-				timestamp: moment("2024-06-04T09:30:00Z").toDate(),
+				timestamp: moment("2024-06-04T09:30:00Z").toDate()
 			},
 			{
 				HR: 95,
@@ -1139,7 +1139,7 @@ const patients: Patient[] = [
 				RR: 16,
 				O2Sat: 100,
 				temp: 36.8,
-				timestamp: moment("2024-06-04T09:45:00Z").toDate(),
+				timestamp: moment("2024-06-04T09:45:00Z").toDate()
 			},
 			{
 				HR: 96,
@@ -1147,7 +1147,7 @@ const patients: Patient[] = [
 				RR: 16,
 				O2Sat: 100,
 				temp: 36.8,
-				timestamp: moment("2024-06-04T10:00:00Z").toDate(),
+				timestamp: moment("2024-06-04T10:00:00Z").toDate()
 			},
 			{
 				HR: 97,
@@ -1155,7 +1155,7 @@ const patients: Patient[] = [
 				RR: 16,
 				O2Sat: 100,
 				temp: 36.8,
-				timestamp: moment("2024-06-04T10:15:00Z").toDate(),
+				timestamp: moment("2024-06-04T10:15:00Z").toDate()
 			},
 			{
 				HR: 98,
@@ -1163,7 +1163,7 @@ const patients: Patient[] = [
 				RR: 16,
 				O2Sat: 100,
 				temp: 36.8,
-				timestamp: moment("2024-06-04T10:30:00Z").toDate(),
+				timestamp: moment("2024-06-04T10:30:00Z").toDate()
 			},
 			{
 				HR: 99,
@@ -1171,7 +1171,7 @@ const patients: Patient[] = [
 				RR: 16,
 				O2Sat: 100,
 				temp: 36.8,
-				timestamp: moment("2024-06-04T10:45:00Z").toDate(),
+				timestamp: moment("2024-06-04T10:45:00Z").toDate()
 			},
 			{
 				HR: 100,
@@ -1179,20 +1179,20 @@ const patients: Patient[] = [
 				RR: 16,
 				O2Sat: 100,
 				temp: 36.8,
-				timestamp: moment("2024-06-04T11:00:00Z").toDate(),
-			},
+				timestamp: moment("2024-06-04T11:00:00Z").toDate()
+			}
 		],
 		orders: [
 			{
 				description: "CT Scan",
 				repeatable: false,
-				lastCompleted: moment("2024-06-04T08:00:00Z").toDate(),
+				lastCompleted: moment("2024-06-04T08:00:00Z").toDate()
 			},
 			{
 				description: "Blood test",
 				repeatable: false,
-				lastCompleted: moment("2024-06-04T09:00:00Z").toDate(),
-			},
+				lastCompleted: moment("2024-06-04T09:00:00Z").toDate()
+			}
 		],
 		lines: [],
 		labs: [
@@ -1200,49 +1200,49 @@ const patients: Patient[] = [
 				name: "CRP",
 				value: 8,
 				referenceRange: "<10 mg/L",
-				timestamp: moment("2024-06-04T06:00:00Z").toDate(),
+				timestamp: moment("2024-06-04T06:00:00Z").toDate()
 			},
 			{
 				name: "ESR",
 				value: 20,
 				referenceRange: "0-20 mm/hr",
-				timestamp: moment("2024-06-04T06:00:00Z").toDate(),
-			},
+				timestamp: moment("2024-06-04T06:00:00Z").toDate()
+			}
 		],
 		providers: [
 			{
 				name: "Dr. Harris",
 				role: "Attending Physician",
-				phone: "987-555-0987",
+				phone: "987-555-0987"
 			},
-			{ name: "Nurse White", role: "Nurse", phone: "123-555-6780" },
+			{ name: "Nurse White", role: "Nurse", phone: "123-555-6780" }
 		],
 		inputs: [
 			{
 				input: 500,
 				route: "oral",
-				timestamp: moment("2024-06-04T06:00:00Z").toDate(),
+				timestamp: moment("2024-06-04T06:00:00Z").toDate()
 			},
 			{
 				input: 750,
 				route: "oral",
-				timestamp: moment("2024-06-04T12:00:00Z").toDate(),
-			},
+				timestamp: moment("2024-06-04T12:00:00Z").toDate()
+			}
 		],
 		outputs: [
 			{
 				output: 400,
 				route: "urine",
-				timestamp: moment("2024-06-04T06:00:00Z").toDate(),
+				timestamp: moment("2024-06-04T06:00:00Z").toDate()
 			},
 			{
 				output: 500,
 				route: "urine",
-				timestamp: moment("2024-06-04T12:00:00Z").toDate(),
-			},
+				timestamp: moment("2024-06-04T12:00:00Z").toDate()
+			}
 		],
 		netFluidBalance: 350,
-		vitalStatus: VitalStatus.Stable,
+		vitalStatus: VitalStatus.Stable
 	},
 	{
 		id: "P005",
@@ -1261,29 +1261,29 @@ const patients: Patient[] = [
 				name: "Albuterol",
 				dosage: "2.5mg",
 				frequency: "PRN",
-				route: "Inhalation",
+				route: "Inhalation"
 			},
 			{
 				name: "Prednisone",
 				dosage: "40mg",
 				frequency: "daily",
-				route: "Oral",
-			},
+				route: "Oral"
+			}
 		],
 		allergies: [
 			{
 				allergen: "Latex",
 				reaction: "Rash",
-				severity: "Mild",
-			},
+				severity: "Mild"
+			}
 		],
 		contactInfo: [
 			{
 				name: "Maria Martinez",
 				relation: "Wife",
 				phone: "567-890-1234",
-				email: "maria.martinez@example.com",
-			},
+				email: "maria.martinez@example.com"
+			}
 		],
 		vitalSigns: [
 			{
@@ -1292,7 +1292,7 @@ const patients: Patient[] = [
 				RR: 22,
 				O2Sat: 92,
 				temp: 36.7,
-				timestamp: moment("2024-06-05T06:00:00Z").toDate(),
+				timestamp: moment("2024-06-05T06:00:00Z").toDate()
 			},
 			{
 				HR: 86,
@@ -1300,7 +1300,7 @@ const patients: Patient[] = [
 				RR: 22,
 				O2Sat: 92,
 				temp: 36.7,
-				timestamp: moment("2024-06-05T06:15:00Z").toDate(),
+				timestamp: moment("2024-06-05T06:15:00Z").toDate()
 			},
 			{
 				HR: 87,
@@ -1308,7 +1308,7 @@ const patients: Patient[] = [
 				RR: 22,
 				O2Sat: 92,
 				temp: 36.7,
-				timestamp: moment("2024-06-05T06:30:00Z").toDate(),
+				timestamp: moment("2024-06-05T06:30:00Z").toDate()
 			},
 			{
 				HR: 88,
@@ -1316,7 +1316,7 @@ const patients: Patient[] = [
 				RR: 22,
 				O2Sat: 92,
 				temp: 36.7,
-				timestamp: moment("2024-06-05T06:45:00Z").toDate(),
+				timestamp: moment("2024-06-05T06:45:00Z").toDate()
 			},
 			{
 				HR: 89,
@@ -1324,7 +1324,7 @@ const patients: Patient[] = [
 				RR: 22,
 				O2Sat: 92,
 				temp: 36.7,
-				timestamp: moment("2024-06-05T07:00:00Z").toDate(),
+				timestamp: moment("2024-06-05T07:00:00Z").toDate()
 			},
 			{
 				HR: 90,
@@ -1332,7 +1332,7 @@ const patients: Patient[] = [
 				RR: 22,
 				O2Sat: 92,
 				temp: 36.7,
-				timestamp: moment("2024-06-05T07:15:00Z").toDate(),
+				timestamp: moment("2024-06-05T07:15:00Z").toDate()
 			},
 			{
 				HR: 91,
@@ -1340,7 +1340,7 @@ const patients: Patient[] = [
 				RR: 22,
 				O2Sat: 92,
 				temp: 36.7,
-				timestamp: moment("2024-06-05T07:30:00Z").toDate(),
+				timestamp: moment("2024-06-05T07:30:00Z").toDate()
 			},
 			{
 				HR: 92,
@@ -1348,7 +1348,7 @@ const patients: Patient[] = [
 				RR: 22,
 				O2Sat: 92,
 				temp: 36.7,
-				timestamp: moment("2024-06-05T07:45:00Z").toDate(),
+				timestamp: moment("2024-06-05T07:45:00Z").toDate()
 			},
 			{
 				HR: 93,
@@ -1356,7 +1356,7 @@ const patients: Patient[] = [
 				RR: 22,
 				O2Sat: 92,
 				temp: 36.7,
-				timestamp: moment("2024-06-05T08:00:00Z").toDate(),
+				timestamp: moment("2024-06-05T08:00:00Z").toDate()
 			},
 			{
 				HR: 94,
@@ -1364,7 +1364,7 @@ const patients: Patient[] = [
 				RR: 22,
 				O2Sat: 92,
 				temp: 36.7,
-				timestamp: moment("2024-06-05T08:15:00Z").toDate(),
+				timestamp: moment("2024-06-05T08:15:00Z").toDate()
 			},
 			{
 				HR: 95,
@@ -1372,7 +1372,7 @@ const patients: Patient[] = [
 				RR: 22,
 				O2Sat: 92,
 				temp: 36.7,
-				timestamp: moment("2024-06-05T08:30:00Z").toDate(),
+				timestamp: moment("2024-06-05T08:30:00Z").toDate()
 			},
 			{
 				HR: 96,
@@ -1380,7 +1380,7 @@ const patients: Patient[] = [
 				RR: 22,
 				O2Sat: 92,
 				temp: 36.7,
-				timestamp: moment("2024-06-05T08:45:00Z").toDate(),
+				timestamp: moment("2024-06-05T08:45:00Z").toDate()
 			},
 			{
 				HR: 97,
@@ -1388,7 +1388,7 @@ const patients: Patient[] = [
 				RR: 22,
 				O2Sat: 92,
 				temp: 36.7,
-				timestamp: moment("2024-06-05T09:00:00Z").toDate(),
+				timestamp: moment("2024-06-05T09:00:00Z").toDate()
 			},
 			{
 				HR: 98,
@@ -1396,7 +1396,7 @@ const patients: Patient[] = [
 				RR: 22,
 				O2Sat: 92,
 				temp: 36.7,
-				timestamp: moment("2024-06-05T09:15:00Z").toDate(),
+				timestamp: moment("2024-06-05T09:15:00Z").toDate()
 			},
 			{
 				HR: 99,
@@ -1404,7 +1404,7 @@ const patients: Patient[] = [
 				RR: 22,
 				O2Sat: 92,
 				temp: 36.7,
-				timestamp: moment("2024-06-05T09:30:00Z").toDate(),
+				timestamp: moment("2024-06-05T09:30:00Z").toDate()
 			},
 			{
 				HR: 100,
@@ -1412,7 +1412,7 @@ const patients: Patient[] = [
 				RR: 22,
 				O2Sat: 92,
 				temp: 36.7,
-				timestamp: moment("2024-06-05T09:45:00Z").toDate(),
+				timestamp: moment("2024-06-05T09:45:00Z").toDate()
 			},
 			{
 				HR: 101,
@@ -1420,7 +1420,7 @@ const patients: Patient[] = [
 				RR: 22,
 				O2Sat: 92,
 				temp: 36.7,
-				timestamp: moment("2024-06-05T10:00:00Z").toDate(),
+				timestamp: moment("2024-06-05T10:00:00Z").toDate()
 			},
 			{
 				HR: 102,
@@ -1428,7 +1428,7 @@ const patients: Patient[] = [
 				RR: 22,
 				O2Sat: 92,
 				temp: 36.7,
-				timestamp: moment("2024-06-05T10:15:00Z").toDate(),
+				timestamp: moment("2024-06-05T10:15:00Z").toDate()
 			},
 			{
 				HR: 103,
@@ -1436,7 +1436,7 @@ const patients: Patient[] = [
 				RR: 22,
 				O2Sat: 92,
 				temp: 36.7,
-				timestamp: moment("2024-06-05T10:30:00Z").toDate(),
+				timestamp: moment("2024-06-05T10:30:00Z").toDate()
 			},
 			{
 				HR: 104,
@@ -1444,7 +1444,7 @@ const patients: Patient[] = [
 				RR: 22,
 				O2Sat: 92,
 				temp: 36.7,
-				timestamp: moment("2024-06-05T10:45:00Z").toDate(),
+				timestamp: moment("2024-06-05T10:45:00Z").toDate()
 			},
 			{
 				HR: 105,
@@ -1452,83 +1452,518 @@ const patients: Patient[] = [
 				RR: 22,
 				O2Sat: 92,
 				temp: 36.7,
-				timestamp: moment("2024-06-05T11:00:00Z").toDate(),
-			},
+				timestamp: moment("2024-06-05T11:00:00Z").toDate()
+			}
 		],
 		orders: [
 			{
 				description: "ABG",
 				repeatable: true,
 				frequency: "every 8 hours",
-				lastCompleted: moment("2024-06-05T06:00:00Z").toDate(),
+				lastCompleted: moment("2024-06-05T06:00:00Z").toDate()
 			},
 			{
 				description: "Chest X-ray",
 				repeatable: true,
 				frequency: "daily",
-				lastCompleted: moment("2024-06-05T07:00:00Z").toDate(),
-			},
+				lastCompleted: moment("2024-06-05T07:00:00Z").toDate()
+			}
 		],
 		O2Therapy: "Non-invasive ventilation",
 		ventSettings: {
 			O2Percentage: 50,
 			PEEP: 10,
 			TV: 600,
-			RR: 18,
+			RR: 18
 		},
 		lines: [
 			{ type: "IV", location: "Left hand" },
-			{ type: "Central line", location: "Right femoral" },
+			{ type: "Central line", location: "Right femoral" }
 		],
 		labs: [
 			{
 				name: "ABG - pH",
 				value: 7.35,
 				referenceRange: "7.35-7.45",
-				timestamp: moment("2024-06-05T06:00:00Z").toDate(),
+				timestamp: moment("2024-06-05T06:00:00Z").toDate()
 			},
 			{
 				name: "ABG - PaO2",
 				value: 70,
 				referenceRange: "75-100 mmHg",
-				timestamp: moment("2024-06-05T06:00:00Z").toDate(),
-			},
+				timestamp: moment("2024-06-05T06:00:00Z").toDate()
+			}
 		],
 		providers: [
 			{
 				name: "Dr. Taylor",
 				role: "Attending Physician",
-				phone: "987-555-5678",
+				phone: "987-555-5678"
 			},
-			{ name: "Nurse Lee", role: "Nurse", phone: "123-555-9876" },
+			{ name: "Nurse Lee", role: "Nurse", phone: "123-555-9876" }
 		],
 		inputs: [
 			{
 				input: 1000,
 				route: "IV",
-				timestamp: moment("2024-06-05T06:00:00Z").toDate(),
+				timestamp: moment("2024-06-05T06:00:00Z").toDate()
 			},
 			{
 				input: 750,
 				route: "oral",
-				timestamp: moment("2024-06-05T12:00:00Z").toDate(),
-			},
+				timestamp: moment("2024-06-05T12:00:00Z").toDate()
+			}
 		],
 		outputs: [
 			{
 				output: 800,
 				route: "urine",
-				timestamp: moment("2024-06-05T06:00:00Z").toDate(),
+				timestamp: moment("2024-06-05T06:00:00Z").toDate()
 			},
 			{
 				output: 600,
 				route: "urine",
-				timestamp: moment("2024-06-05T12:00:00Z").toDate(),
-			},
+				timestamp: moment("2024-06-05T12:00:00Z").toDate()
+			}
 		],
 		netFluidBalance: 350,
-		vitalStatus: VitalStatus.Improving,
+		vitalStatus: VitalStatus.Improving
 	},
+	{
+		id: "P006",
+		firstName: "Sophia",
+		lastName: "Garcia",
+		gender: Gender.Female,
+		dateOfBirth: moment("1995-04-10").toDate(),
+		bloodType: BloodType.B_POS,
+		admissionDate: moment("2024-06-06").toDate(),
+		chiefComplaint: "Fever and cough",
+		unitType: UnitType.FloorUnit,
+		roomNumber: "203",
+		diagnosis: [{ description: "Bronchitis", ICD10Code: "J20.9" }],
+		medications: [
+			{
+				name: "Azithromycin",
+				dosage: "500mg",
+				frequency: "daily",
+				route: "Oral"
+			}
+		],
+		allergies: [
+			{
+				allergen: "Peanuts",
+				reaction: "Anaphylaxis",
+				severity: "Severe"
+			}
+		],
+		contactInfo: [
+			{
+				name: "Carlos Garcia",
+				relation: "Father",
+				phone: "123-456-7891",
+				email: "carlos.garcia@example.com"
+			}
+		],
+		vitalSigns: [
+			{
+				HR: 90,
+				BP: "120/80",
+				RR: 18,
+				O2Sat: 97,
+				temp: 38.0,
+				timestamp: moment("2024-06-06T06:00:00Z").toDate()
+			}
+		],
+		orders: [
+			{
+				description: "Blood culture",
+				repeatable: false,
+				lastCompleted: moment("2024-06-06T08:00:00Z").toDate()
+			}
+		],
+		lines: [{ type: "IV", location: "Right hand" }],
+		labs: [
+			{
+				name: "CBC",
+				value: "Normal",
+				referenceRange: "Normal",
+				timestamp: moment("2024-06-06T06:00:00Z").toDate()
+			}
+		],
+		providers: [
+			{
+				name: "Dr. Clark",
+				role: "Attending Physician",
+				phone: "987-555-1234"
+			},
+			{ name: "Nurse Brown", role: "Nurse", phone: "123-555-5678" }
+		],
+		inputs: [
+			{
+				input: 500,
+				route: "oral",
+				timestamp: moment("2024-06-06T06:00:00Z").toDate()
+			}
+		],
+		outputs: [
+			{
+				output: 400,
+				route: "urine",
+				timestamp: moment("2024-06-06T06:00:00Z").toDate()
+			}
+		],
+		netFluidBalance: 100,
+		vitalStatus: VitalStatus.Stable
+	},
+	{
+		id: "P007",
+		firstName: "Olivia",
+		lastName: "Rodriguez",
+		gender: Gender.Female,
+		dateOfBirth: moment("1988-12-25").toDate(),
+		bloodType: BloodType.O_NEG,
+		admissionDate: moment("2024-06-07").toDate(),
+		chiefComplaint: "High fever and chills",
+		unitType: UnitType.ICU,
+		roomNumber: "ICU-104",
+		diagnosis: [{ description: "Malaria", ICD10Code: "B50.9" }],
+		medications: [
+			{
+				name: "Artemether",
+				dosage: "80mg",
+				frequency: "daily",
+				route: "IM"
+			}
+		],
+		allergies: [],
+		contactInfo: [
+			{
+				name: "Lucas Rodriguez",
+				relation: "Husband",
+				phone: "789-012-3457",
+				email: "lucas.rodriguez@example.com"
+			}
+		],
+		vitalSigns: [
+			{
+				HR: 100,
+				BP: "110/70",
+				RR: 20,
+				O2Sat: 95,
+				temp: 39.0,
+				timestamp: moment("2024-06-07T06:00:00Z").toDate()
+			}
+		],
+		orders: [
+			{
+				description: "Blood smear",
+				repeatable: false,
+				lastCompleted: moment("2024-06-07T08:00:00Z").toDate()
+			}
+		],
+		lines: [{ type: "IV", location: "Left hand" }],
+		labs: [
+			{
+				name: "Hemoglobin",
+				value: 10.0,
+				referenceRange: "12.0-15.5 g/dL",
+				timestamp: moment("2024-06-07T06:00:00Z").toDate()
+			}
+		],
+		providers: [
+			{
+				name: "Dr. Evans",
+				role: "Attending Physician",
+				phone: "987-555-6789"
+			},
+			{ name: "Nurse Green", role: "Nurse", phone: "123-555-7890" }
+		],
+		inputs: [
+			{
+				input: 1000,
+				route: "IV",
+				timestamp: moment("2024-06-07T06:00:00Z").toDate()
+			}
+		],
+		outputs: [
+			{
+				output: 800,
+				route: "urine",
+				timestamp: moment("2024-06-07T06:00:00Z").toDate()
+			}
+		],
+		netFluidBalance: 200,
+		vitalStatus: VitalStatus.Deteriorating
+	},
+	{
+		id: "P008",
+		firstName: "Liam",
+		lastName: "Wilson",
+		gender: Gender.Male,
+		dateOfBirth: moment("1970-01-01").toDate(),
+		bloodType: BloodType.AB_NEG,
+		admissionDate: moment("2024-06-08").toDate(),
+		chiefComplaint: "Multiple organ failure",
+		unitType: UnitType.ICU,
+		roomNumber: "ICU-105",
+		diagnosis: [
+			{ description: "Septic shock", ICD10Code: "R65.21" },
+			{ description: "Acute kidney injury", ICD10Code: "N17.9" }
+		],
+		medications: [
+			{
+				name: "Norepinephrine",
+				dosage: "0.1 mcg/kg/min",
+				frequency: "continuous",
+				route: "IV"
+			},
+			{
+				name: "Vancomycin",
+				dosage: "1g",
+				frequency: "12 hours",
+				route: "IV"
+			}
+		],
+		allergies: [
+			{
+				allergen: "Sulfa drugs",
+				reaction: "Rash",
+				severity: "Severe"
+			}
+		],
+		contactInfo: [
+			{
+				name: "Emma Wilson",
+				relation: "Daughter",
+				phone: "123-456-7892",
+				email: "emma.wilson@example.com"
+			}
+		],
+		vitalSigns: [
+			{
+				HR: 120,
+				BP: "80/50",
+				RR: 30,
+				O2Sat: 85,
+				temp: 39.5,
+				timestamp: moment("2024-06-08T06:00:00Z").toDate()
+			},
+			{
+				HR: 125,
+				BP: "75/45",
+				RR: 32,
+				O2Sat: 83,
+				temp: 39.6,
+				timestamp: moment("2024-06-08T06:30:00Z").toDate()
+			},
+			{
+				HR: 130,
+				BP: "70/40",
+				RR: 34,
+				O2Sat: 82,
+				temp: 39.7,
+				timestamp: moment("2024-06-08T07:00:00Z").toDate()
+			},
+			{
+				HR: 135,
+				BP: "65/35",
+				RR: 36,
+				O2Sat: 80,
+				temp: 39.8,
+				timestamp: moment("2024-06-08T07:30:00Z").toDate()
+			},
+			{
+				HR: 140,
+				BP: "60/30",
+				RR: 38,
+				O2Sat: 78,
+				temp: 40.0,
+				timestamp: moment("2024-06-08T08:00:00Z").toDate()
+			}
+		],
+		orders: [
+			{
+				description: "Blood culture",
+				repeatable: false,
+				lastCompleted: moment("2024-06-08T08:00:00Z").toDate()
+			},
+			{
+				description: "Dialysis",
+				repeatable: true,
+				frequency: "daily",
+				lastCompleted: moment("2024-06-08T07:00:00Z").toDate()
+			}
+		],
+		O2Therapy: "Mechanical ventilation",
+		ventSettings: {
+			O2Percentage: 100,
+			PEEP: 10,
+			TV: 500,
+			RR: 20
+		},
+		lines: [
+			{ type: "IV", location: "Right arm" },
+			{ type: "Central line", location: "Right subclavian" }
+		],
+		labs: [
+			{
+				name: "WBC",
+				value: 24.0,
+				referenceRange: "4.0-11.0 x10^3/uL",
+				timestamp: moment("2024-06-08T06:00:00Z").toDate()
+			},
+			{
+				name: "Creatinine",
+				value: 5.0,
+				referenceRange: "0.6-1.2 mg/dL",
+				timestamp: moment("2024-06-08T06:00:00Z").toDate()
+			}
+		],
+		providers: [
+			{
+				name: "Dr. Johnson",
+				role: "Attending Physician",
+				phone: "987-555-4321"
+			},
+			{ name: "Nurse Brown", role: "Nurse", phone: "123-555-6789" }
+		],
+		inputs: [
+			{
+				input: 1500,
+				route: "IV",
+				timestamp: moment("2024-06-08T06:00:00Z").toDate()
+			}
+		],
+		outputs: [
+			{
+				output: 400,
+				route: "urine",
+				timestamp: moment("2024-06-08T06:00:00Z").toDate()
+			}
+		],
+		netFluidBalance: 1100,
+		vitalStatus: VitalStatus.Critical
+	},
+
+	{
+		id: "P009",
+		firstName: "Robert",
+		lastName: "Cooper",
+		gender: Gender.Male,
+		dateOfBirth: moment("1992-08-15").toDate(),
+		bloodType: BloodType.O_POS,
+		admissionDate: moment("2024-06-09").toDate(),
+		chiefComplaint: "Appendectomy recovery",
+		unitType: UnitType.FloorUnit,
+		roomNumber: "204",
+		diagnosis: [{ description: "Post-appendectomy", ICD10Code: "Z98.89" }],
+		medications: [
+			{
+				name: "Acetaminophen",
+				dosage: "650mg",
+				frequency: "6 hours",
+				route: "Oral"
+			}
+		],
+		vitalSigns: [
+			{
+				HR: 72,
+				BP: "118/78",
+				RR: 16,
+				O2Sat: 99,
+				temp: 36.8,
+				timestamp: moment("2024-06-09T06:00:00Z").toDate()
+			}
+		],
+		providers: [
+			{
+				name: "Dr. Wilson",
+				role: "Attending Physician",
+				phone: "987-555-1111"
+			}
+		],
+		vitalStatus: VitalStatus.Stable
+	},
+	{
+		id: "P010",
+		firstName: "Sarah",
+		lastName: "Thompson",
+		gender: Gender.Female,
+		dateOfBirth: moment("1988-03-25").toDate(),
+		bloodType: BloodType.A_POS,
+		admissionDate: moment("2024-06-09").toDate(),
+		chiefComplaint: "Cellulitis",
+		unitType: UnitType.FloorUnit,
+		roomNumber: "205",
+		diagnosis: [
+			{ description: "Cellulitis of right leg", ICD10Code: "L03.115" }
+		],
+		medications: [
+			{
+				name: "Cephalexin",
+				dosage: "500mg",
+				frequency: "6 hours",
+				route: "Oral"
+			}
+		],
+		vitalSigns: [
+			{
+				HR: 76,
+				BP: "122/82",
+				RR: 14,
+				O2Sat: 98,
+				temp: 37.1,
+				timestamp: moment("2024-06-09T06:00:00Z").toDate()
+			}
+		],
+		providers: [
+			{
+				name: "Dr. Martinez",
+				role: "Attending Physician",
+				phone: "987-555-2222"
+			}
+		],
+		vitalStatus: VitalStatus.Improving
+	},
+	{
+		id: "P011",
+		firstName: "Thomas",
+		lastName: "Anderson",
+		gender: Gender.Male,
+		dateOfBirth: moment("1979-11-30").toDate(),
+		bloodType: BloodType.B_POS,
+		admissionDate: moment("2024-06-09").toDate(),
+		chiefComplaint: "Dehydration",
+		unitType: UnitType.FloorUnit,
+		roomNumber: "206",
+		diagnosis: [{ description: "Dehydration", ICD10Code: "E86.0" }],
+		medications: [
+			{
+				name: "Normal Saline",
+				dosage: "1L",
+				frequency: "8 hours",
+				route: "IV"
+			}
+		],
+		vitalSigns: [
+			{
+				HR: 82,
+				BP: "115/75",
+				RR: 16,
+				O2Sat: 97,
+				temp: 36.9,
+				timestamp: moment("2024-06-09T06:00:00Z").toDate()
+			}
+		],
+		providers: [
+			{
+				name: "Dr. Lee",
+				role: "Attending Physician",
+				phone: "987-555-3333"
+			}
+		],
+		vitalStatus: VitalStatus.Stable
+	}
 ]
 
 export { Gender, BloodType, UnitType, VitalStatus, patients }
@@ -1545,5 +1980,5 @@ export type {
 	Provider,
 	Input,
 	Output,
-	Patient,
+	Patient
 }
