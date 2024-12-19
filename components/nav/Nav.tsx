@@ -6,7 +6,7 @@ import { Button } from "../ui/button"
 import { LucideBadgeInfo } from "lucide-react"
 
 export default function Nav({
-	children,
+	children
 }: Readonly<{
 	children: React.ReactNode
 }>) {
@@ -23,7 +23,7 @@ export default function Nav({
 					<ProfileDropdown />
 				</header>
 			</div>
-			<main className="flex flex-col w-full h-[calc(100vh-5rem)] sm:pl-14">
+			<main className="flex flex-col w-full h-[calc(100vh-4rem)] sm:pl-14">
 				{children}
 			</main>
 		</div>

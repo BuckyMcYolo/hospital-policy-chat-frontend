@@ -112,6 +112,7 @@ interface Patient {
 	firstName: string
 	lastName: string
 	gender: Gender
+	codeStatus?: "DNR" | "Full Code"
 	dateOfBirth: Date
 	bloodType?: BloodType
 	admissionDate: Date
@@ -141,6 +142,7 @@ const patients: Patient[] = [
 		id: "P001",
 		firstName: "John",
 		lastName: "Doe",
+		codeStatus: "Full Code",
 		gender: Gender.Male,
 		dateOfBirth: moment("1985-02-15").toDate(),
 		bloodType: BloodType.O_POS,
@@ -441,6 +443,7 @@ const patients: Patient[] = [
 		id: "P002",
 		firstName: "Jane",
 		lastName: "Smith",
+		codeStatus: "Full Code",
 		gender: Gender.Female,
 		dateOfBirth: moment("1990-07-22").toDate(),
 		bloodType: BloodType.A_POS,
@@ -709,7 +712,8 @@ const patients: Patient[] = [
 		firstName: "Michael",
 		lastName: "Johnson",
 		gender: Gender.Male,
-		dateOfBirth: moment("1975-03-18").toDate(),
+		codeStatus: "DNR",
+		dateOfBirth: moment("1945-03-18").toDate(),
 		bloodType: BloodType.B_NEG,
 		admissionDate: moment("2024-06-03").toDate(),
 		chiefComplaint: "Chest pain",
@@ -981,6 +985,7 @@ const patients: Patient[] = [
 		id: "P004",
 		firstName: "Emily",
 		lastName: "Davis",
+		codeStatus: "Full Code",
 		gender: Gender.Female,
 		dateOfBirth: moment("2000-11-05").toDate(),
 		bloodType: BloodType.A_NEG,
@@ -1248,6 +1253,7 @@ const patients: Patient[] = [
 		id: "P005",
 		firstName: "David",
 		lastName: "Martinez",
+		codeStatus: "Full Code",
 		gender: Gender.Male,
 		dateOfBirth: moment("1982-09-14").toDate(),
 		bloodType: BloodType.AB_POS,
@@ -1533,6 +1539,7 @@ const patients: Patient[] = [
 		id: "P006",
 		firstName: "Sophia",
 		lastName: "Garcia",
+		codeStatus: "Full Code",
 		gender: Gender.Female,
 		dateOfBirth: moment("1995-04-10").toDate(),
 		bloodType: BloodType.B_POS,
@@ -1619,6 +1626,7 @@ const patients: Patient[] = [
 		id: "P007",
 		firstName: "Olivia",
 		lastName: "Rodriguez",
+		codeStatus: "Full Code",
 		gender: Gender.Female,
 		dateOfBirth: moment("1988-12-25").toDate(),
 		bloodType: BloodType.O_NEG,
@@ -1699,6 +1707,7 @@ const patients: Patient[] = [
 		id: "P008",
 		firstName: "Liam",
 		lastName: "Wilson",
+		codeStatus: "DNR",
 		gender: Gender.Male,
 		dateOfBirth: moment("1970-01-01").toDate(),
 		bloodType: BloodType.AB_NEG,
@@ -1849,6 +1858,7 @@ const patients: Patient[] = [
 		id: "P009",
 		firstName: "Robert",
 		lastName: "Cooper",
+		codeStatus: "Full Code",
 		gender: Gender.Male,
 		dateOfBirth: moment("1992-08-15").toDate(),
 		bloodType: BloodType.O_POS,
@@ -1888,6 +1898,7 @@ const patients: Patient[] = [
 		id: "P010",
 		firstName: "Sarah",
 		lastName: "Thompson",
+		codeStatus: "Full Code",
 		gender: Gender.Female,
 		dateOfBirth: moment("1988-03-25").toDate(),
 		bloodType: BloodType.A_POS,
@@ -1929,6 +1940,7 @@ const patients: Patient[] = [
 		id: "P011",
 		firstName: "Thomas",
 		lastName: "Anderson",
+		codeStatus: "Full Code",
 		gender: Gender.Male,
 		dateOfBirth: moment("1979-11-30").toDate(),
 		bloodType: BloodType.B_POS,

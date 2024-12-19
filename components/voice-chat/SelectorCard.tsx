@@ -13,8 +13,12 @@ import {
 	SelectTrigger,
 	SelectContent,
 	SelectItem,
-	SelectValue
+	SelectValue,
+	SelectGroup,
+	SelectLabel,
+	SelectSeparator
 } from "../ui/select"
+import CustomSelectItem from "../ui/custom-select-item"
 
 const SelectorCard = ({
 	setRole
@@ -33,7 +37,7 @@ const SelectorCard = ({
 					</CardDescription>
 				</CardHeader>
 				<CardContent>
-					<Select onValueChange={(e) => setTempRole(e)}>
+					{/* <Select onValueChange={(e) => setTempRole(e)}>
 						<SelectTrigger className="w-full">
 							<SelectValue placeholder="Please Choose Role" />
 						</SelectTrigger>
@@ -43,6 +47,72 @@ const SelectorCard = ({
 							</SelectItem>
 							<SelectItem value="unitNurse">ICU Nurse</SelectItem>
 							<SelectItem value="physician">Physician</SelectItem>
+						</SelectContent>
+					</Select> */}
+					<Select onValueChange={(e) => setTempRole(e)}>
+						<SelectTrigger className="w-full">
+							<SelectValue placeholder="Please Choose Role" />
+						</SelectTrigger>
+						<SelectContent className="w-full">
+							<CustomSelectItem
+								value="unitNurse"
+								tooltip={
+									<div className="p-2 w-64">
+										<p className="font-semibold mb-2">
+											ICU Nurse
+										</p>
+										<p className="mb-3 text-xs">
+											The ICU Nurse has access to just 2
+											of the ICU patients and can view and
+											ask questions about every detail of
+											each patient.
+										</p>
+									</div>
+								}
+							>
+								ICU Nurse
+							</CustomSelectItem>
+							<CustomSelectItem
+								value="chargeNurse"
+								tooltip={
+									<div className="p-2 w-64">
+										<p className="font-semibold mb-2">
+											Charge Nurse (ICU)
+										</p>
+										<p className="mb-3 text-xs">
+											The Charge nurse has access to all
+											the ICU patients and can view and
+											ask questions about most important
+											details about each patient (e.g.
+											recent vitals, medications, etc) but
+											not as much as the ICU Nurse.
+										</p>
+									</div>
+								}
+							>
+								Charge Nurse (ICU)
+							</CustomSelectItem>
+
+							<CustomSelectItem
+								value="physician"
+								tooltip={
+									<div className="p-2 w-64">
+										<p className="font-semibold mb-2">
+											Physician
+										</p>
+										<p className="mb-3 text-xs">
+											The Physician has access to all the
+											patients (Floor and ICU) and can
+											view and ask questions about more
+											basic details about each patient but
+											not as much as the Charge Nurse or
+											ICU Nurse.
+										</p>
+									</div>
+								}
+							>
+								Physician
+							</CustomSelectItem>
 						</SelectContent>
 					</Select>
 				</CardContent>

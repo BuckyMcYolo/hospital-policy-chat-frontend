@@ -12,15 +12,22 @@ import {
 	TableHeader,
 	TableRow
 } from "@/components/ui/table"
-import { ArrowDown, ArrowUp, TrendingDown } from "lucide-react"
+import { ArrowDown, ArrowUp, TrendingDown, X } from "lucide-react"
 import { useChat, Message } from "ai/react"
 import { toast } from "sonner"
 import moment from "moment"
 import Siriwave from "siriwave"
 import { useTheme } from "next-themes"
 import { Badge } from "@/components/ui/badge"
-import { Card, CardTitle } from "@/components/ui/card"
-import PatientInfoSheet from "./PatientInfoSheet"
+import {
+	Card,
+	CardContent,
+	CardDescription,
+	CardHeader,
+	CardTitle
+} from "@/components/ui/card"
+import { Button } from "../ui/button"
+import PatientInfoCard from "./PatientInfoCard"
 
 const PatientDisplay = ({
 	role,
@@ -29,7 +36,7 @@ const PatientDisplay = ({
 	role: string | null
 	patientList: Patient[] | null
 }) => {
-	const [isSheetOpen, setIsSheetOpen] = useState(false)
+	const [selectedPatient, setSelectedPatient] = useState<Patient | null>(null)
 
 	const StatusIcon = ({ status }: { status: string }) => {
 		const iconProps = { size: 13 }
@@ -92,65 +99,76 @@ const PatientDisplay = ({
 			: patientList
 
 		return (
-			<div>
-				<Table>
-					<TableHeader>
-						<TableRow>
-							<TableHead>Patient</TableHead>
-							<TableHead>DOB/Age</TableHead>
-							<TableHead>Chief Complaint</TableHead>
-							<TableHead>Status</TableHead>
-							<TableHead>Room Number</TableHead>
+			<Table>
+				<TableHeader>
+					<TableRow>
+						<TableHead>Patient</TableHead>
+						<TableHead>DOB/Age</TableHead>
+						<TableHead>Chief Complaint</TableHead>
+						<TableHead>Status</TableHead>
+						<TableHead>Room Number</TableHead>
+					</TableRow>
+				</TableHeader>
+				<TableBody>
+					{sortedPatients.map((patient) => (
+						<TableRow
+							key={patient.id}
+							onClick={() => {
+								if (selectedPatient?.id === patient.id) {
+									setSelectedPatient(null)
+								} else {
+									setSelectedPatient(patient)
+								}
+							}}
+							className="cursor-pointer"
+						>
+							<TableCell>
+								{patient.firstName} {patient.lastName}
+							</TableCell>
+							<TableCell>
+								{formatDate({
+									date: patient.dateOfBirth,
+									isPhysician
+								})}{" "}
+								(
+								{calculateAge({
+									dateOfBirth: patient.dateOfBirth
+								})}
+								)
+							</TableCell>
+							<TableCell>{patient?.chiefComplaint}</TableCell>
+							<TableCell>
+								{isPhysician ? (
+									<PatientStatus
+										status={
+											patient.vitalStatus ?? "Unknown"
+										}
+									/>
+								) : (
+									patient.vitalStatus ?? "Unknown"
+								)}
+							</TableCell>
+							<TableCell>{patient.roomNumber}</TableCell>
 						</TableRow>
-					</TableHeader>
-					<TableBody>
-						{sortedPatients.map((patient) => (
-							<TableRow
-								key={patient.id}
-								onClick={() => setIsSheetOpen(true)}
-							>
-								<TableCell>
-									{patient.firstName} {patient.lastName}
-								</TableCell>
-								<TableCell>
-									{formatDate({
-										date: patient.dateOfBirth,
-										isPhysician
-									})}{" "}
-									(
-									{calculateAge({
-										dateOfBirth: patient.dateOfBirth
-									})}
-									)
-								</TableCell>
-								<TableCell>{patient?.chiefComplaint}</TableCell>
-								<TableCell>
-									{isPhysician ? (
-										<PatientStatus
-											status={
-												patient.vitalStatus ?? "Unknown"
-											}
-										/>
-									) : (
-										patient.vitalStatus ?? "Unknown"
-									)}
-								</TableCell>
-								<TableCell>{patient.roomNumber}</TableCell>
-							</TableRow>
-						))}
-					</TableBody>
-				</Table>
-			</div>
+					))}
+				</TableBody>
+			</Table>
 		)
 	}
 
 	return (
-		<div className=" p-2">
-			<PatientTable role={role} patientList={patientList} />
-			<PatientInfoSheet
-				isSheetOpen={isSheetOpen}
-				setIsSheetOpen={setIsSheetOpen}
-			/>
+		<div className="w-full h-full flex">
+			<div className={selectedPatient ? "w-3/4" : "w-full"}>
+				<PatientTable role={role} patientList={patientList} />
+			</div>
+			{selectedPatient && (
+				<div className="border-l w-1/4 h-full relative">
+					<PatientInfoCard
+						selectedPatient={selectedPatient}
+						setSelectedPatient={setSelectedPatient}
+					/>
+				</div>
+			)}
 		</div>
 	)
 }

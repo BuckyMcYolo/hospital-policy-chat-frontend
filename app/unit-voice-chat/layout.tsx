@@ -11,6 +11,15 @@ import WaveFormDisplay from "@/components/voice-chat/WaveFormDisplay"
 import PatientDisplay from "@/components/voice-chat/PatientDisplay"
 import { Button } from "@/components/ui/button"
 import { toast } from "sonner"
+import {
+	AlertDialog,
+	AlertDialogAction,
+	AlertDialogContent,
+	AlertDialogDescription,
+	AlertDialogFooter,
+	AlertDialogHeader,
+	AlertDialogTitle
+} from "@/components/ui/alert-dialog"
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
 	const [role, setRole] = useState<string | null>(null)
@@ -21,7 +30,14 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 	const captionsRef = useRef<HTMLDivElement | null>(null)
 
 	// For the Display message
-	const [hideVoiceTip, setHideVoiceTip] = useState(false)
+	const [hideVoiceTip, setHideVoiceTip] = useState(true)
+
+	useEffect(() => {
+		const shouldShowVoiceTip = localStorage.getItem("hideVoiceChatTip")
+		if (!shouldShowVoiceTip) {
+			setHideVoiceTip(false)
+		}
+	}, [])
 
 	const [patientList, setPatientList] = useState<Patient[] | null>([])
 
@@ -39,6 +55,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 				(patient) => ({
 					firstName: patient.firstName,
 					lastName: patient.lastName,
+					codeStatus: patient.codeStatus,
 					dateOfBirth: patient.dateOfBirth,
 					vitalStatus: patient.vitalStatus,
 					roomNumber: patient.roomNumber,
@@ -61,6 +78,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 			const physicianPatientList = patients.map((patient) => ({
 				firstName: patient.firstName,
 				lastName: patient.lastName,
+				codeStatus: patient.codeStatus,
 				dateOfBirth: patient.dateOfBirth,
 				vitalStatus: patient.vitalStatus,
 				roomNumber: patient.roomNumber,
@@ -101,26 +119,30 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 	}
 	return (
 		<div className="w-full h-full">
-			{!hideVoiceTip && (
-				<div className="w-full flex justify-center">
-					<Alert variant="default" className="w-[400px] my-4">
-						<X
-							className="size-4 cursor-pointer"
+			<AlertDialog open={!hideVoiceTip}>
+				<AlertDialogContent>
+					<AlertDialogHeader>
+						<AlertDialogTitle>
+							Welcome to the ICU Voice Chat Interface
+						</AlertDialogTitle>
+						<AlertDialogDescription>
+							Click on a patient's name to view their details.
+							Click the mic to start asking the AI questions about
+							your current roles patients.
+						</AlertDialogDescription>
+					</AlertDialogHeader>
+					<AlertDialogFooter>
+						<AlertDialogAction
 							onClick={() => {
 								setHideVoiceTip(true)
 								localStorage.setItem("hideVoiceChatTip", "true")
 							}}
-						/>
-						<AlertTitle>
-							Welcome to the ICU Voice Chat Interface
-						</AlertTitle>
-						<AlertDescription>
-							Click on a patient's name to view their details.
-							Click the mic to start asking the AI questions.
-						</AlertDescription>
-					</Alert>
-				</div>
-			)}
+						>
+							Got it
+						</AlertDialogAction>
+					</AlertDialogFooter>
+				</AlertDialogContent>
+			</AlertDialog>
 			{/* {children} */}
 			{startRecording && (
 				<WaveFormDisplay
@@ -161,7 +183,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 									className=""
 									startIcon={<Mic size={18} />}
 								>
-									Start Recording
+									Start Voice Chat
 								</Button>
 							</CardTitle>
 						)}
