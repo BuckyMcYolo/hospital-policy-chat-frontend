@@ -39,6 +39,8 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
   // For the Display message
   const [hideVoiceTip, setHideVoiceTip] = useState(true)
+  // provider and voice
+  const [provider, setProvider] = useState<string | undefined>("elevenlabs")
 
   useEffect(() => {
     const shouldShowVoiceTip = localStorage.getItem("hideVoiceChatTip")
@@ -160,6 +162,8 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           muted={muted}
           microphone={microphone}
           setMicrophone={setMicrophone}
+          provider={provider}
+          setProvider={setProvider}
         />
       )}
       <PatientDisplay role={role} patientList={patientList} />
@@ -174,6 +178,8 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         startRecording={startRecording}
         getMicrophone={getMicrophone}
         captionsRef={captionsRef}
+        provider={provider}
+        setProvider={setProvider}
       />
     </div>
   )

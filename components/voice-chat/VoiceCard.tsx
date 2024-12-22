@@ -6,9 +6,27 @@ import {
   TooltipTrigger,
   TooltipContent
 } from "@/components/ui/tooltip"
-import { Mic, Volume2, VolumeX } from "lucide-react"
+import { Mic, SlidersHorizontal, Volume2, VolumeX } from "lucide-react"
 import SiriWave from "siriwave"
 import { toast } from "sonner"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger
+} from "../ui/dialog"
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue
+} from "../ui/select"
+import { Label } from "../ui/label"
 
 const VoiceCard = ({
   startRecording,
@@ -19,7 +37,9 @@ const VoiceCard = ({
   getMicrophone,
   siriwaveRef,
   ttsSiriwaveRef,
-  captionsRef
+  captionsRef,
+  provider,
+  setProvider
 }: {
   startRecording: boolean
   setStartRecording: React.Dispatch<React.SetStateAction<boolean>>
@@ -30,6 +50,8 @@ const VoiceCard = ({
   siriwaveRef: React.MutableRefObject<SiriWave | null>
   ttsSiriwaveRef: React.MutableRefObject<SiriWave | null>
   captionsRef: React.MutableRefObject<HTMLDivElement | null>
+  provider: string | undefined
+  setProvider: React.Dispatch<React.SetStateAction<string | undefined>>
 }) => {
   return (
     <section className="w-full flex flex-col items-center">
@@ -99,7 +121,7 @@ const VoiceCard = ({
               </div>
             </CardTitle>
           ) : (
-            <CardTitle className="flex justify-center pt-4">
+            <CardTitle className="flex justify-center gap-2 pt-4">
               <Button
                 onClick={() => {
                   getMicrophone().then((mediaRecorder) => {
@@ -114,6 +136,42 @@ const VoiceCard = ({
                 <Mic className="h-4 w-4 mr-2" />
                 Start Voice Chat
               </Button>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button size="icon" variant="outline">
+                    <SlidersHorizontal size={14} />
+                  </Button>
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>Settings</DialogTitle>
+                    <DialogDescription>
+                      Adjust the settings for the voice chat
+                    </DialogDescription>
+                  </DialogHeader>
+                  <section className="flex flex-col gap-4">
+                    <div>
+                      <Label htmlFor="provider">Provider</Label>
+                      <Select
+                        value={provider}
+                        onValueChange={(value) => setProvider(value)}
+                      >
+                        <SelectTrigger className="w-full">
+                          <SelectValue placeholder="Select a provider" />
+                        </SelectTrigger>
+                        <SelectContent id="provider" className="w-full">
+                          <SelectGroup>
+                            <SelectItem value="deepgram">Deepgram</SelectItem>
+                            <SelectItem value="elevenlabs">
+                              Elevenlabs
+                            </SelectItem>
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </section>
+                </DialogContent>
+              </Dialog>
             </CardTitle>
           )}
         </Card>

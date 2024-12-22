@@ -28,7 +28,9 @@ const WaveFormDisplay = ({
   patientList,
   microphone,
   setMicrophone,
-  muted
+  muted,
+  provider,
+  setProvider
 }: {
   siriwaveRef: React.MutableRefObject<Siriwave | null>
   ttsSiriwaveRef: React.MutableRefObject<Siriwave | null>
@@ -37,6 +39,8 @@ const WaveFormDisplay = ({
   microphone: MediaRecorder | null
   setMicrophone: React.Dispatch<React.SetStateAction<MediaRecorder | null>>
   muted: boolean
+  provider: string | undefined
+  setProvider: React.Dispatch<React.SetStateAction<string | undefined>>
 }) => {
   const [recording, setRecording] = useState(false)
   const socket = useRef<WebSocket | null>(null)
@@ -67,8 +71,9 @@ const WaveFormDisplay = ({
 
       const res = await fetch(
         process.env.NODE_ENV === "development"
-          ? "http://localhost:5000/v1/tts"
-          : "https://test.hospital-policy-chat.com/v1/tts",
+          ? `http://localhost:5000/v1/tts?provider=${provider}`
+          : process.env.NEXT_PUBLIC_PRODUCTION_URL +
+              `/v1/tts?provider=${provider}`,
         {
           method: "POST",
           headers: {
@@ -129,7 +134,7 @@ const WaveFormDisplay = ({
       api:
         process.env.NODE_ENV === "development"
           ? "http://localhost:5000/v1/chat/voice"
-          : "https://test.hospital-policy-chat.com/v1/chat/stream",
+          : process.env.NEXT_PUBLIC_PRODUCTION_URL + "/v1/chat/stream",
       onError: (error) => {
         console.log(error)
         toast.error(error.message)
