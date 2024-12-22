@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Button } from "../ui/button"
 import {
   Card,
@@ -13,6 +13,7 @@ import moment from "moment"
 import { Badge } from "../ui/badge"
 import { Separator } from "../ui/separator"
 import { Label } from "../ui/label"
+import { Sheet, SheetContent } from "../ui/sheet"
 
 const Section = ({
   title,
@@ -44,10 +45,12 @@ const InfoRow = ({
 
 const PatientInfoCard = ({
   setSelectedPatient,
-  selectedPatient
+  selectedPatient,
+  isSheetPresent
 }: {
   selectedPatient: Patient | null
   setSelectedPatient: React.Dispatch<React.SetStateAction<Patient | null>>
+  isSheetPresent?: boolean
 }) => {
   const calculateAge = (birthDate: Date) => {
     const today = new Date()
@@ -83,27 +86,31 @@ const PatientInfoCard = ({
 
     const displayedVitals = showAll
       ? vitalSigns
-      : vitalSigns.slice(0, INITIAL_DISPLAY_COUNT)
+      : vitalSigns
+          .sort((a, b) => (a.timestamp < b.timestamp ? 1 : -1))
+          .slice(0, INITIAL_DISPLAY_COUNT)
 
     const hasMoreVitals = vitalSigns.length > INITIAL_DISPLAY_COUNT
 
     return (
       <Section title="Vital Signs History">
         <div className="space-y-4">
-          {displayedVitals.map((vital, index) => (
-            <div key={index} className="bg-muted p-3 rounded-md">
-              <p className="text-sm text-muted-foreground mb-2">
-                {moment(vital.timestamp).format("MMM DD, HH:mm")}
-              </p>
-              <div className="grid grid-cols-2 gap-2">
-                <Badge variant="secondary">BP: {vital.BP}</Badge>
-                <Badge variant="secondary">HR: {vital.HR}</Badge>
-                <Badge variant="secondary">RR: {vital.RR}</Badge>
-                <Badge variant="secondary">O2: {vital.O2Sat}%</Badge>
-                <Badge variant="secondary">Temp: {vital.temp}°F</Badge>
+          {displayedVitals
+            .sort((a, b) => (a.timestamp < b.timestamp ? 1 : -1))
+            .map((vital, index) => (
+              <div key={index} className="bg-muted p-3 rounded-md">
+                <p className="text-sm text-muted-foreground mb-2">
+                  {moment(vital.timestamp).format("MMM DD, HH:mm")}
+                </p>
+                <div className="grid grid-cols-2 gap-2">
+                  <Badge variant="secondary">BP: {vital.BP}</Badge>
+                  <Badge variant="secondary">HR: {vital.HR}</Badge>
+                  <Badge variant="secondary">RR: {vital.RR}</Badge>
+                  <Badge variant="secondary">O2: {vital.O2Sat}%</Badge>
+                  <Badge variant="secondary">Temp: {vital.temp}°F</Badge>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
         </div>
         {hasMoreVitals && (
           <Button
@@ -127,14 +134,16 @@ const PatientInfoCard = ({
 
   return (
     <Card className="h-full border-0 ">
-      <Button
-        className="absolute top-4 right-4"
-        onClick={() => setSelectedPatient(null)}
-        variant="ghost"
-        size="icon"
-      >
-        <X className="h-4 w-4" />
-      </Button>
+      {!isSheetPresent && (
+        <Button
+          className="absolute top-4 right-4"
+          onClick={() => setSelectedPatient(null)}
+          variant="ghost"
+          size="icon"
+        >
+          <X className="h-4 w-4" />
+        </Button>
+      )}
       <CardHeader>
         <div className="flex flex-col items-start gap-1">
           <CardTitle>
@@ -375,4 +384,48 @@ const PatientInfoCard = ({
   )
 }
 
-export default PatientInfoCard
+export const PatientInfoSheet = ({
+  selectedPatient,
+  setSelectedPatient
+}: {
+  selectedPatient: Patient | null
+  setSelectedPatient: React.Dispatch<React.SetStateAction<Patient | null>>
+}) => {
+  const [width, setWidth] = useState(0)
+
+  useEffect(() => {
+    if (typeof window === "undefined") return
+    const handleResize = () => {
+      setWidth(window.innerWidth)
+    }
+    window.addEventListener("resize", handleResize)
+
+    handleResize()
+
+    return () => window.removeEventListener("resize", handleResize)
+  }, [])
+
+  if (width < 1024) {
+    return (
+      <Sheet
+        open={!!selectedPatient}
+        onOpenChange={(isOpen) => !isOpen && setSelectedPatient(null)}
+      >
+        <SheetContent className="w-full sm:w-96">
+          <PatientInfoCard
+            selectedPatient={selectedPatient}
+            setSelectedPatient={setSelectedPatient}
+            isSheetPresent={true}
+          />
+        </SheetContent>
+      </Sheet>
+    )
+  } else {
+    return (
+      <PatientInfoCard
+        selectedPatient={selectedPatient}
+        setSelectedPatient={setSelectedPatient}
+      />
+    )
+  }
+}

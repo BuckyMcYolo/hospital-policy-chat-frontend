@@ -53,7 +53,7 @@ const WaveFormDisplay = ({
   const ttsDataArray = useRef<Uint8Array | null>(null)
   const ttsAnimationFrameId = useRef<number | null>(null)
 
-  const { theme } = useTheme()
+  const { resolvedTheme } = useTheme()
 
   const handleAudio = async (message: Message) => {
     try {
@@ -173,14 +173,14 @@ const WaveFormDisplay = ({
   }, [role, socket.current])
 
   //disconnect on unmount or page change
-  useEffect(() => {
-    return () => {
-      if (socket.current) {
-        socket.current.close()
-        // window.location.reload()
-      }
-    }
-  }, [])
+  // useEffect(() => {
+  //   return () => {
+  //     if (socket.current) {
+  //       socket.current.close()
+  //       // window.location.reload()
+  //     }
+  //   }
+  // }, [])
 
   const getMicrophone = async (): Promise<MediaRecorder> => {
     try {
@@ -245,9 +245,7 @@ const WaveFormDisplay = ({
           const rms = Math.sqrt(sum / dataArray.current.length)
           const amplitude = rms / 128.0
 
-          // console.log("amplitude", amplitude)
-
-          const threshold = 0.2 // Set your desired threshold level here
+          const threshold = 0.2
           if (amplitude > threshold) {
             if (audioState.current) {
               audioState.current.pause()
@@ -296,7 +294,7 @@ const WaveFormDisplay = ({
           speed: 0.1,
           amplitude: 0.1,
           frequency: 10,
-          color: theme === "dark" ? "#fff" : "#000",
+          color: resolvedTheme === "dark" ? "#fff" : "#000",
           autostart: true,
           cover: true
         })
@@ -338,7 +336,7 @@ const WaveFormDisplay = ({
           speed: 0.1,
           amplitude: 0.1,
           frequency: 10,
-          color: theme === "dark" ? "#3b82f6" : "#0000FF",
+          color: resolvedTheme === "dark" ? "#3b82f6" : "#0000FF",
           autostart: true,
           cover: true
         })

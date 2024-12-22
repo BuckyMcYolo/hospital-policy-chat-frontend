@@ -91,14 +91,12 @@ const VoiceCard = ({
                 </div>
               </div>
 
-              {ttsSiriwaveRef.current && (
-                <div className="space-y-1">
-                  <span className="text-base font-medium">AI</span>
-                  <div className="rounded-lg p-2">
-                    <div id="tts-siriwave" className="h-12" />
-                  </div>
+              <div className="space-y-1">
+                <span className="text-base font-medium">AI</span>
+                <div className="rounded-lg p-2">
+                  <div id="tts-siriwave" className="h-12" />
                 </div>
-              )}
+              </div>
             </CardTitle>
           ) : (
             <CardTitle className="flex justify-center pt-4">

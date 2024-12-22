@@ -27,7 +27,7 @@ import {
   CardTitle
 } from "@/components/ui/card"
 import { Button } from "../ui/button"
-import PatientInfoCard from "./PatientInfoCard"
+import { PatientInfoSheet } from "./PatientInfoCard"
 import { cn } from "@/lib/utils"
 import { AnimatePresence, motion } from "framer-motion"
 
@@ -158,7 +158,7 @@ const PatientDisplay = ({
     <div className="w-full h-full flex overflow-x-hidden">
       <div
         className={cn(
-          selectedPatient ? "w-3/4" : "w-full",
+          selectedPatient ? "w-2/3 xl:w-3/4" : "w-full",
           "transition-all duration-300"
         )}
       >
@@ -167,14 +167,14 @@ const PatientDisplay = ({
       <AnimatePresence>
         {selectedPatient && (
           <motion.div
-            className="border-l w-1/4 h-full relative"
+            className="border-l w-1/3 xl:w-1/4 h-full relative"
             initial={{ opacity: 0, x: "100%" }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: "100%" }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
             key="patient-info-card"
           >
-            <PatientInfoCard
+            <PatientInfoSheet
               selectedPatient={selectedPatient}
               setSelectedPatient={setSelectedPatient}
             />
