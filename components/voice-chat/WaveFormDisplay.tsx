@@ -134,7 +134,7 @@ const WaveFormDisplay = ({
       api:
         process.env.NODE_ENV === "development"
           ? "http://localhost:5000/v1/chat/voice"
-          : process.env.NEXT_PUBLIC_PRODUCTION_URL + "/v1/chat/stream",
+          : process.env.NEXT_PUBLIC_PRODUCTION_URL + "/v1/chat/voice",
       onError: (error) => {
         console.log(error)
         toast.error(error.message)
@@ -149,7 +149,11 @@ const WaveFormDisplay = ({
 
   useEffect(() => {
     if (role && !socket.current) {
-      socket.current = new WebSocket("ws://localhost:5000")
+      socket.current = new WebSocket(
+        process.env.NODE_ENV === "development"
+          ? "ws://localhost:5000"
+          : process.env.NEXT_PUBLIC_PRODUCTION_WS_URL!
+      )
 
       socket.current.addEventListener("open", async () => {
         console.log("client: connected to server")
