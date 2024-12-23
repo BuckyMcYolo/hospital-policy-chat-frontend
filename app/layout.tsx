@@ -12,39 +12,39 @@ const inter = Inter({ subsets: ["latin"] })
 const rubik = Rubik({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-	title: "Hospital Policy Chat",
-	description: "Chat with a bot to learn about hospital policies.",
+  title: "Hospital Policy Chat",
+  description: "Chat with a bot to learn about hospital policies."
 }
 
 export default function RootLayout({
-	children,
+  children
 }: Readonly<{
-	children: React.ReactNode
+  children: React.ReactNode
 }>) {
-	const cookieStore = cookies()
-	const loginCookies = cookieStore.get(process.env.PASSWORD_COOKIE_NAME!)
-	const isLoggedIn = !!loginCookies?.value
-	return (
-		<html suppressHydrationWarning lang="en">
-			<body className={rubik.className}>
-				<ThemeProvider
-					attribute="class"
-					disableTransitionOnChange
-					defaultTheme="system"
-					enableSystem
-				>
-					{!isLoggedIn ? (
-						<PasswordDialog />
-					) : (
-						<TooltipProvider>
-							<div className="bg-white dark:bg-black">
-								<Nav>{children}</Nav>
-							</div>
-						</TooltipProvider>
-					)}
-				</ThemeProvider>
-				<Toaster />
-			</body>
-		</html>
-	)
+  const cookieStore = cookies()
+  const loginCookies = cookieStore.get(process.env.PASSWORD_COOKIE_NAME!)
+  const isLoggedIn = !!loginCookies?.value
+  return (
+    <html suppressHydrationWarning lang="en">
+      <body className={rubik.className}>
+        <ThemeProvider
+          attribute="class"
+          disableTransitionOnChange
+          defaultTheme="system"
+          enableSystem
+        >
+          {!isLoggedIn && process.env.REQUIRES_PASSWORD === "true" ? (
+            <PasswordDialog />
+          ) : (
+            <TooltipProvider>
+              <div className="bg-white dark:bg-black">
+                <Nav>{children}</Nav>
+              </div>
+            </TooltipProvider>
+          )}
+        </ThemeProvider>
+        <Toaster richColors />
+      </body>
+    </html>
+  )
 }
