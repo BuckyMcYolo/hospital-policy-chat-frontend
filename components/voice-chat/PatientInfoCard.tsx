@@ -7,7 +7,14 @@ import {
   CardHeader,
   CardTitle
 } from "../ui/card"
-import { ChevronDown, ChevronUp, X } from "lucide-react"
+import {
+  ArrowDown,
+  ArrowUp,
+  ChevronDown,
+  ChevronUp,
+  TrendingDown,
+  X
+} from "lucide-react"
 import { Patient, VitalSign, VitalStatus } from "../unit-voice/patientTypes"
 import moment from "moment"
 import { Badge } from "../ui/badge"
@@ -65,21 +72,29 @@ const PatientInfoCard = ({
     return age
   }
 
-  const getStatusColor = (status?: VitalStatus) => {
+  const StatusIcon = ({ status }: { status: string }) => {
+    const iconProps = { size: 13 }
+
     switch (status) {
-      case "Stable":
-        return "bg-green-500"
       case "Critical":
-        return "bg-red-500"
+        return <ArrowDown {...iconProps} className="text-red-500" />
       case "Improving":
-        return "bg-blue-500"
+        return <ArrowUp {...iconProps} className="text-green-500" />
       case "Deteriorating":
-        return "bg-yellow-500"
+        return <TrendingDown {...iconProps} className="text-yellow-500" />
       default:
-        return "bg-gray-500"
+        return null
     }
   }
 
+  const PatientStatus = ({ status }: { status: string }) => (
+    <Badge variant="outline">
+      {status}
+      <span className="ml-1">
+        <StatusIcon status={status} />
+      </span>
+    </Badge>
+  )
   const VitalsSection = ({ vitalSigns }: { vitalSigns: VitalSign[] }) => {
     const [showAll, setShowAll] = useState(false)
     const INITIAL_DISPLAY_COUNT = 3
@@ -153,12 +168,9 @@ const PatientInfoCard = ({
             </span>
           </CardTitle>
           <div className="flex items-center gap-2">
-            <Badge
-              variant="outline"
-              className={getStatusColor(selectedPatient.vitalStatus)}
-            >
-              {selectedPatient.vitalStatus || "Status Unknown"}
-            </Badge>
+            {selectedPatient.vitalStatus && (
+              <PatientStatus status={selectedPatient.vitalStatus} />
+            )}
             <Badge variant="outline">{selectedPatient.codeStatus}</Badge>
           </div>
         </div>
