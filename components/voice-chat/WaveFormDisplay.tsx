@@ -207,7 +207,7 @@ const WaveFormDisplay = ({
       analyser.current.fftSize = 2048
       dataArray.current = new Uint8Array(analyser.current.fftSize)
 
-      return new MediaRecorder(stream, { mimeType: "audio/webm" })
+      return new MediaRecorder(stream)
     } catch (error) {
       console.error("error accessing microphone:", error)
       throw error

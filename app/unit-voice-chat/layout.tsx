@@ -117,7 +117,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         throw new Error("No stream")
       }
 
-      return new MediaRecorder(stream, { mimeType: "audio/webm" })
+      return new MediaRecorder(stream)
     } catch (error) {
       toast.error(`Error accessing microphone: ${error?.toString()}`)
       throw error
